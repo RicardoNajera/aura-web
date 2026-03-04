@@ -5,98 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esencia | AURA</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --aura-blue: #60a5fa; --aura-purple: #c084fc; }
         
+        /* Efecto de Posicionamiento Magnético Suave */
         html { 
             scroll-snap-type: y mandatory; 
             scroll-behavior: smooth; 
-            background: #000;
         }
 
         body { 
             font-family: 'Inter', sans-serif; 
+            background: #000; 
             color: #fff; 
             margin: 0;
-            overflow: hidden; /* Evita scroll lateral accidental */
         }
 
+        /* Secciones de pantalla completa para el imán */
         section {
             height: 100vh;
             scroll-snap-align: start;
-            scroll-snap-stop: always;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            overflow: hidden;
         }
 
-        /* --- EFECTO REVEAL RE-BIRTH --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(-60px); /* Nace desde arriba siempre */
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: blur(10px);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-            filter: blur(0);
-        }
-
-        /* --- SIDE NAV TECNOLÓGICO --- */
-        .side-nav {
+        .glow-bg {
             position: fixed;
-            right: 40px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 25px;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            cursor: pointer;
-            group: ;
-        }
-
-        .nav-label {
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            color: rgba(255, 255, 255, 0.2);
-            transition: all 0.5s ease;
-            opacity: 0;
-            transform: translateX(10px);
-        }
-
-        .nav-dot {
-            width: 6px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            transition: all 0.5s ease;
-            border: 1px solid transparent;
-        }
-
-        /* Estado Activo del Navegador */
-        .nav-item.active .nav-label {
-            opacity: 1;
-            transform: translateX(0);
-            color: var(--aura-blue);
-        }
-
-        .nav-item.active .nav-dot {
-            background: var(--aura-blue);
-            box-shadow: 0 0 15px var(--aura-blue);
-            transform: scale(1.8);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% -20%, rgba(96, 165, 250, 0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 0% 100%, rgba(192, 132, 252, 0.08) 0%, transparent 40%);
+            z-index: -1;
         }
 
         .aura-text-gradient {
@@ -104,150 +47,127 @@
             background-size: 300% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shine 10s linear infinite;
+            animation: shine 8s linear infinite;
         }
 
         @keyframes shine { to { background-position: 300% center; } }
 
-        .glow-portal {
+        .scan-line {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--aura-blue), transparent);
             position: absolute;
-            width: 60vw;
-            height: 60vw;
-            background: radial-gradient(circle, var(--aura-blue) 0%, transparent 70%);
-            filter: blur(140px);
-            opacity: 0.08;
-            z-index: -1;
-            border-radius: 50%;
+            opacity: 0.2;
+            animation: scan 6s linear infinite;
         }
 
+        @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
+
+        /* Estilo para los textos de enfoque */
+        .focus-text {
+            max-width: 900px;
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        /* Quitar scrollbar para limpieza total */
         ::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="antialiased">
+    <div class="glow-bg"></div>
 
-    <aside class="side-nav hidden md:flex">
-        <div class="nav-item active" onclick="scrollToSection(0)">
-            <span class="nav-label">Esencia</span>
-            <div class="nav-dot"></div>
-        </div>
-        <div class="nav-item" onclick="scrollToSection(1)">
-            <span class="nav-label">Filosofía</span>
-            <div class="nav-dot"></div>
-        </div>
-        <div class="nav-item" onclick="scrollToSection(2)">
-            <span class="nav-label">Misión</span>
-            <div class="nav-dot"></div>
-        </div>
-        <div class="nav-item" onclick="scrollToSection(3)">
-            <span class="nav-label">Visión</span>
-            <div class="nav-dot"></div>
-        </div>
-        <div class="nav-item" onclick="scrollToSection(4)">
-            <span class="nav-label">Principios</span>
-            <div class="nav-dot"></div>
-        </div>
-    </aside>
-
-    <nav class="fixed w-full z-50 py-10 px-6 md:px-20 flex justify-between items-center bg-black/5 backdrop-blur-sm">
+    <nav class="fixed w-full z-50 py-8 px-6 md:px-20 flex justify-between items-center bg-black/10 backdrop-blur-sm">
         <a href="index.html" class="text-2xl font-black tracking-tighter aura-text-gradient italic">AURA</a>
-        <div class="h-[1px] w-12 bg-white/20"></div>
+        <div class="hidden md:flex space-x-12 text-[10px] uppercase tracking-[0.3em] font-bold text-gray-500">
+            <a href="index.html" class="hover:text-white transition">Home</a>
+            <a href="nosotros.html" class="text-white border-b border-blue-500 pb-1">Concepto</a>
+            <a href="index.html#servicios" class="hover:text-white transition">Sistemas</a>
+        </div>
+        <a href="https://wa.me/9861197993" class="text-[10px] uppercase tracking-widest border border-white/10 px-8 py-3 rounded-full hover:bg-white hover:text-black transition duration-500">Inquire</a>
     </nav>
 
-    <main id="main-content">
-        <section id="sec-0">
-            <div class="reveal text-center">
-                <h1 class="text-[12vw] leading-none font-black tracking-tighter aura-text-gradient italic">ESENCIA</h1>
-                <p class="text-[10px] tracking-[1.2em] uppercase text-zinc-500 mt-6">Aura Laboratory</p>
-            </div>
-        </section>
-
-        <section id="sec-1">
-            <div class="reveal text-center max-w-4xl px-6">
-                <span class="text-blue-500 font-bold tracking-[0.5em] text-[10px] uppercase block mb-8">01. Filosofía</span>
-                <h2 class="text-5xl md:text-8xl font-bold mb-10 tracking-tighter italic">Tecnología <br><span class="text-zinc-600">Invisible.</span></h2>
-                <p class="text-xl text-zinc-400 font-light leading-relaxed italic">"Si tienes que pensar en ella, no es inteligente."</p>
-            </div>
-        </section>
-
-        <section id="sec-2">
-            <div class="glow-portal" style="background: radial-gradient(circle, var(--aura-blue) 0%, transparent 70%);"></div>
-            <div class="reveal text-center px-6">
-                <span class="text-blue-400 font-bold tracking-[0.5em] text-[10px] uppercase block mb-10">02. El Motor</span>
-                <h2 class="text-7xl md:text-[10rem] font-black aura-text-gradient mb-8 tracking-tighter">MISIÓN</h2>
-                <p class="text-2xl md:text-4xl text-white font-light max-w-3xl mx-auto tracking-tight">
-                    Automatización que <span class="underline decoration-blue-500 underline-offset-8">respira contigo</span>.
+    <main>
+        <section>
+            <div class="scan-line"></div>
+            <div class="text-center">
+                <h1 data-aos="zoom-out" data-aos-duration="2000" class="text-[15vw] leading-none font-black tracking-tighter aura-text-gradient opacity-90 select-none">
+                    ESENCIA
+                </h1>
+                <p data-aos="fade-up" data-aos-delay="500" class="mt-8 text-xs font-light text-gray-500 tracking-[1em] uppercase">
+                    Laboratorio de Futuro
                 </p>
             </div>
         </section>
 
-        <section id="sec-3">
-            <div class="glow-portal" style="background: radial-gradient(circle, var(--aura-purple) 0%, transparent 70%);"></div>
-            <div class="reveal text-center px-6">
-                <span class="text-purple-400 font-bold tracking-[0.5em] text-[10px] uppercase block mb-10">03. El Destino</span>
-                <h2 class="text-7xl md:text-[10rem] font-black aura-text-gradient mb-8 tracking-tighter">VISIÓN</h2>
-                <p class="text-2xl md:text-4xl text-white font-light max-w-3xl mx-auto tracking-tight">
-                    Ser el sistema operativo de <span class="underline decoration-purple-500 underline-offset-8">la armonía humana</span>.
+        <section>
+            <div class="focus-text" data-aos="fade-up">
+                <span class="text-blue-500 font-bold tracking-[0.5em] text-[10px] uppercase block mb-6">01. Filosofía</span>
+                <h2 class="text-5xl md:text-7xl font-bold mb-10 tracking-tighter">Tecnología que <br> <span class="text-gray-500">no se siente.</span></h2>
+                <p class="text-xl md:text-2xl text-gray-400 font-light leading-relaxed">
+                    Creamos espacios que aprenden y se adaptan a ti sin fricción. En AURA, el hardware es invisible; el confort es absoluto.
                 </p>
             </div>
         </section>
 
-        <section id="sec-4">
-            <div class="reveal w-full max-w-6xl px-10">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
-                    <div class="text-center group">
-                        <div class="text-blue-500 font-black text-3xl mb-4 italic opacity-20 group-hover:opacity-100 transition duration-700">01</div>
-                        <h3 class="font-bold uppercase tracking-widest text-[10px] mb-4 text-zinc-400">Pureza</h3>
-                        <p class="text-zinc-600 text-xs font-light">Diseño que desaparece.</p>
+        <section class="bg-white/[0.01]">
+            <div class="focus-text" data-aos="fade-right">
+                <span class="text-blue-400 font-bold tracking-[0.5em] text-[10px] uppercase block mb-6">02. El Propósito</span>
+                <h2 class="text-6xl md:text-8xl font-black mb-8 aura-text-gradient">MISIÓN</h2>
+                <p class="text-xl md:text-3xl text-gray-300 font-light leading-relaxed italic">
+                    "Eliminar la complejidad tecnológica de la vida diaria, convirtiendo cada hogar en un organismo inteligente y autónomo."
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <div class="focus-text" data-aos="fade-left">
+                <span class="text-purple-400 font-bold tracking-[0.5em] text-[10px] uppercase block mb-6">03. El Destino</span>
+                <h2 class="text-6xl md:text-8xl font-black mb-8 aura-text-gradient">VISIÓN</h2>
+                <p class="text-xl md:text-3xl text-gray-300 font-light leading-relaxed italic">
+                    "Ser el estándar global de la domótica invisible, donde el espacio y el ser humano coexisten en perfecta armonía digital."
+                </p>
+            </div>
+        </section>
+
+        <section class="bg-white/5">
+            <div class="max-w-7xl mx-auto px-6 w-full">
+                <div class="grid md:grid-cols-3 gap-1px bg-white/10 border-y border-white/10">
+                    <div class="bg-black py-24 px-10 flex flex-col items-center group" data-aos="fade-up">
+                        <div class="text-blue-500 text-3xl mb-8 font-black opacity-30 group-hover:opacity-100 transition">01</div>
+                        <h4 class="text-xl font-bold mb-4 tracking-tighter uppercase">Pureza</h4>
+                        <p class="text-center text-gray-500 font-light text-sm leading-relaxed">Interfaces que desaparecen cuando no las necesitas.</p>
                     </div>
-                    <div class="text-center group">
-                        <div class="text-purple-500 font-black text-3xl mb-4 italic opacity-20 group-hover:opacity-100 transition duration-700">02</div>
-                        <h3 class="font-bold uppercase tracking-widest text-[10px] mb-4 text-zinc-400">Sigilo</h3>
-                        <p class="text-zinc-600 text-xs font-light">Privacidad por diseño.</p>
+                    <div class="bg-black py-24 px-10 flex flex-col items-center group" data-aos="fade-up" data-aos-delay="200">
+                        <div class="text-purple-500 text-3xl mb-8 font-black opacity-30 group-hover:opacity-100 transition">02</div>
+                        <h4 class="text-xl font-bold mb-4 tracking-tighter uppercase">Vanguardia</h4>
+                        <p class="text-center text-gray-500 font-light text-sm leading-relaxed">Integración de protocolos de futuro, hoy.</p>
                     </div>
-                    <div class="text-center group">
-                        <div class="text-white font-black text-3xl mb-4 italic opacity-20 group-hover:opacity-100 transition duration-700">03</div>
-                        <h3 class="font-bold uppercase tracking-widest text-[10px] mb-4 text-zinc-400">Poder</h3>
-                        <p class="text-zinc-600 text-xs font-light">Respuesta instantánea.</p>
+                    <div class="bg-black py-24 px-10 flex flex-col items-center group" data-aos="fade-up" data-aos-delay="400">
+                        <div class="text-white text-3xl mb-8 font-black opacity-30 group-hover:opacity-100 transition">03</div>
+                        <h4 class="text-xl font-bold mb-4 tracking-tighter uppercase">Lealtad</h4>
+                        <p class="text-center text-gray-500 font-light text-sm leading-relaxed">Seguridad impenetrable. Tu privacidad es sagrada.</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <footer class="h-[20vh] flex items-center justify-center border-t border-white/5 bg-black">
+        <p class="text-[8px] tracking-[0.8em] uppercase text-zinc-600">
+            © 2026 <span class="aura-text-gradient font-black">Aura Laboratory</span>
+        </p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // --- Lógica de Navegación por Click ---
-        function scrollToSection(index) {
-            const sections = document.querySelectorAll('section');
-            sections[index].scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // --- Intersection Observer Pro ---
-        const navItems = document.querySelectorAll('.nav-item');
-        const sections = document.querySelectorAll('section');
-
-        const observerOptions = {
-            root: null,
-            threshold: 0.6 // Dispara cuando el bloque está bien centrado
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const index = Array.from(sections).indexOf(entry.target);
-                const revealElement = entry.target.querySelector('.reveal');
-                
-                if (entry.isIntersecting) {
-                    // Activar bloque y navegación
-                    revealElement.classList.add('active');
-                    navItems.forEach(item => item.classList.remove('active'));
-                    navItems[index].classList.add('active');
-                } else {
-                    // Limpiar bloque al salir para permitir re-animación (nace de arriba)
-                    revealElement.classList.remove('active');
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => observer.observe(section));
+        // Configuración para que las animaciones se repitan al bajar y subir
+        AOS.init({ 
+            duration: 1200, 
+            once: false, // Permite que la animación ocurra cada vez que el elemento entra en vista
+            mirror: true, // Permite que se anime mientras haces scroll hacia arriba
+            offset: 100
+        });
     </script>
 </body>
 </html>
