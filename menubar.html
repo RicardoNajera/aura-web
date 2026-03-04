@@ -2,9 +2,12 @@
     <a href="index.html" class="aura-brand-anim">AURA</a>
     
     <div class="nav-links">
-        <a href="index.html" class="menu-item">Home</a>
-        <a href="index.html#servicios" class="menu-item">Sistemas</a>
-        <a href="nosotros.html" class="menu-item">Concepto</a>
+        <a href="index.html" class="menu-item">Inici</a>
+        <a href="#productos" class="menu-item">Productos</a>
+        <a href="#personalizacion" class="menu-item">Personalización</a>
+        <a href="#software" class="menu-item">Software</a>
+        <a href="#instalaciones" class="menu-item">Instalaciones</a>
+        <a href="nosotros.html" class="menu-item">Nosotros</a>
     </div>
     
     <a href="https://wa.me/9861197993" class="btn-contact">Contáctanos</a>
@@ -14,7 +17,6 @@
     :root {
         --blue-aura: #60a5fa;
         --purple-aura: #c084fc;
-        /* Color metálico traslúcido */
         --glass-bg: rgba(255, 255, 255, 0.03);
         --glass-border: rgba(255, 255, 255, 0.12);
     }
@@ -29,26 +31,21 @@
         justify-content: space-between;
         align-items: center;
         box-sizing: border-box;
-        
-        /* EL EFECTO METÁLICO PRECIOSO */
         background: var(--glass-bg);
         backdrop-filter: blur(20px) saturate(180%);
         -webkit-backdrop-filter: blur(20px) saturate(180%);
         border-bottom: 1px solid var(--glass-border);
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        
         transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Cuando haces scroll: El metal se vuelve un poco más denso pero sigue traslúcido */
     #main-nav.scrolled {
         padding: 12px 5%;
-        background: rgba(10, 10, 15, 0.7); /* Oscurece un poco para legibilidad */
-        border-bottom: 1px solid rgba(96, 165, 250, 0.2); /* Brillo azul sutil en el borde */
+        background: rgba(10, 10, 15, 0.7);
+        border-bottom: 1px solid rgba(96, 165, 250, 0.2);
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     }
 
-    /* LOGO CON BRILLO */
     .aura-brand-anim {
         background: linear-gradient(90deg, #fff, var(--blue-aura), var(--purple-aura), #fff);
         background-size: 200% auto;
@@ -66,11 +63,11 @@
 
     @keyframes aura-flow { to { background-position: 200% center; } }
 
-    /* NAVEGACIÓN */
     .nav-links {
         display: flex;
         justify-content: center;
-        gap: 2rem;
+        flex-wrap: wrap; /* Permite que en móviles se acomoden en dos filas si es necesario */
+        gap: 1.2rem; /* Reducido un poco para que quepan los 6 ítems */
         width: 100%;
         order: 3;
         padding-top: 15px;
@@ -79,14 +76,15 @@
     }
 
     .menu-item {
-        font-size: 10px;
+        font-size: 9px; /* Ajuste sutil para mantener la elegancia con más palabras */
         text-transform: uppercase;
         font-weight: 700;
-        letter-spacing: 0.25em;
+        letter-spacing: 0.2em;
         color: rgba(255, 255, 255, 0.5);
         text-decoration: none;
         transition: all 0.3s ease;
         position: relative;
+        white-space: nowrap;
     }
 
     .menu-item::after {
@@ -100,14 +98,13 @@
     .menu-item:hover { color: #fff; }
     .menu-item:hover::after { width: 100%; }
 
-    /* BOTÓN TIPO TITANIO */
     .btn-contact {
         font-size: 9px;
         font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 0.1em;
         border: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 0.7rem 1.5rem;
+        padding: 0.7rem 1.2rem;
         border-radius: 50px;
         color: white;
         text-decoration: none;
@@ -125,7 +122,7 @@
         box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
     }
 
-    @media (min-width: 850px) {
+    @media (min-width: 1024px) { /* Aumentado el breakpoint para que el menú no choque con el logo */
         #main-nav {
             flex-wrap: nowrap;
             padding: 25px 5%;
@@ -140,7 +137,10 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
+            gap: 2rem;
         }
+
+        .menu-item { font-size: 10px; }
 
         .btn-contact {
             order: 3;
@@ -148,16 +148,3 @@
         }
     }
 </style>
-
-<script>
-    (function() {
-        const nav = document.getElementById('main-nav');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 30) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-    })();
-</script>
