@@ -3,130 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA | Domótica de Próxima Generación</title>
+    <title>AURA | Consciencia Tecnológica</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --blue-aura: #60a5fa; --purple-aura: #c084fc; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #000; color: #fff; scroll-behavior: smooth; cursor: crosshair; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #020205; color: #fff; scroll-behavior: smooth; overflow-x: hidden; }
         
-        /* Capa de Red Tecnológica */
-        .grid-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
-            background-size: 40px 40px; z-index: 1; pointer-events: none;
+        /* Fondo de Energía Orgánica */
+        .energy-blob {
+            position: fixed; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(96, 165, 250, 0.15) 0%, transparent 70%);
+            filter: blur(80px); z-index: -1; animation: orbit 20s infinite linear;
         }
 
-        .aura-gradient-text {
-            background: linear-gradient(135deg, #fff 30%, var(--blue-aura), var(--purple-aura));
+        @keyframes orbit {
+            from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+        }
+
+        /* Glassmorphism Orgánico (Sin bordes rectos) */
+        .organic-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 60px 20px 60px 20px; /* Esquinas asimétricas */
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .organic-card:hover {
+            border-radius: 20px 60px 20px 60px;
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--blue-aura);
+            box-shadow: 0 0 40px rgba(96, 165, 250, 0.2);
+        }
+
+        /* Tipografía Adaptativa */
+        .text-fluid {
+            font-size: clamp(3rem, 10vw, 9rem);
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            background: linear-gradient(to bottom, #fff, rgba(255,255,255,0.4));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* Glassmorphism Pro */
-        .bento-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        /* Botón Líquido */
+        .btn-liquid {
+            position: relative; padding: 1.5rem 3.5rem; border-radius: 100px;
+            background: linear-gradient(90deg, var(--blue-aura), var(--purple-aura));
+            overflow: hidden; transition: all 0.4s ease;
         }
 
-        .bento-card:hover {
-            background: rgba(255, 255, 255, 0.07);
-            border-color: var(--blue-aura);
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(96, 165, 250, 0.1);
-        }
+        .btn-liquid:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--blue-aura); }
 
-        .video-container { filter: brightness(0.6) contrast(1.1); }
-        
-        /* Animación de Floating */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        .video-mask {
+            mask-image: radial-gradient(circle, black 40%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle, black 40%, transparent 80%);
         }
-        .float-anim { animation: float 6s ease-in-out infinite; }
     </style>
 </head>
-<body class="overflow-x-hidden">
-    <div class="grid-overlay"></div>
+<body>
+    <div class="energy-blob" style="top: -10%; left: -10%;"></div>
+    <div class="energy-blob" style="bottom: -10%; right: -10%; animation-delay: -10s;"></div>
+    
     <div id="nav-container"></div>
 
-    <section class="relative h-screen flex items-center justify-center overflow-hidden">
-        <div class="video-container absolute inset-0 w-full h-full">
-            <video autoplay loop muted playsinline class="w-full h-full object-cover">
+    <section class="relative min-h-screen flex items-center justify-center pt-20">
+        <div class="absolute inset-0 z-0 video-mask">
+            <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-40">
                 <source src="video-aura.mp4" type="video/mp4">
             </video>
-            <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black"></div>
         </div>
 
-        <div class="relative z-10 text-center px-6">
-            <span class="inline-block px-4 py-1 mb-6 text-xs font-bold tracking-[0.4em] uppercase border border-blue-500/30 rounded-full bg-blue-500/10 text-blue-400" data-aos="fade-down">
-                Sistemas Inteligentes 2026
-            </span>
-            <h1 class="text-7xl md:text-9xl font-extrabold tracking-tighter aura-gradient-text mb-8" data-aos="zoom-out" data-aos-duration="2000">
-                AURA
-            </h1>
-            <p class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto font-light leading-relaxed" data-aos="fade-up" data-aos-delay="400">
-                La intersección perfecta entre la <span class="text-white">consciencia digital</span> y el confort arquitectónico.
+        <div class="relative z-10 container mx-auto px-6 text-center">
+            <div data-aos="fade-down">
+                <h1 class="text-fluid font-black mb-6">INTELIGENCIA<br><span class="aura-gradient-text">INVISIBLƎ</span></h1>
+            </div>
+            
+            <p class="text-xl md:text-3xl text-gray-400 max-w-4xl mx-auto font-light mb-12" data-aos="fade-up" data-aos-delay="300">
+                AURA no es tecnología, es el <span class="text-white">sistema nervioso</span> de tu arquitectura.
             </p>
-            <div class="mt-12 flex flex-col md:flex-row gap-6 justify-center" data-aos="fade-up" data-aos-delay="600">
-                <a href="#servicios" class="px-10 py-4 bg-white text-black rounded-full font-bold hover:bg-blue-400 transition-all duration-300">Explorar Ecosistema</a>
-                <a href="https://wa.me/9861197993" class="px-10 py-4 border border-white/20 rounded-full font-bold hover:bg-white/10 transition-all">Consultoría Senior</a>
+
+            <div class="flex flex-wrap justify-center gap-6" data-aos="fade-up" data-aos-delay="500">
+                <a href="#servicios" class="btn-liquid font-bold uppercase tracking-widest text-xs text-black">Iniciar Inmersión</a>
+                <a href="https://wa.me/9861197993" class="px-12 py-6 rounded-full border border-white/10 hover:bg-white/5 transition-all text-xs font-bold tracking-widest uppercase">Consultoría</a>
             </div>
         </div>
     </section>
 
-    <section id="servicios" class="relative z-10 py-32 px-6 md:px-20">
-        <div class="max-w-7xl mx-auto">
-            <div class="mb-24">
-                <h2 class="text-4xl md:text-6xl font-bold tracking-tighter mb-6" data-aos="fade-right">Capacidades del Sistema</h2>
-                <div class="h-1 w-40 bg-gradient-to-r from-blue-500 to-purple-600"></div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                <div class="md:col-span-8 bento-card rounded-[3rem] p-12 flex flex-col justify-end min-h-[400px]" data-aos="fade-up">
-                    <div class="text-blue-400 text-5xl mb-6">☼</div>
-                    <h3 class="text-3xl font-bold mb-4">Gestión Lumínica y Térmica</h3>
-                    <p class="text-gray-400 max-w-md">Algoritmos circadianos que ajustan la temperatura y el brillo según la posición solar y el estado de ánimo.</p>
-                </div>
-
-                <div class="md:col-span-4 bento-card rounded-[3rem] p-12 flex flex-col items-center text-center justify-center border-red-500/20" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-red-500 text-6xl mb-8 float-anim">🛡</div>
-                    <h3 class="text-2xl font-bold mb-4">Escudo Digital</h3>
-                    <p class="text-gray-400 text-sm">Vigilancia perimetral con IA y reconocimiento biométrico de grado militar.</p>
-                </div>
-
-                <div class="md:col-span-4 bento-card rounded-[3rem] p-12" data-aos="fade-up" data-aos-delay="400">
-                    <div class="text-purple-400 text-4xl mb-6">♫</div>
-                    <h3 class="text-2xl font-bold mb-4">Multimedia Hi-Fi</h3>
-                    <p class="text-gray-400 text-sm">Audio multi-room sin latencia y salas de cine inmersivas con control por voz.</p>
-                </div>
-
-                <div class="md:col-span-8 bento-card rounded-[3rem] p-12 flex flex-col justify-center bg-gradient-to-br from-green-500/5 to-transparent" data-aos="fade-up" data-aos-delay="600">
-                    <div class="flex items-center gap-6">
-                        <div class="text-green-400 text-5xl">⚡</div>
-                        <div>
-                            <h3 class="text-3xl font-bold mb-2">Energía Eficiente</h3>
-                            <p class="text-gray-400">Monitoreo de consumo en tiempo real para una huella de carbono neutral.</p>
-                        </div>
+    <section id="servicios" class="py-40 px-6">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                
+                <div class="organic-card p-12 md:mt-20" data-aos="fade-right">
+                    <div class="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mb-8">
+                        <span class="text-3xl text-blue-400">☼</span>
                     </div>
+                    <h3 class="text-3xl font-bold mb-6">Bioclima</h3>
+                    <p class="text-gray-400 leading-relaxed font-light">Sistemas que respiran con el entorno, optimizando la luz natural y la pureza térmica de forma autónoma.</p>
                 </div>
+
+                <div class="organic-card p-12 bg-white/[0.05]" data-aos="fade-up">
+                    <div class="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mb-8">
+                        <span class="text-3xl text-red-500">🛡</span>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-6">Conciencia</h3>
+                    <p class="text-gray-400 leading-relaxed font-light">Seguridad proactiva basada en patrones de comportamiento. Tu hogar sabe quién es bienvenido antes de que toque la puerta.</p>
+                </div>
+
+                <div class="organic-card p-12 md:mt-40" data-aos="fade-left">
+                    <div class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mb-8">
+                        <span class="text-3xl text-purple-400">♫</span>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-6">Resonancia</h3>
+                    <p class="text-gray-400 leading-relaxed font-light">Audio y video de alta fidelidad que desaparecen en la decoración, activándose solo cuando el ambiente lo requiere.</p>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <footer class="relative z-10 py-40 text-center bg-zinc-950">
-        <div class="max-w-4xl mx-auto px-6">
-            <h4 class="text-zinc-500 uppercase tracking-[0.5em] text-xs mb-8">Ready for the upgrade?</h4>
-            <a href="https://wa.me/9861197993" class="text-5xl md:text-8xl font-black tracking-tighter aura-gradient-text hover:scale-105 transition-transform duration-500">
-                INICIAR FASE 01
-            </a>
-            <div class="mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-                <p class="text-zinc-600 text-sm font-light">© 2026 AURA Automation.</p>
-                <div class="flex gap-8 text-xs font-bold text-zinc-500 uppercase tracking-widest">
-                    <a href="#" class="hover:text-white transition">Instagram</a>
-                    <a href="#" class="hover:text-white transition">LinkedIn</a>
+    <footer class="py-40 relative">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-20" data-aos="zoom-in">
+                <p class="text-zinc-500 uppercase tracking-[1em] text-xs mb-8">Transforma tu existencia</p>
+                <a href="https://wa.me/9861197993" class="text-5xl md:text-9xl font-black aura-gradient-text hover:opacity-70 transition-all">
+                    HABLEMOS
+                </a>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center pt-20 border-t border-white/5 gap-8">
+                <span class="text-2xl font-black italic aura-gradient-text">AURA</span>
+                <p class="text-zinc-600 text-sm">© 2026 Ecosistemas Inteligentes Premium</p>
+                <div class="flex gap-10">
+                    <a href="#" class="text-zinc-400 hover:text-white transition">INSTAGRAM</a>
+                    <a href="#" class="text-zinc-400 hover:text-white transition">WHATSAPP</a>
                 </div>
             </div>
         </div>
@@ -134,20 +146,21 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1500, easing: 'ease-in-out-sine', once: false });
+        AOS.init({ duration: 1500, easing: 'ease-out-quart', once: false });
 
+        // Inyección de menú inteligente
         async function loadMenu() {
             try {
                 const response = await fetch('menubar.html');
                 const html = await response.text();
                 document.getElementById('nav-container').innerHTML = html;
                 const scripts = document.getElementById('nav-container').getElementsByTagName('script');
-                for (let script of scripts) {
-                    const newScript = document.createElement("script");
-                    newScript.text = script.text;
-                    document.body.appendChild(newScript);
+                for (let s of scripts) {
+                    const script = document.createElement("script");
+                    script.text = s.text;
+                    document.body.appendChild(script);
                 }
-            } catch (e) { console.error("Error cargando el menú", e); }
+            } catch (e) { console.error("Error en enlace de datos:", e); }
         }
         loadMenu();
     </script>
