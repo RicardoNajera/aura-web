@@ -8,12 +8,18 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --aura-blue: #60a5fa; --aura-purple: #c084fc; }
+        :root { 
+            --aura-blue: #60a5fa; 
+            --aura-purple: #c084fc; 
+            --menu-height: 100px; /* Definimos la altura de tu menubar aquí */
+        }
         
-        /* Sistema de Scroll Inmersivo */
+        /* SISTEMA ESTRICTO DE SCROLL SNAP Y PADDING */
         html { 
             scroll-snap-type: y mandatory; 
             scroll-behavior: smooth; 
+            /* Esta es la tecnología correcta para evitar que el menú tape el contenido */
+            scroll-padding-top: var(--menu-height); 
         }
 
         body { 
@@ -23,17 +29,19 @@
             margin: 0;
         }
 
-        /* Secciones de Pantalla Completa Ajustadas al Menú */
+        /* SECCIONES: Altura completa, pero respetando el padding del menú */
         section {
             height: 100vh;
             scroll-snap-align: start;
+            /* Obliga al navegador a detenerse exactamente aquí, sin pasarse */
+            scroll-snap-stop: always; 
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
-            /* Aquí está la magia: le decimos que empiece a centrar DESPUÉS de 100px (el alto aproximado de tu menú) */
-            padding-top: 100px;
+            /* Compensación visual para que el texto se vea centrado en el espacio libre */
+            padding-top: var(--menu-height);
             box-sizing: border-box;
         }
 
@@ -63,7 +71,7 @@
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--aura-blue), transparent);
             position: absolute;
-            top: 0; /* Aseguramos que inicie desde arriba */
+            top: 0; 
             opacity: 0.2;
             animation: scan 6s linear infinite;
         }
@@ -130,17 +138,14 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Inicializar animaciones de alto nivel
         AOS.init({ duration: 1500, once: false, mirror: true, offset: 100 });
 
-        // Función de carga del menú compartida
         async function loadMenu() {
             try {
                 const response = await fetch('menubar.html');
                 const html = await response.text();
                 document.getElementById('nav-container').innerHTML = html;
                 
-                // Inyectar y ejecutar scripts del menubar.html
                 const scripts = document.getElementById('nav-container').getElementsByTagName('script');
                 for (let script of scripts) {
                     const newScript = document.createElement("script");
