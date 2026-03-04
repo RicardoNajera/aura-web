@@ -22,7 +22,7 @@
     :root {
         --blue-aura: #60a5fa;
         --purple-aura: #c084fc;
-        --glass-bg: rgba(10, 10, 15, 0.8);
+        --glass-bg: rgba(10, 10, 15, 0.85);
         --glass-border: rgba(255, 255, 255, 0.12);
     }
 
@@ -30,7 +30,7 @@
         position: fixed;
         top: 0; left: 0; width: 100%;
         z-index: 1000;
-        padding: 15px 5%;
+        padding: 12px 3%; /* Padding reducido para ganar espacio */
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -39,7 +39,6 @@
         backdrop-filter: blur(20px) saturate(180%);
         -webkit-backdrop-filter: blur(20px) saturate(180%);
         border-bottom: 1px solid var(--glass-border);
-        transition: all 0.4s ease;
     }
 
     .aura-brand-anim {
@@ -49,96 +48,83 @@
         -webkit-text-fill-color: transparent;
         animation: aura-flow 5s linear infinite;
         font-weight: 900;
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         text-decoration: none;
         z-index: 1100;
+        flex-shrink: 0;
     }
 
-    /* ESTADO MÓVIL POR DEFECTO */
+    /* NAV LINKS: MAGIA PARA QUE QUEDE EN UNA FILA */
     .nav-links {
-        position: fixed;
-        top: 0; right: -100%; /* Oculto a la derecha */
-        width: 100%; height: 100vh;
-        background: var(--glass-bg);
-        backdrop-filter: blur(30px);
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 2.5rem;
-        transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 1050;
+        gap: clamp(0.5rem, 1.5vw, 1.5rem); /* Espaciado inteligente que se encoge */
+        flex-grow: 1;
+        margin: 0 10px;
     }
-
-    .nav-links.active { right: 0; }
 
     .menu-item {
-        font-size: 14px;
+        font-size: clamp(8px, 0.8vw, 10px); /* El texto se hace más pequeño antes de romperse */
         text-transform: uppercase;
         font-weight: 700;
-        letter-spacing: 0.3em;
-        color: rgba(255, 255, 255, 0.6);
+        letter-spacing: 0.15em;
+        color: rgba(255, 255, 255, 0.5);
         text-decoration: none;
+        white-space: nowrap; /* Prohibido saltar de línea */
+        transition: all 0.3s ease;
     }
 
-    /* BOTÓN HAMBURGUESA */
-    .menu-toggle {
-        display: block;
-        cursor: pointer;
-        z-index: 1100;
-        width: 30px;
-    }
-
-    .menu-toggle span {
-        display: block;
-        width: 100%; height: 2px;
-        background: #fff;
-        margin: 6px 0;
-        transition: 0.3s;
-    }
-
-    /* Animación X del menú */
-    .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .menu-toggle.open span:nth-child(2) { opacity: 0; }
-    .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(6px, -7px); }
+    .menu-toggle { display: none; } /* Oculto por defecto */
 
     .btn-contact {
-        display: none; /* Se oculta en móvil pequeño para limpiar espacio */
+        font-size: clamp(8px, 0.7vw, 10px);
+        padding: 0.6rem 1.2rem;
+        border-radius: 50px;
+        color: white;
+        text-decoration: none;
+        background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 
-    /* DISEÑO ESCRITORIO (PANTALLAS GRANDES) */
-    @media (min-width: 1024px) {
-        .menu-toggle { display: none; }
-
+    /* CUANDO DE PLANO NO CABE (Móviles pequeños) */
+    @media (max-width: 850px) {
         .nav-links {
-            position: static;
-            flex-direction: row;
-            width: auto; height: auto;
-            background: transparent;
-            backdrop-filter: none;
+            position: fixed;
+            top: 0; right: -100%;
+            width: 100%; height: 100vh;
+            background: var(--glass-bg);
+            flex-direction: column;
             gap: 2rem;
-            margin-left: auto;
-            margin-right: auto;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
+            margin: 0;
+            backdrop-filter: blur(30px);
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .menu-item { font-size: 10px; }
+        .nav-links.active { right: 0; }
 
-        .btn-contact {
+        .menu-item { font-size: 14px; letter-spacing: 0.3em; }
+
+        .menu-toggle {
             display: block;
-            font-size: 10px;
-            font-weight: 800;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 0.7rem 1.5rem;
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            order: 3;
+            cursor: pointer;
+            z-index: 1100;
         }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px; height: 2px;
+            background: #fff;
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        .btn-contact { display: none; } /* En móvil se oculta el botón para no saturar */
     }
+
+    @keyframes aura-flow { to { background-position: 200% center; } }
 </style>
 
 <script>
@@ -150,10 +136,8 @@
         navLinks.classList.toggle('active');
     });
 
-    // Cerrar el menú al hacer clic en un enlace (importante para móviles)
     document.querySelectorAll('.menu-item').forEach(item => {
         item.addEventListener('click', () => {
-            menuToggle.classList.remove('open');
             navLinks.classList.remove('active');
         });
     });
