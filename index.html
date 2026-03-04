@@ -3,249 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA | Ecosistemas de Inteligencia Total</title>
+    <title>AURA | Ingeniería de Ecosistemas Inteligentes</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@100;300;400;700;900&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Plus+Jakarta+Sans:wght@200;300;400;500;700;800&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
         :root {
-            --accent: #00f2ff;
-            --accent-soft: rgba(0, 242, 255, 0.2);
-            --bg-deep: #050507;
-            --glass: rgba(255, 255, 255, 0.02);
-            --border-glass: rgba(255, 255, 255, 0.08);
+            --aura-cyan: #60a5fa;
+            --aura-purple: #c084fc;
+            --dark-core: #020205;
+            --deep-space: #050508;
+            --glass-border: rgba(255, 255, 255, 0.08);
         }
 
-        * { cursor: none; } /* Cursor personalizado para dar sensación de software */
-
+        /* --- RESET & BASE --- */
         body {
-            background-color: var(--bg-deep);
+            background-color: var(--dark-core);
             color: #ffffff;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* --- FONDO CINEMÁTICO --- */
-        .scanline {
-            width: 100%; height: 100px; z-index: 10;
-            background: linear-gradient(0deg, rgba(0, 242, 255, 0) 0%, rgba(0, 242, 255, 0.05) 50%, rgba(0, 242, 255, 0) 100%);
-            position: fixed; opacity: 0.1; pointer-events: none;
-            animation: scan 8s linear infinite;
-        }
-        @keyframes scan { from { top: -100px; } to { top: 100%; } }
-
-        .noise {
+        /* --- BACKGROUND ENGINE (INTELIGENCIA VISUAL) --- */
+        .aura-ambient-light {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://grainy-gradients.vercel.app/noise.svg');
-            opacity: 0.05; pointer-events: none; z-index: 5;
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(96, 165, 250, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(192, 132, 252, 0.05) 0%, transparent 40%);
+            z-index: -1; pointer-events: none;
         }
 
-        /* --- TIPOGRAFÍA BRUTALISTA --- */
+        .grid-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1; opacity: 0.5;
+        }
+
+        /* --- TIPOGRAFÍA LÍQUIDA Y BRUTALISTA --- */
         .hero-title {
             font-family: 'Syncopate', sans-serif;
-            font-size: clamp(3rem, 18vw, 15rem);
-            line-height: 0.75;
-            letter-spacing: -0.08em;
-            text-transform: uppercase;
+            font-size: clamp(3rem, 15vw, 12rem);
+            line-height: 0.8;
+            letter-spacing: -0.06em;
             font-weight: 700;
+            background: linear-gradient(180deg, #fff 40%, rgba(255,255,255,0.1) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        .outline-text {
-            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
-            color: transparent;
-            transition: 0.5s;
-        }
-        .outline-text:hover { -webkit-text-stroke: 1px var(--accent); }
-
-        /* --- CURSOR CUSTOM --- */
-        #custom-cursor {
-            width: 20px; height: 20px; border: 1px solid var(--accent);
-            border-radius: 50%; position: fixed; pointer-events: none;
-            z-index: 9999; transition: transform 0.1s ease;
+        .section-tag {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10px;
+            letter-spacing: 0.8em;
+            text-transform: uppercase;
+            color: var(--aura-cyan);
+            display: block;
+            margin-bottom: 2rem;
         }
 
-        /* --- SECCIONES SIN CUADROS (FLUIDAS) --- */
-        .parallax-section {
-            position: relative; padding: 15vh 5%;
-            border-bottom: 1px solid var(--border-glass);
+        /* --- DISEÑO DE FLUJO SIN CUADROS --- */
+        .flow-container {
+            position: relative;
+            padding: 10vh 5%;
         }
 
-        .capability-label {
+        .tech-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (min-width: 1024px) {
+            .tech-row { grid-template-columns: 1fr 1.5fr 1fr; gap: 4rem; }
+        }
+
+        .tech-row:hover {
+            background: rgba(255, 255, 255, 0.02);
+            padding-left: 2rem;
+            border-bottom-color: var(--aura-cyan);
+        }
+
+        .row-number {
             font-family: 'Space Grotesk';
-            font-weight: 700; font-size: 0.7rem;
-            letter-spacing: 0.5em; color: var(--accent);
-            text-transform: uppercase; margin-bottom: 2rem; display: block;
+            font-size: 1.5rem;
+            opacity: 0.2;
+            font-weight: 300;
         }
 
-        /* --- TABLA TÉCNICA DE CONTROL --- */
-        .control-row {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 2.5rem 0; border-top: 1px solid var(--border-glass);
+        /* --- CURSOR PERSONALIZADO --- */
+        #aura-cursor {
+            width: 15px; height: 15px; border: 1px solid var(--aura-cyan);
+            border-radius: 50%; position: fixed; pointer-events: none;
+            z-index: 9999; transition: transform 0.15s ease, opacity 0.3s ease;
+            box-shadow: 0 0 15px var(--aura-cyan);
+        }
+
+        /* --- BOTONES MAGNÉTICOS --- */
+        .btn-master {
+            display: inline-block;
+            padding: 1.5rem 4rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
             transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            background: transparent;
         }
-        .control-row:hover { background: rgba(0, 242, 255, 0.03); padding-left: 2rem; }
-        .control-row h3 { font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 800; text-transform: uppercase; }
 
-        /* --- BOTÓN DE ACCIÓN --- */
-        .cta-magnetic {
-            width: 200px; height: 200px; border: 1px solid var(--accent);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            text-align: center; font-size: 0.8rem; font-weight: 900;
-            letter-spacing: 0.2em; transition: 0.5s; position: relative;
+        .btn-master:hover {
+            background: #fff;
+            color: #000;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
-        .cta-magnetic:hover { background: var(--accent); color: #000; transform: scale(1.1); }
+
+        /* --- ESTRUCTURA DE TEXTO DINÁMICO --- */
+        .highlight-cyan { color: var(--aura-cyan); font-weight: 700; }
+        .text-reveal { opacity: 0.4; transition: 0.8s; }
+        .tech-row:hover .text-reveal { opacity: 1; }
 
     </style>
 </head>
 <body>
 
-    <div id="custom-cursor"></div>
-    <div class="scanline"></div>
-    <div class="noise"></div>
+    <div id="aura-cursor"></div>
+    <div class="aura-ambient-light"></div>
+    <div class="grid-overlay"></div>
 
-    <nav class="fixed top-0 w-full z-[100] mix-blend-difference p-10 flex justify-between items-center">
-        <div class="text-2xl font-black tracking-tighter uppercase">Aura Systems</div>
-        <div class="flex gap-10 items-center">
-            <span class="text-[8px] tracking-[1em] opacity-50 hidden md:block">ESTADO: ONLINE // 2026</span>
-            <a href="https://wa.me/9861197993" class="text-[10px] font-bold tracking-widest bg-white text-black px-6 py-2 rounded-full">CONECTAR</a>
-        </div>
-    </nav>
+    <div id="nav-container"></div>
 
-    <section class="min-h-screen flex flex-col justify-center px-6 relative overflow-hidden">
-        <div class="z-10 mt-20">
-            <span class="capability-label" data-aos="fade-right">Hardware Sin Limitaciones</span>
-            <h1 class="hero-title" data-aos="fade-up" data-aos-duration="1500">
-                OMNI<br><span class="outline-text">POTENCIA</span>
-            </h1>
-        </div>
-
-        <div class="absolute right-10 bottom-20 max-w-md text-right" data-aos="fade-left" data-aos-delay="500">
-            <p class="text-zinc-500 font-light leading-relaxed text-lg">
-                Integramos la inteligencia donde otros ven imposibles. Desde el encendido de un foco por voz hasta la automatización de motores industriales que no nacieron para ser inteligentes.
-            </p>
-            <div class="mt-10 flex justify-end">
-                <div class="w-20 h-[1px] bg-cyan-400"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="servicios" class="parallax-section">
-        <span class="capability-label">01 / Ecosistema Residencial y Airbnb</span>
-        
-        <div class="control-row" data-aos="fade-up">
-            <div>
-                <h3>Iluminación & Clima</h3>
-                <p class="text-zinc-500 text-sm mt-2">Sensores de presencia y control de AC incluso en equipos legacy.</p>
-            </div>
-            <div class="text-right hidden md:block">
-                <span class="text-[10px] border border-zinc-800 px-3 py-1 rounded">Voz & App</span>
-            </div>
-        </div>
-
-        <div class="control-row" data-aos="fade-up">
-            <div>
-                <h3>Audio & Resonancia</h3>
-                <p class="text-zinc-500 text-sm mt-2">Sistemas multi-room que te siguen por la propiedad.</p>
-            </div>
-            <div class="text-right hidden md:block">
-                <span class="text-[10px] border border-zinc-800 px-3 py-1 rounded">Alta Fidelidad</span>
-            </div>
-        </div>
-
-        <div class="control-row" data-aos="fade-up">
-            <div>
-                <h3>Motores & Accesos</h3>
-                <p class="text-zinc-500 text-sm mt-2">Portones, persianas y techos retráctiles bajo mando único.</p>
-            </div>
-            <div class="text-right hidden md:block">
-                <span class="text-[10px] border border-zinc-800 px-3 py-1 rounded">Fuerza Bruta</span>
-            </div>
-        </div>
-    </section>
-
-    <section class="parallax-section bg-[#08080a]">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
-            <div data-aos="fade-right">
-                <span class="capability-label">02 / Sector Corporativo</span>
-                <h2 class="text-6xl font-bold tracking-tighter mb-10 italic">EL LÍMITE ES TU IMAGINACIÓN.</h2>
-                <p class="text-zinc-400 text-xl leading-relaxed">
-                    Si eres un ingeniero liderando un proyecto o un dueño de empresa buscando eficiencia, AURA ofrece el "Todo en Uno". 
-                    No instalamos dispositivos, construimos el sistema nervioso de tu edificio.
-                </p>
-                <ul class="mt-10 space-y-4 text-sm font-bold tracking-widest text-cyan-400">
-                    <li>> GESTIÓN DE ENERGÍA INDUSTRIAL</li>
-                    <li>> MONITOREO DE ACTIVOS EN TIEMPO REAL</li>
-                    <li>> CONTROL DE FLOTAS DE AIRBNB</li>
-                    <li>> SEGURIDAD BIOMÉTRICA AVANZADA</li>
-                </ul>
-            </div>
-            <div class="flex items-center justify-center">
-                <div class="cta-magnetic" onclick="window.location.href='https://wa.me/9861197993'">
-                    COTIZAR<br>PROYECTO<br>MAESTRO
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-40 px-6">
+    <section class="relative min-h-screen flex flex-col justify-center px-6 pt-32 lg:pt-0 overflow-hidden">
         <div class="container mx-auto">
-            <h2 class="text-[10px] tracking-[1em] text-center mb-20 opacity-30 uppercase">Arquitectura del Sistema</h2>
+            <span class="section-tag" data-aos="fade-down">Engineering the Future</span>
+            <h1 class="hero-title" data-aos="fade-right" data-aos-duration="1500">
+                AURA<br><span style="-webkit-text-stroke: 1px rgba(255,255,255,0.2); -webkit-text-fill-color: transparent;">INTEGRAL</span>
+            </h1>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
-                <div data-aos="fade-up">
-                    <h4 class="text-cyan-400 font-black text-4xl mb-6">01</h4>
-                    <h5 class="text-xl font-bold mb-4 uppercase">Integración Universal</h5>
-                    <p class="text-zinc-500 text-sm leading-relaxed">Convertimos equipos convencionales en dispositivos inteligentes. Si tiene un motor o un interruptor, AURA puede controlarlo.</p>
-                </div>
-                <div data-aos="fade-up" data-aos-delay="200">
-                    <h4 class="text-cyan-400 font-black text-4xl mb-6">02</h4>
-                    <h5 class="text-xl font-bold mb-4 uppercase">Escalabilidad Total</h5>
-                    <p class="text-zinc-500 text-sm leading-relaxed">Empieza con el control de luces en un cuarto y termina gestionando la energía de toda una planta industrial. El sistema crece contigo.</p>
-                </div>
-                <div data-aos="fade-up" data-aos-delay="400">
-                    <h4 class="text-cyan-400 font-black text-4xl mb-6">03</h4>
-                    <h5 class="text-xl font-bold mb-4 uppercase">Inteligencia Autónoma</h5>
-                    <p class="text-zinc-500 text-sm leading-relaxed">No solo es control por voz. El sistema aprende rutinas: clima perfecto antes de llegar, luces que simulan presencia y ahorro energético proactivo.</p>
+            <div class="mt-12 max-w-2xl" data-aos="fade-up" data-aos-delay="400">
+                <p class="text-xl md:text-2xl text-zinc-400 font-light leading-relaxed">
+                    No instalamos gadgets. Construimos el <span class="text-white font-bold">sistema nervioso autónomo</span> para residencias, negocios e industria de alto nivel.
+                </p>
+            </div>
+
+            <div class="mt-16 flex flex-wrap gap-8" data-aos="fade-up" data-aos-delay="600">
+                <a href="#servicios" class="btn-master">Sistemas de Mando</a>
+                <div class="flex items-center gap-4 text-[10px] tracking-[0.4em] text-zinc-500 uppercase">
+                    <span class="w-12 h-[1px] bg-zinc-800"></span>
+                    Scroll para explorar el ecosistema
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="p-10 border-t border-white/5">
-        <div class="flex flex-col md:flex-row justify-between items-end gap-10">
-            <div>
-                <h2 class="text-9xl font-black tracking-tighter opacity-10">AURA</h2>
-                <p class="text-zinc-500 text-[10px] tracking-[0.5em] mt-4 uppercase">Ingeniería en Automatización Integral</p>
+    <section id="servicios" class="flow-container">
+        <div class="container mx-auto">
+            <span class="section-tag">01 / El Ecosistema</span>
+            
+            <div class="tech-row" data-aos="fade-up">
+                <div class="row-number">01</div>
+                <div>
+                    <h3 class="text-4xl lg:text-6xl font-black mb-6 uppercase tracking-tighter">Atmósfera & Bioclima</h3>
+                    <p class="text-zinc-500 text-lg text-reveal leading-relaxed">
+                        Control total de iluminación <span class="highlight-cyan">DALI, KNX y RGBW</span>. Gestión de climatización (AC) incluso en equipos convencionales mediante integración por infrarrojos y radiofrecuencia. Tu hogar respira según tu presencia.
+                    </p>
+                </div>
+                <div class="flex flex-col justify-center lg:items-end gap-2 text-[10px] font-bold tracking-widest text-zinc-600">
+                    <span>SENSOR DE CALIDAD DE AIRE</span>
+                    <span>CONTROL TERMOSTÁTICO</span>
+                    <span>ESCENAS BIORRÍTMICAS</span>
+                </div>
             </div>
-            <div class="text-right">
-                <a href="https://wa.me/9861197993" class="text-4xl md:text-6xl font-light hover:text-cyan-400 transition italic">986.119.7993</a>
-                <div class="flex gap-6 mt-6 justify-end text-[10px] font-bold tracking-widest uppercase">
-                    <a href="#" class="hover:underline">Instagram</a>
-                    <a href="#" class="hover:underline">LinkedIn</a>
-                    <a href="#" class="hover:underline">Proyectos 2026</a>
+
+            <div class="tech-row" data-aos="fade-up">
+                <div class="row-number">02</div>
+                <div>
+                    <h3 class="text-4xl lg:text-6xl font-black mb-6 uppercase tracking-tighter">Inmersión Auditiva</h3>
+                    <p class="text-zinc-500 text-lg text-reveal leading-relaxed">
+                        Sistemas de audio multi-room invisibles. Integración de teatros en casa que se activan con un solo comando de voz. Controlamos televisores y sistemas de sonido de cualquier generación, unificándolos en una sola interfaz.
+                    </p>
+                </div>
+                <div class="flex flex-col justify-center lg:items-end gap-2 text-[10px] font-bold tracking-widest text-zinc-600">
+                    <span>AUDIO DISTRIBUIDO</span>
+                    <span>CONTROL POR VOZ</span>
+                    <span>HOME CINEMA 7.1.4</span>
+                </div>
+            </div>
+
+            <div class="tech-row" data-aos="fade-up">
+                <div class="row-number">03</div>
+                <div>
+                    <h3 class="text-4xl lg:text-6xl font-black mb-6 uppercase tracking-tighter">Fuerza & Movimiento</h3>
+                    <p class="text-zinc-500 text-lg text-reveal leading-relaxed">
+                        Automatización de <span class="highlight-cyan">portones, techos retráctiles, persianas y elevadores</span>. Llevamos la domótica a la mecánica: si tiene un motor, AURA tiene el control. Soluciones robustas para accesos vehiculares y comerciales.
+                    </p>
+                </div>
+                <div class="flex flex-col justify-center lg:items-end gap-2 text-[10px] font-bold tracking-widest text-zinc-600">
+                    <span>MOTORES INDUSTRIALES</span>
+                    <span>ACCESOS VEHICULARES</span>
+                    <span>TOLDOS AUTÓNOMOS</span>
                 </div>
             </div>
         </div>
-        <div class="mt-20 text-[8px] opacity-20 text-center tracking-[2em]">NULL IS NOT AN OPTION // DESIGNED BY AURA</div>
+    </section>
+
+    <section class="py-32 px-6 bg-[#030307]">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                <div data-aos="fade-right">
+                    <span class="section-tag">02 / Gestión de Activos</span>
+                    <h2 class="text-5xl lg:text-8xl font-bold tracking-tighter mb-12">RENTABILIDAD<br><span class="highlight-cyan">INTELIGENTE</span></h2>
+                    <p class="text-zinc-400 text-xl leading-relaxed mb-8">
+                        Diseñado para propietarios de <span class="text-white">Airbnb y flotas de departamentos</span>. Gestiona accesos de forma remota, limita el uso excesivo de aire acondicionado y recibe alertas de fugas o fallos eléctricos antes que el huésped lo note.
+                    </p>
+                    <div class="grid grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-white font-bold mb-2 uppercase text-xs">Ahorro Energético</h4>
+                            <p class="text-zinc-600 text-sm">Reducción de hasta un 35% en facturas eléctricas mediante algoritmos de apagado automático.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold mb-2 uppercase text-xs">Cerraduras Cloud</h4>
+                            <p class="text-zinc-600 text-sm">Generación de códigos temporales para check-in sin necesidad de llaves físicas.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative" data-aos="zoom-in-up">
+                    <div class="w-full aspect-square border border-zinc-800 rounded-full flex items-center justify-center">
+                        <div class="w-3/4 h-3/4 border border-zinc-700 rounded-full flex items-center justify-center animate-[spin_20s_linear_infinite]">
+                            <div class="w-20 h-20 bg-cyan-500 rounded-full blur-[80px] opacity-20"></div>
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center text-center">
+                            <span class="text-[10px] tracking-[1em] uppercase font-bold">Mando<br>Centralizado</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-40 border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl" data-aos="fade-up">
+                <span class="section-tag">03 / Grado Ingeniería</span>
+                <h3 class="text-4xl lg:text-7xl font-bold tracking-tighter mb-12">SOLUCIONES DONDE LA<br>FÁBRICA SE DETIENE.</h3>
+                <p class="text-zinc-500 text-xl leading-relaxed mb-12">
+                    Si eres un ingeniero liderando una obra o el CEO de una empresa, sabes que la domótica comercial tiene límites. <span class="highlight-cyan">Nosotros no.</span> Integramos protocolos industriales (Modbus, BACnet, MQTT) con experiencias de usuario intuitivas.
+                </p>
+                
+                <div class="space-y-6">
+                    <div class="flex gap-6 items-start border-l-2 border-zinc-800 pl-8 py-4 hover:border-cyan-500 transition-colors">
+                        <span class="text-cyan-500 font-black">/</span>
+                        <p class="text-sm font-bold tracking-widest uppercase">Monitoreo de Cargas Eléctricas de Alta Potencia</p>
+                    </div>
+                    <div class="flex gap-6 items-start border-l-2 border-zinc-800 pl-8 py-4 hover:border-cyan-500 transition-colors">
+                        <span class="text-cyan-500 font-black">/</span>
+                        <p class="text-sm font-bold tracking-widest uppercase">Sistemas de Seguridad Perimetral Térmica</p>
+                    </div>
+                    <div class="flex gap-6 items-start border-l-2 border-zinc-800 pl-8 py-4 hover:border-cyan-500 transition-colors">
+                        <span class="text-cyan-500 font-black">/</span>
+                        <p class="text-sm font-bold tracking-widest uppercase">Automatización de Naves Industriales y Oficinas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-20 px-6 border-t border-white/5 relative overflow-hidden">
+        <div class="container mx-auto flex flex-col lg:flex-row justify-between items-end gap-16 relative z-10">
+            <div>
+                <h2 class="text-[10vw] font-black tracking-tighter italic opacity-10">AURA</h2>
+                <p class="text-zinc-600 text-[10px] tracking-[1em] uppercase mb-8">Ecosistemas de Consciencia</p>
+                <div class="flex gap-10 text-[10px] font-bold tracking-widest text-zinc-400">
+                    <a href="#" class="hover:text-white transition">INSTAGRAM</a>
+                    <a href="#" class="hover:text-white transition">LINKEDIN</a>
+                    <a href="#" class="hover:text-white transition">WHATSAPP</a>
+                </div>
+            </div>
+            
+            <div class="text-right">
+                <p class="text-zinc-500 uppercase tracking-widest text-xs mb-4">¿Listo para el siguiente nivel?</p>
+                <a href="https://wa.me/9861197993" class="text-4xl lg:text-7xl font-light hover:text-cyan-400 transition-all italic">986.119.7993</a>
+                <p class="text-zinc-800 text-[10px] tracking-widest mt-12 uppercase">© 2026 Ecosistemas Inteligentes Premium</p>
+            </div>
+        </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        // Inicializar Animaciones
+        AOS.init({ duration: 1000, easing: 'ease-out-quart', once: true });
 
-        // LÓGICA DEL CURSOR PERSONALIZADO
-        const cursor = document.getElementById('custom-cursor');
+        // Lógica del Cursor Aura
+        const cursor = document.getElementById('aura-cursor');
         document.addEventListener('mousemove', e => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
         });
 
-        document.querySelectorAll('a, .cta-magnetic, .control-row').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(4)');
-            el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+        // Efecto Magnético en Hover
+        document.querySelectorAll('a, .tech-row, .btn-master').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(4)';
+                cursor.style.background = 'rgba(96, 165, 250, 0.1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.background = 'transparent';
+            });
         });
+
+        // Inyección del menú bar (Asegúrate que menubar.html esté en la misma carpeta)
+        async function loadMenu() {
+            try {
+                const response = await fetch('menubar.html');
+                const html = await response.text();
+                document.getElementById('nav-container').innerHTML = html;
+                
+                // Reinicializar lógica de scroll del menú cargado
+                const nav = document.getElementById('main-nav');
+                if(nav) {
+                    window.addEventListener('scroll', () => {
+                        if (window.scrollY > 30) nav.classList.add('scrolled');
+                        else nav.classList.remove('scrolled');
+                    });
+                }
+            } catch (e) { console.warn("Menubar no encontrado. Inyectando manualmente..."); }
+        }
+        loadMenu();
     </script>
 </body>
 </html>
