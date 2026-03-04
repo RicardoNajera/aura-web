@@ -1,10 +1,43 @@
+<nav id="main-nav">
+    <a href="index.html" class="aura-brand-anim">AURA</a>
+    
+    <div class="nav-links">
+        <a href="index.html" class="menu-item">Home</a>
+        <a href="index.html#servicios" class="menu-item">Sistemas</a>
+        <a href="nosotros.html" class="menu-item">Concepto</a>
+    </div>
+    
+    <a href="https://wa.me/9861197993" class="btn-contact">Contáctanos</a>
+</nav>
+
 <style>
     :root {
         --blue-aura: #60a5fa;
         --purple-aura: #c084fc;
     }
 
-    /* 1. Logo Animado AURA */
+    #main-nav {
+        position: fixed;
+        top: 0; left: 0; width: 100%;
+        z-index: 1000;
+        padding: 20px 5%;
+        background: transparent;
+        display: flex;
+        flex-wrap: wrap; /* Clave para el salto de renglón en móvil */
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        backdrop-filter: blur(10px);
+        transition: all 0.4s ease;
+    }
+
+    /* Cambio visual al hacer scroll */
+    #main-nav.scrolled {
+        background: rgba(0, 0, 0, 0.9);
+        padding: 12px 5%;
+    }
+
+    /* LOGO */
     .aura-brand-anim {
         background: linear-gradient(90deg, var(--blue-aura), var(--purple-aura), var(--blue-aura));
         background-size: 200% auto;
@@ -15,42 +48,22 @@
         font-style: italic;
         font-size: 1.5rem;
         letter-spacing: -0.05em;
-        text-shadow: 0 0 15px rgba(96, 165, 250, 0.2);
         text-decoration: none;
+        order: 1; /* Primero en el orden */
     }
 
     @keyframes aura-flow { to { background-position: 200% center; } }
 
-    /* 2. Contenedor Maestro Adaptativo */
-    #main-nav {
-        position: fixed;
-        top: 0; left: 0; width: 100%;
-        z-index: 1000;
-        padding: 20px 5%;
-        background: transparent;
-        display: flex;
-        flex-direction: column; /* Apilado por defecto para móvil */
-        gap: 20px;
-        box-sizing: border-box;
-        backdrop-filter: blur(10px);
-    }
-
-    /* 3. Primer Renglón: Logo y Botón */
-    .nav-top-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-    }
-
-    /* 4. Segundo Renglón: Menú de Navegación */
-    .nav-bottom-row {
+    /* NAVEGACIÓN (LOS LINKS) */
+    .nav-links {
         display: flex;
         justify-content: center;
         gap: 1.5rem;
-        width: 100%;
-        padding-top: 10px;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        width: 100%; /* En móvil ocupa todo el ancho para forzar el renglón abajo */
+        order: 3;    /* En móvil se va al final (abajo) */
+        padding-top: 15px;
+        margin-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .menu-item {
@@ -60,98 +73,59 @@
         letter-spacing: 0.2em;
         color: rgba(255, 255, 255, 0.6);
         text-decoration: none;
-        transition: color 0.3s ease;
-        white-space: nowrap;
+        transition: 0.3s;
     }
 
     .menu-item:hover { color: #fff; }
 
-    /* 5. Botón de Contacto */
+    /* BOTÓN */
     .btn-contact {
         font-size: 9px;
         font-weight: 800;
         text-transform: uppercase;
-        letter-spacing: 0.1em;
         border: 1px solid rgba(255, 255, 255, 0.2);
         padding: 0.6rem 1.2rem;
-        border-radius: 9999px;
+        border-radius: 50px;
         color: white;
         text-decoration: none;
         background: rgba(255, 255, 255, 0.05);
-        transition: all 0.3s ease;
+        order: 2; /* En móvil se queda a la derecha del logo */
     }
 
-    .btn-contact:hover {
-        background: white;
-        color: black;
-    }
-
-    /* 6. REGLAS DE ADAPTABILIDAD (Desktop) */
+    /* REGLAS PARA PANTALLAS GRANDES (PC) */
     @media (min-width: 850px) {
         #main-nav {
-            flex-direction: row; /* Una sola línea en pantallas grandes */
-            justify-content: space-between;
+            flex-wrap: nowrap; /* Todo en una sola fila */
             padding: 24px 5%;
-            gap: 0;
         }
 
-        .nav-top-row {
+        .nav-links {
             width: auto;
-        }
-
-        .nav-bottom-row {
-            width: auto;
-            border-top: none;
+            order: 2; /* Pasa al medio */
             padding-top: 0;
-            position: absolute;
+            margin-top: 0;
+            border-top: none;
+            position: absolute; /* Centrado perfecto respecto a la pantalla */
             left: 50%;
             transform: translateX(-50%);
-            gap: 2.5rem;
         }
 
         .btn-contact {
+            order: 3; /* Pasa a la derecha */
             font-size: 10px;
-            padding: 0.8rem 2rem;
         }
     }
 </style>
 
-<nav id="main-nav">
-    <div class="nav-top-row">
-        <a href="index.html" class="aura-brand-anim">AURA</a>
-        <a href="https://wa.me/9861197993" class="btn-contact">Contáctanos</a>
-    </div>
-    
-    <div class="nav-bottom-row">
-        <a href="index.html" class="menu-item">Home</a>
-        <a href="index.html#servicios" class="menu-item">Sistemas</a>
-        <a href="nosotros.html" class="menu-item">Concepto</a>
-    </div>
-</nav>
-
 <script>
     (function() {
         const nav = document.getElementById('main-nav');
-        
-        function handleScroll() {
+        window.addEventListener('scroll', () => {
             if (window.scrollY > 30) {
-                nav.style.background = "rgba(0, 0, 0, 0.9)";
-                nav.style.paddingTop = window.innerWidth > 850 ? "15px" : "12px";
-                nav.style.paddingBottom = window.innerWidth > 850 ? "15px" : "12px";
-                nav.style.gap = window.innerWidth > 850 ? "0" : "10px";
+                nav.classList.add('scrolled');
             } else {
-                nav.style.background = "transparent";
-                nav.style.paddingTop = window.innerWidth > 850 ? "24px" : "20px";
-                nav.style.paddingBottom = window.innerWidth > 850 ? "24px" : "20px";
-                nav.style.gap = window.innerWidth > 850 ? "0" : "20px";
+                nav.classList.remove('scrolled');
             }
-        }
-
-        window.addEventListener('scroll', handleScroll);
-        window.addEventListener('resize', handleScroll);
-        handleScroll();
-        
-        // Suavizado de entrada
-        setTimeout(() => nav.style.transition = "all 0.4s ease", 100);
+        });
     })();
 </script>
