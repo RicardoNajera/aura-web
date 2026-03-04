@@ -1,7 +1,12 @@
 <style>
-    /* 1. Animación del Logo */
+    :root {
+        --blue-aura: #60a5fa;
+        --purple-aura: #c084fc;
+    }
+
+    /* 1. Animación del Logo: Azul a Morado Aura */
     .aura-brand-anim {
-        background: linear-gradient(90deg, #60a5fa, #c084fc, #60a5fa);
+        background: linear-gradient(90deg, var(--blue-aura), var(--purple-aura), var(--blue-aura));
         background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -17,7 +22,7 @@
         to { background-position: 200% center; }
     }
 
-    /* 2. Estructura del Nav */
+    /* 2. Estructura Inteligente y Adaptativa */
     #main-nav {
         display: grid;
         grid-template-columns: 1fr auto 1fr;
@@ -26,13 +31,13 @@
         top: 0;
         left: 0;
         width: 100%;
-        z-index: 100;
-        /* Estilo inicial */
-        padding: 24px 20px;
+        z-index: 1000; /* Asegura prioridad sobre cualquier elemento */
+        padding: 24px 5%;
         background: transparent;
+        /* La transición se activa vía JS para evitar el glitch de carga */
     }
 
-    /* 3. Menús del Centro */
+    /* 3. Navegación Central Inmersiva */
     .nav-links-wrapper {
         display: flex;
         gap: 2.5rem;
@@ -43,31 +48,68 @@
         text-transform: uppercase;
         font-weight: 700;
         letter-spacing: 0.3em;
-        color: #6b7280;
+        color: rgba(255, 255, 255, 0.5);
         text-decoration: none;
-        transition: color 0.2s;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
     }
 
-    .menu-item:hover { color: #ffffff; }
+    .menu-item:hover {
+        color: #ffffff;
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+    }
 
-    /* 4. Botón de contacto */
+    /* Línea indicadora inteligente */
+    .menu-item::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        width: 0;
+        height: 1px;
+        background: linear-gradient(90deg, var(--blue-aura), var(--purple-aura));
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    .menu-item:hover::after {
+        width: 100%;
+    }
+
+    /* 4. Botón de Contacto de Alto Nivel */
     .btn-contact {
         font-size: 10px;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.2em;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 0.75rem 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 0.8rem 2.2rem;
         border-radius: 9999px;
         color: white;
         text-decoration: none;
-        transition: all 0.2s;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        justify-self: end;
     }
 
     .btn-contact:hover {
         background: white;
         color: black;
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        border-color: white;
+        transform: scale(1.05);
+        box-shadow: 0 10px 30px rgba(96, 165, 250, 0.3);
+    }
+
+    /* 5. Adaptabilidad para Móviles */
+    @media (max-width: 768px) {
+        #main-nav {
+            grid-template-columns: 1fr 1fr;
+            padding: 15px 20px;
+        }
+        .nav-links-wrapper {
+            display: none; /* Oculta links centrales en móvil para limpieza */
+        }
     }
 </style>
 
@@ -90,29 +132,35 @@
 </nav>
 
 <script>
-    function checkScroll() {
+    (function() {
         const nav = document.getElementById('main-nav');
-        if (!nav) return;
+        
+        function updateNav() {
+            if (!nav) return;
 
-        if (window.scrollY > 30) {
-            nav.style.background = "rgba(0, 0, 0, 0.9)";
-            nav.style.paddingTop = "15px";
-            nav.style.paddingBottom = "15px";
-            nav.style.borderBottom = "1px solid rgba(255,255,255,0.05)";
-        } else {
-            nav.style.background = "transparent";
-            nav.style.paddingTop = "24px";
-            nav.style.paddingBottom = "24px";
-            nav.style.borderBottom = "none";
+            if (window.scrollY > 40) {
+                nav.style.background = "rgba(0, 0, 0, 0.7)";
+                nav.style.backdropFilter = "blur(20px) saturate(180%)";
+                nav.style.paddingTop = "15px";
+                nav.style.paddingBottom = "15px";
+                nav.style.borderBottom = "1px solid rgba(255, 255, 255, 0.08)";
+                nav.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.5)";
+            } else {
+                nav.style.background = "transparent";
+                nav.style.backdropFilter = "none";
+                nav.style.paddingTop = "24px";
+                nav.style.paddingBottom = "24px";
+                nav.style.borderBottom = "none";
+                nav.style.boxShadow = "none";
+            }
         }
-    }
 
-    // Activa la transición después de la carga para suavidad
-    setTimeout(() => {
-        const nav = document.getElementById('main-nav');
-        if(nav) nav.style.transition = "all 0.3s ease";
-    }, 100);
+        // Activación de transiciones diferida para evitar saltos visuales al cargar
+        setTimeout(() => {
+            if(nav) nav.style.transition = "all 0.5s cubic-bezier(0.23, 1, 0.32, 1)";
+        }, 100);
 
-    window.addEventListener('scroll', checkScroll);
-    checkScroll();
+        window.addEventListener('scroll', updateNav);
+        updateNav(); // Ejecución inmediata para detectar posición inicial
+    })();
 </script>
