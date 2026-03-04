@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosotros | AURA Automation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #000; color: #fff; }
+        .aura-gradient {
+            background: linear-gradient(90deg, #60a5fa 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .tech-bg {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+    </style>
+</head>
+<body class="tech-bg">
+    <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-lg py-4 px-6 md:px-20 flex justify-between items-center border-b border-zinc-900">
+        <a href="index.html" class="text-3xl font-bold tracking-tighter aura-gradient italic">AURA</a>
+        <div class="hidden md:flex space-x-8 text-sm font-light text-gray-400">
+            <a href="index.html" class="hover:text-white transition">Inicio</a>
+            <a href="nosotros.html" class="text-white font-semibold">Nosotros</a>
+            <a href="index.html#servicios" class="hover:text-white transition">Servicios</a>
+        </div>
+        <a href="https://wa.me/9861197993" class="bg-white text-black px-6 py-2 rounded-full font-medium text-sm hover:scale-105 transition">Contacto Directo</a>
+    </nav>
+
+    <main class="pt-40 pb-20 px-6 md:px-20 max-w-6xl mx-auto">
+        <section class="mb-32">
+            <h2 data-aos="fade-down" class="text-6xl md:text-8xl font-extrabold aura-gradient mb-8 tracking-tighter italic">Nuestra Esencia.</h2>
+            <p data-aos="fade-up" class="text-2xl md:text-3xl text-gray-400 font-light leading-relaxed max-w-4xl">
+                En <strong>AURA</strong>, no instalamos gadgets; diseñamos el sistema nervioso de tu hogar. Somos un equipo apasionado por la convergencia entre el diseño arquitectónico y la tecnología de vanguardia.
+            </p>
+        </section>
+
+        <div class="grid md:grid-cols-2 gap-10">
+            <div data-aos="fade-right" class="glass-panel p-12 rounded-[2.5rem]">
+                <h3 class="text-3xl font-bold mb-6 text-blue-400">¿Quiénes Somos?</h3>
+                <p class="text-gray-400 font-light leading-loose">
+                    Fundada con la visión de simplificar la vida moderna, AURA se ha consolidado como líder en soluciones de automatización inteligente. Nos enfocamos en crear espacios que no solo sean tecnológicos, sino intuitivos y humanos.
+                </p>
+            </div>
+
+            <div data-aos="fade-left" class="glass-panel p-12 rounded-[2.5rem] border-l-4 border-purple-500">
+                <h3 class="text-3xl font-bold mb-6 text-purple-400">Nuestra Misión</h3>
+                <p class="text-gray-400 font-light leading-loose">
+                    Transformar la interacción entre las personas y su entorno a través de sistemas invisibles pero potentes, garantizando siempre la máxima seguridad, eficiencia energética y un confort sin precedentes.
+                </p>
+            </div>
+        </div>
+
+        <section class="mt-40 text-center">
+            <h4 class="text-zinc-500 uppercase tracking-[0.4em] text-sm mb-16">Nuestros Pilares</h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div data-aos="zoom-in">
+                    <div class="text-5xl mb-6">✦</div>
+                    <h5 class="text-xl font-bold mb-3">Innovación Continua</h5>
+                    <p class="text-gray-500 text-sm font-light">Siempre un paso adelante en protocolos de comunicación y hardware.</p>
+                </div>
+                <div data-aos="zoom-in" data-aos-delay="200">
+                    <div class="text-5xl mb-6">🛡</div>
+                    <h5 class="text-xl font-bold mb-3">Privacidad Total</h5>
+                    <p class="text-gray-500 text-sm font-light">Tu información y tu hogar están protegidos con encriptación de nivel bancario.</p>
+                </div>
+                <div data-aos="zoom-in" data-aos-delay="400">
+                    <div class="text-5xl mb-6">⚙</div>
+                    <h5 class="text-xl font-bold mb-3">Soporte Elite</h5>
+                    <p class="text-gray-500 text-sm font-light">Atención personalizada y mantenimiento preventivo 24/7 para tu tranquilidad.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-20 text-center border-t border-zinc-900 mt-20">
+        <p class="text-zinc-600 text-sm font-light">© 2026 <span class="aura-gradient font-semibold italic">AURA Automation</span>.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+    </script>
+</body>
+</html>

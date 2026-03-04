@@ -9,64 +9,43 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background: #000; color: #fff; scroll-behavior: smooth; }
-        
-        /* Degradado AURA: Azul a Morado */
         .aura-gradient {
             background: linear-gradient(90deg, #60a5fa 0%, #c084fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
-        /* Efecto Cristal Tecnológico */
         .glass-panel {
             background: rgba(20, 20, 20, 0.6);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
-
-        /* Animación de Pulso para iconos */
         @keyframes pulse-soft {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.7; transform: scale(1.05); }
         }
         .tech-icon { animation: pulse-soft 3s infinite ease-in-out; }
-
-        /* Fondo con patrón tecnológico sutil */
         .tech-bg {
             background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
                               linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
             background-size: 50px 50px;
         }
-
-        /* Estilos para el Video de Fondo */
         .video-docker video {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            position: absolute;
-            height: 100%;
-            width: 100%;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            object-fit: cover; position: absolute; height: 100%; width: 100%;
         }
-
-        /* Capa de opacidad negra sobre el video */
         .video-overlay {
             background: rgba(0, 0, 0, 0.75);
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 2;
+            position: absolute; height: 100%; width: 100%; top: 0; left: 0; z-index: 2;
         }
     </style>
 </head>
 <body class="overflow-x-hidden tech-bg">
     <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-lg py-4 px-6 md:px-20 flex justify-between items-center border-b border-zinc-900">
-        <h1 class="text-3xl font-bold tracking-tighter aura-gradient italic">AURA</h1>
+        <a href="index.html" class="text-3xl font-bold tracking-tighter aura-gradient italic">AURA</a>
         <div class="hidden md:flex space-x-8 text-sm font-light text-gray-400">
+            <a href="nosotros.html" class="hover:text-white transition">Nosotros</a>
             <a href="#servicios" class="hover:text-white transition">Servicios</a>
             <a href="https://wa.me/9861197993" class="hover:text-white transition font-semibold">9861197993</a>
         </div>
@@ -101,49 +80,37 @@
             <div data-aos="fade-up" class="glass-panel p-10 rounded-3xl group hover:border-blue-500/50 transition-all duration-300">
                 <div class="text-blue-400 mb-8 tech-icon font-bold text-4xl">☼</div>
                 <h4 class="text-2xl font-bold mb-4 tracking-tight text-white">Iluminación y Clima</h4>
-                <p class="text-gray-400 leading-relaxed font-light text-sm">
-                    Diseño de escenas lumínicas y control térmico inteligente. Maximiza el confort y la eficiencia energética de tu hogar.
-                </p>
+                <p class="text-gray-400 leading-relaxed font-light text-sm">Diseño de escenas lumínicas y control térmico inteligente. Maximiza el confort y la eficiencia energética de tu hogar.</p>
             </div>
 
             <div data-aos="fade-up" data-aos-delay="150" class="glass-panel p-10 rounded-3xl group hover:border-red-500/50 transition-all duration-300">
                 <div class="text-red-400 mb-8 tech-icon font-bold text-4xl">🛡</div>
                 <h4 class="text-2xl font-bold mb-4 tracking-tight text-white text-left">Seguridad</h4>
-                <p class="text-gray-400 leading-relaxed font-light text-sm">
-                    Monitoreo avanzado en tiempo real y control de acceso inteligente. Protección total y vigilancia constante para tu tranquilidad.
-                </p>
+                <p class="text-gray-400 leading-relaxed font-light text-sm">Monitoreo avanzado en tiempo real y control de acceso inteligente. Protección total y vigilancia constante.</p>
             </div>
 
             <div data-aos="fade-up" data-aos-delay="300" class="glass-panel p-10 rounded-3xl group hover:border-purple-500/50 transition-all duration-300">
                 <div class="text-purple-400 mb-8 tech-icon font-bold text-4xl">♫</div>
                 <h4 class="text-2xl font-bold mb-4 tracking-tight text-white">Entretenimiento</h4>
-                <p class="text-gray-400 leading-relaxed font-light text-sm">
-                    Integración de audio y video de alta fidelidad. Salas de cine y audio multi-room controlados fácilmente desde un solo lugar.
-                </p>
+                <p class="text-gray-400 leading-relaxed font-light text-sm">Integración de audio y video de alta fidelidad. Salas de cine y audio multi-room controlados fácilmente.</p>
             </div>
 
             <div data-aos="fade-up" class="glass-panel p-10 rounded-3xl group hover:border-orange-500/50 transition-all duration-300">
                 <div class="text-orange-400 mb-8 tech-icon font-bold text-4xl">⚙</div>
                 <h4 class="text-2xl font-bold mb-4 tracking-tight text-white">Motores y Accesos</h4>
-                <p class="text-gray-400 leading-relaxed font-light text-sm">
-                    Automatización de persianas, cortinas y portones. Control seguro y silencioso de todos tus accesos desde tu smartphone.
-                </p>
+                <p class="text-gray-400 leading-relaxed font-light text-sm">Automatización de persianas, cortinas y portones. Control seguro y silencioso desde tu smartphone.</p>
             </div>
 
             <div data-aos="fade-up" data-aos-delay="150" class="glass-panel p-10 rounded-3xl group hover:border-green-500/50 transition-all duration-300">
                 <div class="text-green-400 mb-8 tech-icon font-bold text-4xl">⚡</div>
                 <h4 class="text-2xl font-bold mb-4 tracking-tight text-white">Energía Inteligente</h4>
-                <p class="text-gray-400 leading-relaxed font-light text-sm">
-                    Sistemas de gestión energética para un consumo sustentable. Monitorea y optimiza el gasto eléctrico de tu casa automáticamente.
-                </p>
+                <p class="text-gray-400 leading-relaxed font-light text-sm">Sistemas de gestión energética para un consumo sustentable. Monitorea y optimiza el gasto automáticamente.</p>
             </div>
 
             <div data-aos="fade-up" data-aos-delay="300" class="glass-panel p-10 rounded-3xl group hover:border-zinc-500/50 transition-all duration-300">
                 <div class="text-zinc-400 mb-8 tech-icon font-bold text-4xl"></div>
                 <h4 class="text-2xl font-bold mb-4 tracking-tight text-white">Ecosistema Central</h4>
-                <p class="text-gray-400 leading-relaxed font-light text-sm">
-                    Todas las funciones integradas en una interfaz intuitiva. El control absoluto de tu espacio, disponible desde cualquier lugar del mundo.
-                </p>
+                <p class="text-gray-400 leading-relaxed font-light text-sm">Todas las funciones integradas en una interfaz intuitiva. El control absoluto disponible desde cualquier lugar.</p>
             </div>
         </div>
     </section>
@@ -158,13 +125,7 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 1200,
-            easing: 'ease-out-cubic',
-            once: false,
-            mirror: true,
-            offset: 100
-        });
+        AOS.init({ duration: 1200, easing: 'ease-out-cubic', once: false, mirror: true, offset: 100 });
     </script>
 </body>
 </html>
