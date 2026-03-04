@@ -1,5 +1,5 @@
 <style>
-    /* 1. Animación del Logo: Azul Aura a Morado Aura */
+    /* 1. Animación del Logo */
     .aura-brand-anim {
         background: linear-gradient(90deg, #60a5fa, #c084fc, #60a5fa);
         background-size: 200% auto;
@@ -17,12 +17,19 @@
         to { background-position: 200% center; }
     }
 
-    /* 2. Estructura Matemática: 3 Columnas */
+    /* 2. Estructura del Nav */
     #main-nav {
         display: grid;
         grid-template-columns: 1fr auto 1fr;
         align-items: center;
-        /* Quitamos el transition inicial para que no parpadee al entrar */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        /* Estilo inicial */
+        padding: 24px 20px;
+        background: transparent;
     }
 
     /* 3. Menús del Centro */
@@ -41,11 +48,9 @@
         transition: color 0.2s;
     }
 
-    .menu-item:hover {
-        color: #ffffff;
-    }
+    .menu-item:hover { color: #ffffff; }
 
-    /* 4. Botón a la derecha */
+    /* 4. Botón de contacto */
     .btn-contact {
         font-size: 10px;
         font-weight: 700;
@@ -66,8 +71,7 @@
     }
 </style>
 
-<nav id="main-nav" class="fixed w-full z-50 py-6 px-6 md:px-20 bg-transparent">
-    
+<nav id="main-nav">
     <div class="flex justify-start">
         <a href="index.html" class="aura-brand-anim">AURA</a>
     </div>
@@ -80,13 +84,12 @@
 
     <div class="flex justify-end">
         <a href="https://wa.me/9861197993" class="btn-contact">
-            CONTÁCTANOSx
+            CONTÁCTANOS
         </a>
     </div>
 </nav>
 
 <script>
-    // Función de control de scroll
     function checkScroll() {
         const nav = document.getElementById('main-nav');
         if (!nav) return;
@@ -104,12 +107,12 @@
         }
     }
 
-    // Activa la transición DESPUÉS de la carga inicial para evitar el "efecto feo"
+    // Activa la transición después de la carga para suavidad
     setTimeout(() => {
         const nav = document.getElementById('main-nav');
         if(nav) nav.style.transition = "all 0.3s ease";
     }, 100);
 
     window.addEventListener('scroll', checkScroll);
-    checkScroll(); // Ejecución inmediata al cargar
-</script> 
+    checkScroll();
+</script>
