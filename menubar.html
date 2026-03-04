@@ -1,11 +1,6 @@
 <nav id="main-nav">
     <a href="index.html" class="aura-brand-anim">AURA</a>
     
-    <div class="menu-toggle" id="mobile-menu">
-        <span></span>
-        <span></span>
-    </div>
-
     <div class="nav-links" id="nav-links">
         <a href="index.html" class="menu-item">Inici</a>
         <a href="#productos" class="menu-item">Productos</a>
@@ -15,7 +10,13 @@
         <a href="nosotros.html" class="menu-item">Nosotros</a>
     </div>
     
-    <a href="https://wa.me/9861197993" class="btn-contact">Contáctanos</a>
+    <div class="nav-actions">
+        <a href="https://wa.me/9861197993" class="btn-contact">Contáctanos</a>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
 </nav>
 
 <style>
@@ -30,7 +31,8 @@
         position: fixed;
         top: 0; left: 0; width: 100%;
         z-index: 1000;
-        padding: 12px 3%; /* Padding reducido para ganar espacio */
+        padding: 0 4%; /* Padding lateral fijo */
+        height: 80px; /* Altura fija para evitar saltos */
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -48,80 +50,75 @@
         -webkit-text-fill-color: transparent;
         animation: aura-flow 5s linear infinite;
         font-weight: 900;
-        font-size: 1.3rem;
+        font-size: 1.5rem;
         text-decoration: none;
-        z-index: 1100;
-        flex-shrink: 0;
+        flex-shrink: 0; /* Prohibido encogerse */
     }
 
-    /* NAV LINKS: MAGIA PARA QUE QUEDE EN UNA FILA */
+    /* CONTENEDOR DE LINKS: FORZADO A UNA FILA */
     .nav-links {
         display: flex;
-        justify-content: center;
+        flex-direction: row !important; /* Siempre fila */
         align-items: center;
-        gap: clamp(0.5rem, 1.5vw, 1.5rem); /* Espaciado inteligente que se encoge */
-        flex-grow: 1;
-        margin: 0 10px;
+        justify-content: center;
+        gap: clamp(10px, 1.8vw, 25px); /* Espacio dinámico que se adapta al ancho */
+        flex-wrap: nowrap !important; /* PROHIBIDO HACER 2 FILAS */
+        margin: 0 20px;
     }
 
     .menu-item {
-        font-size: clamp(8px, 0.8vw, 10px); /* El texto se hace más pequeño antes de romperse */
+        font-size: clamp(9px, 0.7vw, 11px); /* Fuente fluida según el monitor */
         text-transform: uppercase;
         font-weight: 700;
         letter-spacing: 0.15em;
         color: rgba(255, 255, 255, 0.5);
         text-decoration: none;
-        white-space: nowrap; /* Prohibido saltar de línea */
-        transition: all 0.3s ease;
+        white-space: nowrap; /* Evita que las palabras se corten */
+        transition: color 0.3s ease;
     }
 
-    .menu-toggle { display: none; } /* Oculto por defecto */
+    .menu-item:hover { color: #fff; }
+
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        flex-shrink: 0;
+    }
 
     .btn-contact {
-        font-size: clamp(8px, 0.7vw, 10px);
-        padding: 0.6rem 1.2rem;
+        font-size: 10px;
+        font-weight: 800;
+        padding: 0.7rem 1.5rem;
         border-radius: 50px;
         color: white;
         text-decoration: none;
         background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
         border: 1px solid rgba(255, 255, 255, 0.2);
         white-space: nowrap;
-        flex-shrink: 0;
     }
 
-    /* CUANDO DE PLANO NO CABE (Móviles pequeños) */
-    @media (max-width: 850px) {
+    .menu-toggle { display: none; }
+
+    /* RESPONSIVO: Solo cuando el monitor es realmente pequeño (Tablets/Móvil) */
+    @media (max-width: 1100px) {
         .nav-links {
             position: fixed;
             top: 0; right: -100%;
             width: 100%; height: 100vh;
             background: var(--glass-bg);
-            flex-direction: column;
-            gap: 2rem;
+            flex-direction: column !important; /* Aquí sí permitimos columna para el menú móvil */
+            gap: 2.5rem;
             margin: 0;
             backdrop-filter: blur(30px);
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: 0.4s ease;
         }
 
         .nav-links.active { right: 0; }
-
-        .menu-item { font-size: 14px; letter-spacing: 0.3em; }
-
-        .menu-toggle {
-            display: block;
-            cursor: pointer;
-            z-index: 1100;
-        }
-
-        .menu-toggle span {
-            display: block;
-            width: 25px; height: 2px;
-            background: #fff;
-            margin: 5px 0;
-            transition: 0.3s;
-        }
-
-        .btn-contact { display: none; } /* En móvil se oculta el botón para no saturar */
+        .menu-item { font-size: 16px; }
+        .menu-toggle { display: block; cursor: pointer; }
+        .menu-toggle span { display: block; width: 25px; height: 2px; background: #fff; margin: 5px 0; }
+        .btn-contact { display: none; }
     }
 
     @keyframes aura-flow { to { background-position: 200% center; } }
@@ -132,13 +129,10 @@
     const navLinks = document.getElementById('nav-links');
 
     menuToggle.addEventListener('click', () => {
-        menuToggle.classList.toggle('open');
         navLinks.classList.toggle('active');
     });
 
     document.querySelectorAll('.menu-item').forEach(item => {
-        item.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-        });
+        item.addEventListener('click', () => navLinks.classList.remove('active'));
     });
 </script>
