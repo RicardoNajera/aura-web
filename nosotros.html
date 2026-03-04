@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esencia | AURA</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --aura-blue: #60a5fa; --aura-purple: #c084fc; }
         
-        /* Scroll Snap de alta precisión */
+        /* Imán de scroll perfecto */
         html { 
             scroll-snap-type: y mandatory; 
             scroll-behavior: smooth; 
@@ -21,39 +20,30 @@
             font-family: 'Inter', sans-serif; 
             color: #fff; 
             margin: 0;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        /* Secciones de impacto total */
         section {
             height: 100vh;
-            width: 100%;
             scroll-snap-align: start;
-            scroll-snap-stop: always; /* Obliga a detenerse, no permite saltarse secciones */
+            scroll-snap-stop: always;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
         }
 
-        /* Fondo dinámico profundo */
-        .deep-bg {
-            position: fixed;
-            inset: 0;
-            background: 
-                radial-gradient(circle at 50% 50%, rgba(20, 20, 25, 1) 0%, rgba(0, 0, 0, 1) 100%);
-            z-index: -2;
+        /* Estilo base de los elementos que van a "nacer" */
+        .reveal {
+            opacity: 0;
+            transform: translateY(-50px); /* Siempre vienen de arriba */
+            transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
-        .aura-portal {
-            position: absolute;
-            width: 40vw;
-            height: 40vw;
-            background: radial-gradient(circle, var(--aura-blue) 0%, transparent 70%);
-            filter: blur(100px);
-            opacity: 0.15;
-            z-index: -1;
-            border-radius: 50%;
+        /* Clase que activa el efecto cuando el bloque está centrado */
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .aura-text-gradient {
@@ -66,129 +56,115 @@
 
         @keyframes shine { to { background-position: 300% center; } }
 
-        /* Indicador lateral de navegación */
-        .nav-dots {
-            position: fixed;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .dot {
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.2);
+        /* Fondo de luz etéreo */
+        .glow-portal {
+            position: absolute;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, var(--aura-blue) 0%, transparent 70%);
+            filter: blur(120px);
+            opacity: 0.1;
+            z-index: -1;
             border-radius: 50%;
-            transition: all 0.5s ease;
         }
 
-        /* Ocultar scrollbar */
         ::-webkit-scrollbar { display: none; }
-
-        .focus-container {
-            text-align: center;
-            max-width: 1000px;
-            padding: 2rem;
-        }
     </style>
 </head>
 <body class="antialiased">
-    <div class="deep-bg"></div>
 
-    <nav class="fixed w-full z-50 py-10 px-6 md:px-20 flex justify-between items-center pointer-events-none">
-        <a href="index.html" class="text-2xl font-black tracking-tighter aura-text-gradient italic pointer-events-auto">AURA</a>
-        <a href="https://wa.me/9861197993" class="text-[9px] uppercase tracking-[0.4em] font-bold border border-white/10 px-6 py-2 rounded-full backdrop-blur-md pointer-events-auto hover:bg-white hover:text-black transition duration-700">Inquire</a>
+    <nav class="fixed w-full z-50 py-10 px-6 md:px-20 flex justify-between items-center bg-black/5 backdrop-blur-sm">
+        <a href="index.html" class="text-2xl font-black tracking-tighter aura-text-gradient italic">AURA</a>
+        <div class="h-[1px] w-12 bg-white/20"></div>
     </nav>
-
-    <div class="nav-dots hidden md:flex">
-        <div class="dot" style="background: var(--aura-blue); height: 20px; border-radius: 10px;"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-    </div>
 
     <main>
         <section>
-            <div class="aura-portal" style="background: radial-gradient(circle, var(--aura-blue) 0%, transparent 70%);"></div>
-            <div class="text-center" data-aos="fade-down" data-aos-duration="2000">
+            <div class="reveal text-center">
                 <h1 class="text-[12vw] leading-none font-black tracking-tighter aura-text-gradient italic">ESENCIA</h1>
-                <p class="text-[10px] tracking-[1.2em] uppercase text-zinc-500 mt-6">Aura Automation Laboratory</p>
+                <p class="text-[10px] tracking-[1.2em] uppercase text-zinc-500 mt-6">Aura Laboratory</p>
             </div>
         </section>
 
         <section>
-            <div class="focus-container" data-aos="fade-down">
-                <span class="text-blue-500 font-bold tracking-[0.5em] text-[10px] uppercase block mb-8">01. El Sentido</span>
-                <h2 class="text-5xl md:text-8xl font-bold mb-10 tracking-tighter">La tecnología <br>debe ser <span class="text-zinc-600">invisible.</span></h2>
-                <p class="text-xl md:text-2xl text-zinc-400 font-light leading-relaxed">
-                    Si tienes que aprender a usarla, hemos fallado. <br>AURA se anticipa, no espera órdenes.
-                </p>
+            <div class="reveal text-center max-w-4xl px-6">
+                <span class="text-blue-500 font-bold tracking-[0.5em] text-[10px] uppercase block mb-8">01. Filosofía</span>
+                <h2 class="text-5xl md:text-8xl font-bold mb-10 tracking-tighter italic">Tecnología <br><span class="text-zinc-600">Invisible.</span></h2>
+                <p class="text-xl text-zinc-400 font-light leading-relaxed">Si tienes que pensar en ella, no es inteligente.</p>
             </div>
         </section>
 
         <section>
-            <div class="aura-portal" style="background: radial-gradient(circle, var(--aura-blue) 0%, transparent 70%); opacity: 0.1;"></div>
-            <div class="focus-container" data-aos="fade-down">
+            <div class="glow-portal" style="background: radial-gradient(circle, var(--aura-blue) 0%, transparent 70%);"></div>
+            <div class="reveal text-center px-6">
                 <span class="text-blue-400 font-bold tracking-[0.5em] text-[10px] uppercase block mb-10">02. El Motor</span>
-                <h2 class="text-7xl md:text-[10rem] font-black aura-text-gradient mb-12 tracking-tighter italic">MISIÓN</h2>
-                <p class="text-2xl md:text-4xl text-white font-light leading-tight px-4">
-                    "Elevar la experiencia humana <br>mediante la <span class="underline decoration-blue-500 underline-offset-8">automatización imperceptible</span>."
+                <h2 class="text-7xl md:text-[10rem] font-black aura-text-gradient mb-8 tracking-tighter">MISIÓN</h2>
+                <p class="text-2xl md:text-4xl text-white font-light max-w-3xl mx-auto">
+                    Automatización que <span class="underline decoration-blue-500 underline-offset-8">respira contigo</span>.
                 </p>
             </div>
         </section>
 
         <section>
-            <div class="aura-portal" style="background: radial-gradient(circle, var(--aura-purple) 0%, transparent 70%); opacity: 0.1;"></div>
-            <div class="focus-container" data-aos="fade-down">
+            <div class="glow-portal" style="background: radial-gradient(circle, var(--aura-purple) 0%, transparent 70%);"></div>
+            <div class="reveal text-center px-6">
                 <span class="text-purple-400 font-bold tracking-[0.5em] text-[10px] uppercase block mb-10">03. El Destino</span>
-                <h2 class="text-7xl md:text-[10rem] font-black aura-text-gradient mb-12 tracking-tighter italic">VISIÓN</h2>
-                <p class="text-2xl md:text-4xl text-white font-light leading-tight px-4">
-                    "Definir el estándar de vida <br>del <span class="underline decoration-purple-500 underline-offset-8">siglo XXII</span>, disponible hoy mismo."
+                <h2 class="text-7xl md:text-[10rem] font-black aura-text-gradient mb-8 tracking-tighter">VISIÓN</h2>
+                <p class="text-2xl md:text-4xl text-white font-light max-w-3xl mx-auto">
+                    Ser el sistema operativo de <span class="underline decoration-purple-500 underline-offset-8">la armonía humana</span>.
                 </p>
             </div>
         </section>
 
-        <section class="bg-zinc-950/30">
-            <div class="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div class="p-10 border border-white/5 rounded-3xl backdrop-blur-xl" data-aos="fade-down" data-aos-delay="100">
-                    <div class="text-blue-500 font-black text-2xl mb-4">01</div>
-                    <h3 class="text-xl font-bold mb-4 uppercase tracking-widest">Pureza</h3>
-                    <p class="text-zinc-500 text-sm font-light">Diseños que respetan la arquitectura y el silencio visual.</p>
+        <section class="bg-zinc-950/40">
+            <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-16 w-full max-w-6xl px-10">
+                <div class="text-center">
+                    <div class="text-blue-500 font-black text-2xl mb-4 italic">01</div>
+                    <h3 class="font-bold uppercase tracking-widest text-xs mb-4">Pureza</h3>
+                    <p class="text-zinc-500 text-xs font-light">Diseño que desaparece.</p>
                 </div>
-                <div class="p-10 border border-white/5 rounded-3xl backdrop-blur-xl" data-aos="fade-down" data-aos-delay="300">
-                    <div class="text-purple-500 font-black text-2xl mb-4">02</div>
-                    <h3 class="text-xl font-bold mb-4 uppercase tracking-widest">Sigilo</h3>
-                    <p class="text-zinc-500 text-sm font-light">Tu privacidad no es una opción, es la arquitectura del sistema.</p>
+                <div class="text-center">
+                    <div class="text-purple-500 font-black text-2xl mb-4 italic">02</div>
+                    <h3 class="font-bold uppercase tracking-widest text-xs mb-4">Sigilo</h3>
+                    <p class="text-zinc-500 text-xs font-light">Privacidad por diseño.</p>
                 </div>
-                <div class="p-10 border border-white/5 rounded-3xl backdrop-blur-xl" data-aos="fade-down" data-aos-delay="500">
-                    <div class="text-white font-black text-2xl mb-4">03</div>
-                    <h3 class="text-xl font-bold mb-4 uppercase tracking-widest">Poder</h3>
-                    <p class="text-zinc-500 text-sm font-light">Capacidad de procesamiento ilimitada para una respuesta instantánea.</p>
+                <div class="text-center">
+                    <div class="text-white font-black text-2xl mb-4 italic">03</div>
+                    <h3 class="font-bold uppercase tracking-widest text-xs mb-4">Poder</h3>
+                    <p class="text-zinc-500 text-xs font-light">Respuesta instantánea.</p>
                 </div>
             </div>
         </section>
     </main>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // Configuración crítica para el efecto cíclico perfecto
-        AOS.init({ 
-            duration: 1500, 
-            once: false, // Permite que se repita siempre
-            mirror: true, // Anima mientras haces scroll hacia arriba
-            anchorPlacement: 'center-bottom', // El trigger ocurre cuando el bloque está centrado
-            easing: 'ease-out-expo'
-        });
+    <footer class="fixed bottom-10 w-full text-center pointer-events-none">
+        <p class="text-[8px] tracking-[1em] uppercase text-zinc-700">AURA Essence Laboratory © 2026</p>
+    </footer>
 
-        // Lógica para que las animaciones SIEMPRE se vean de arriba hacia abajo
-        // Forzamos el reinicio de las clases cuando el elemento sale de vista
-        document.addEventListener('aos:out', ({ detail }) => {
-            detail.classList.remove('aos-animate');
+    <script>
+        // ESTA ES LA MAGIA NEGRA PARA QUE NO HAYA ERRORES
+        const observerOptions = {
+            root: null,
+            threshold: 0.6 // Solo dispara cuando el 60% del bloque está visible
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const revealElement = entry.target.querySelector('.reveal');
+                
+                if (entry.isIntersecting) {
+                    // Cuando entra (de arriba o de abajo), aplicamos la clase
+                    revealElement.classList.add('active');
+                } else {
+                    // Cuando sale, quitamos la clase inmediatamente para que se reinicie
+                    revealElement.classList.remove('active');
+                }
+            });
+        }, observerOptions);
+
+        // Le decimos al observador que vigile todas las secciones
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
         });
     </script>
 </body>
