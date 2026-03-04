@@ -4,7 +4,7 @@
         --purple-aura: #c084fc;
     }
 
-    /* 1. Logo Adaptativo */
+    /* 1. Logo Animado AURA */
     .aura-brand-anim {
         background: linear-gradient(90deg, var(--blue-aura), var(--purple-aura), var(--blue-aura));
         background-size: 200% auto;
@@ -13,175 +13,145 @@
         animation: aura-flow 4s linear infinite;
         font-weight: 900;
         font-style: italic;
-        font-size: clamp(1.2rem, 5vw, 1.5rem);
+        font-size: 1.5rem;
         letter-spacing: -0.05em;
         text-shadow: 0 0 15px rgba(96, 165, 250, 0.2);
-        z-index: 1100;
         text-decoration: none;
     }
 
     @keyframes aura-flow { to { background-position: 200% center; } }
 
-    /* 2. Navegador Principal */
+    /* 2. Contenedor Maestro Adaptativo */
     #main-nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         position: fixed;
         top: 0; left: 0; width: 100%;
         z-index: 1000;
-        padding: 24px 5%;
+        padding: 20px 5%;
         background: transparent;
+        display: flex;
+        flex-direction: column; /* Apilado por defecto para móvil */
+        gap: 20px;
         box-sizing: border-box;
+        backdrop-filter: blur(10px);
     }
 
-    /* 3. Links para Escritorio (Se ocultan en móvil) */
-    .nav-links-wrapper {
+    /* 3. Primer Renglón: Logo y Botón */
+    .nav-top-row {
         display: flex;
-        gap: 2.5rem;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    /* 4. Segundo Renglón: Menú de Navegación */
+    .nav-bottom-row {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        width: 100%;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .menu-item {
         font-size: 10px;
         text-transform: uppercase;
         font-weight: 700;
-        letter-spacing: 0.3em;
+        letter-spacing: 0.2em;
         color: rgba(255, 255, 255, 0.6);
         text-decoration: none;
-        transition: all 0.3s ease;
+        transition: color 0.3s ease;
+        white-space: nowrap;
     }
 
     .menu-item:hover { color: #fff; }
 
-    /* 4. Botón de Contacto (Se adapta o mueve en móvil) */
+    /* 5. Botón de Contacto */
     .btn-contact {
-        font-size: 10px;
+        font-size: 9px;
         font-weight: 800;
         text-transform: uppercase;
-        letter-spacing: 0.2em;
+        letter-spacing: 0.1em;
         border: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 0.8rem 1.8rem;
+        padding: 0.6rem 1.2rem;
         border-radius: 9999px;
         color: white;
         text-decoration: none;
         background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
-        transition: all 0.4s ease;
-        white-space: nowrap;
+        transition: all 0.3s ease;
     }
 
-    /* 5. Icono Hamburguesa (Solo visible en móvil) */
-    .mobile-toggle {
-        display: none;
-        flex-direction: column;
-        gap: 5px;
-        cursor: pointer;
-        z-index: 1200;
-    }
-
-    .mobile-toggle span {
-        width: 25px;
-        height: 2px;
+    .btn-contact:hover {
         background: white;
-        transition: 0.3s;
+        color: black;
     }
 
-    /* 6. Menú Desplegable Móvil */
-    #mobile-menu {
-        position: fixed;
-        top: 0; right: -100%;
-        width: 100%; height: 100vh;
-        background: rgba(0, 0, 0, 0.95);
-        backdrop-filter: blur(25px);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 3rem;
-        transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-        z-index: 1150;
-    }
+    /* 6. REGLAS DE ADAPTABILIDAD (Desktop) */
+    @media (min-width: 850px) {
+        #main-nav {
+            flex-direction: row; /* Una sola línea en pantallas grandes */
+            justify-content: space-between;
+            padding: 24px 5%;
+            gap: 0;
+        }
 
-    #mobile-menu.active { right: 0; }
+        .nav-top-row {
+            width: auto;
+        }
 
-    /* BREAKPOINTS: Ajuste de Pantalla */
-    @media (max-width: 900px) {
-        .nav-links-wrapper { display: none; } /* Oculta el menú central */
-        .mobile-toggle { display: flex; }    /* Muestra hamburguesa */
-        #main-nav .btn-contact { display: none; } /* Mueve el botón al menú desplegable */
+        .nav-bottom-row {
+            width: auto;
+            border-top: none;
+            padding-top: 0;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            gap: 2.5rem;
+        }
+
+        .btn-contact {
+            font-size: 10px;
+            padding: 0.8rem 2rem;
+        }
     }
-    
-    /* Animación hamburguesa a X */
-    .mobile-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .mobile-toggle.open span:nth-child(2) { opacity: 0; }
-    .mobile-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 </style>
 
 <nav id="main-nav">
-    <a href="index.html" class="aura-brand-anim">AURA</a>
+    <div class="nav-top-row">
+        <a href="index.html" class="aura-brand-anim">AURA</a>
+        <a href="https://wa.me/9861197993" class="btn-contact">Contáctanos</a>
+    </div>
     
-    <div class="nav-links-wrapper">
+    <div class="nav-bottom-row">
         <a href="index.html" class="menu-item">Home</a>
         <a href="index.html#servicios" class="menu-item">Sistemas</a>
         <a href="nosotros.html" class="menu-item">Concepto</a>
     </div>
-
-    <a href="https://wa.me/9861197993" class="btn-contact">Contáctanos</a>
-
-    <div class="mobile-toggle" id="menu-btn">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
 </nav>
-
-<div id="mobile-menu">
-    <a href="index.html" class="menu-item" style="font-size: 1.2rem;">Home</a>
-    <a href="index.html#servicios" class="menu-item" style="font-size: 1.2rem;">Sistemas</a>
-    <a href="nosotros.html" class="menu-item" style="font-size: 1.2rem;">Concepto</a>
-    <a href="https://wa.me/9861197993" class="btn-contact" style="font-size: 1rem; margin-top: 20px;">Contáctanos</a>
-</div>
 
 <script>
     (function() {
         const nav = document.getElementById('main-nav');
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const links = document.querySelectorAll('#mobile-menu a');
-
-        // Scroll dinámico
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 40) {
-                nav.style.background = "rgba(0, 0, 0, 0.85)";
-                nav.style.padding = "15px 5%";
-                nav.style.borderBottom = "1px solid rgba(255,255,255,0.1)";
+        
+        function handleScroll() {
+            if (window.scrollY > 30) {
+                nav.style.background = "rgba(0, 0, 0, 0.9)";
+                nav.style.paddingTop = window.innerWidth > 850 ? "15px" : "12px";
+                nav.style.paddingBottom = window.innerWidth > 850 ? "15px" : "12px";
+                nav.style.gap = window.innerWidth > 850 ? "0" : "10px";
             } else {
                 nav.style.background = "transparent";
-                nav.style.padding = "24px 5%";
-                nav.style.borderBottom = "none";
+                nav.style.paddingTop = window.innerWidth > 850 ? "24px" : "20px";
+                nav.style.paddingBottom = window.innerWidth > 850 ? "24px" : "20px";
+                nav.style.gap = window.innerWidth > 850 ? "0" : "20px";
             }
-        });
+        }
 
-        // Abrir/Cerrar menú
-        menuBtn.addEventListener('click', () => {
-            menuBtn.classList.toggle('open');
-            mobileMenu.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
-        });
-
-        // Cerrar al clickear un link
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                menuBtn.classList.remove('open');
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-        });
-
-        // Transición suave
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('resize', handleScroll);
+        handleScroll();
+        
+        // Suavizado de entrada
         setTimeout(() => nav.style.transition = "all 0.4s ease", 100);
     })();
 </script>
