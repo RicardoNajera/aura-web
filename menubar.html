@@ -1,51 +1,92 @@
 <style>
-    .aura-logo-static {
+    /* 1. Reset y Estilos Base del Menú */
+    #main-nav {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr; /* Tres columnas: logo, links (centro), botón */
+        align-items: center;
+        transition: background 0.2s ease, padding 0.2s ease;
+    }
+
+    /* 2. Logo AURA (Azul a Morado) */
+    .aura-brand {
         background: linear-gradient(90deg, #60a5fa, #c084fc);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         font-weight: 900;
+        font-style: italic;
+        font-size: 1.5rem;
+        letter-spacing: -0.05em;
     }
-    /* Sin transiciones lentas ni efectos raros */
-    .nav-link {
-        color: #9ca3af;
-        text-transform: uppercase;
+
+    /* 3. Links del Centro (Home, Sistemas, Concepto) */
+    .nav-links-wrapper {
+        display: flex;
+        gap: 2.5rem; /* Espacio entre los 3 menús */
+    }
+
+    .menu-item {
         font-size: 10px;
-        letter-spacing: 0.3em;
+        text-transform: uppercase;
         font-weight: 700;
+        letter-spacing: 0.3em;
+        color: #6b7280; /* Gris discreto */
+        text-decoration: none;
         transition: color 0.2s;
     }
-    .nav-link:hover { color: #fff; }
+
+    .menu-item:hover {
+        color: #ffffff; /* Blanco puro al pasar el mouse */
+    }
+
+    /* 4. Botón de la derecha */
+    .btn-contact {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 0.75rem 2rem;
+        border-radius: 9999px;
+        color: white;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .btn-contact:hover {
+        background: white;
+        color: black;
+    }
 </style>
 
-<nav id="main-nav" class="fixed w-full z-50 py-6 px-6 md:px-20 grid grid-cols-3 items-center bg-transparent">
+<nav id="main-nav" class="fixed w-full z-50 py-6 px-6 md:px-20 bg-transparent">
     
     <div class="flex justify-start">
-        <a href="index.html" class="text-2xl tracking-tighter aura-logo-static italic">AURA</a>
+        <a href="index.html" class="aura-brand">AURA</a>
     </div>
     
-    <div class="flex justify-center space-x-10">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="index.html#servicios" class="nav-link">Sistemas</a>
-        <a href="nosotros.html" class="nav-link">Concepto</a>
+    <div class="nav-links-wrapper">
+        <a href="index.html" class="menu-item">Home</a>
+        <a href="index.html#servicios" class="menu-item">Sistemas</a>
+        <a href="nosotros.html" class="menu-item">Concepto</a>
     </div>
 
     <div class="flex justify-end">
-        <a href="https://wa.me/9861197993" class="text-[10px] font-bold uppercase tracking-widest border border-white/20 px-8 py-3 rounded-full hover:bg-white hover:text-black transition-colors">
+        <a href="https://wa.me/9861197993" class="btn-contact">
             CONTÁCTANOS
         </a>
     </div>
 </nav>
 
 <script>
-    // Solo cambia el fondo a negro sólido al bajar, sin efectos de blur pesados
+    // Control de scroll simple: cambia el fondo a negro cuando bajas
     window.addEventListener('scroll', function() {
         const nav = document.getElementById('main-nav');
-        if (window.scrollY > 50) {
-            nav.style.backgroundColor = "#000";
+        if (window.scrollY > 30) {
+            nav.style.background = "rgba(0, 0, 0, 0.9)";
             nav.style.paddingTop = "15px";
             nav.style.paddingBottom = "15px";
         } else {
-            nav.style.backgroundColor = "transparent";
+            nav.style.background = "transparent";
             nav.style.paddingTop = "24px";
             nav.style.paddingBottom = "24px";
         }
