@@ -3,424 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA | Soluciones Profesionales en Automatización y Domótica</title>
+    <title>AURA | Engineering & Automation Systems</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <style>
         :root {
-            --aura-primary: #2563eb; /* Azul corporativo profesional */
-            --aura-light: #60a5fa;
-            --dark-bg: #050508;
-            --card-bg: rgba(20, 20, 25, 0.6);
-            --card-border: rgba(255, 255, 255, 0.08);
+            --accent: #2563eb;
+            --bg-deep: #050508;
+            --text-main: #f8fafc;
+            --line-color: rgba(255, 255, 255, 0.05);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--dark-bg);
-            color: #f8fafc;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow-x: hidden; /* Evita scroll horizontal que rompe la web */
-            line-height: 1.6;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            opacity: 0; /* Evita parpadeo inicial */
+            transition: opacity 0.6s ease-in-out;
         }
 
-        /* --- HERO CON VIDEO ADAPTATIVO --- */
-        .hero-video-wrapper {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            overflow: hidden;
-            background-color: #000; /* Color de respaldo */
+        body.is-ready { opacity: 1; }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* Fondo Técnico de Cuadrícula */
+        .tech-bg {
+            background-image: 
+                linear-gradient(var(--line-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--line-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-attachment: fixed;
         }
 
-        .hero-video-wrapper video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Asegura que el video llene la pantalla sin deformarse */
-            object-position: center;
-        }
-
-        /* Capa oscura sobre el video para garantizar lectura del texto */
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(5,5,8,0.4) 0%, rgba(5,5,8,0.9) 100%);
-            z-index: -1;
-        }
-
-        /* --- TARJETAS DE SERVICIO (RESPONSIVAS Y ELEGANTES) --- */
-        .pro-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--card-border);
-            border-radius: 1rem;
-            padding: 2.5rem;
-            transition: all 0.4s ease;
-            height: 100%;
-            display: flex;
-            flex-col;
-        }
-
-        .pro-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--aura-light);
-            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.15);
-            background: rgba(30, 30, 40, 0.8);
-        }
-
-        .icon-wrapper {
-            width: 56px;
-            height: 56px;
-            background: rgba(37, 99, 235, 0.1);
-            border: 1px solid rgba(37, 99, 235, 0.2);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.75rem;
-            margin-bottom: 1.5rem;
-            color: var(--aura-light);
-        }
-
-        /* --- TIPOGRAFÍA FLUIDA (Se adapta al celular y PC) --- */
-        .fluid-title {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            line-height: 1.1;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-        }
-
-        .fluid-subtitle {
-            font-size: clamp(1.8rem, 3vw, 2.5rem);
-            font-weight: 700;
-        }
-
-        /* --- BOTONES PROFESIONALES --- */
-        .btn-solid {
-            background-color: var(--aura-primary);
-            color: #fff;
-            padding: 1rem 2.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-size: 0.875rem;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid transparent;
-        }
-
-        .btn-solid:hover {
-            background-color: #1d4ed8;
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            color: #fff;
-            padding: 1rem 2.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            border: 1px solid rgba(255,255,255,0.3);
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-outline:hover {
-            background-color: rgba(255,255,255,0.1);
-            border-color: #fff;
-        }
-
-        /* Utilidad para alinear íconos de check */
-        .check-list li {
+        /* Estética Flotante (Sin recuadros cerrados) */
+        .floating-service {
             position: relative;
             padding-left: 2rem;
-            margin-bottom: 1rem;
-            color: #cbd5e1;
+            border-left: 1px solid rgba(37, 99, 235, 0.2);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .check-list li::before {
-            content: "✓";
+
+        .floating-service:hover {
+            border-left: 1px solid var(--accent);
+            transform: translateX(15px);
+        }
+
+        .floating-service::before {
+            content: '';
             position: absolute;
-            left: 0;
+            left: -5px;
             top: 0;
-            color: var(--aura-light);
-            font-weight: bold;
+            width: 9px;
+            height: 9px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .floating-service:hover::before { opacity: 1; }
+
+        /* Hero Adaptativo (Anti-Shift) */
+        .hero-viewport {
+            position: relative;
+            width: 100%;
+            height: 100svh; /* Dynamic Viewport Height */
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        /* Botones Estilo Apple / High-End */
+        .btn-aura {
+            background: #ffffff;
+            color: #000000;
+            padding: 14px 32px;
+            border-radius: 2px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-aura:hover {
+            background: var(--accent);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Scanline effect para look de software */
+        .scanline {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: rgba(37, 99, 235, 0.1);
+            z-index: 100;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-100vh); }
+            100% { transform: translateY(100vh); }
         }
     </style>
 </head>
-<body>
+<body class="tech-bg">
+    <div class="scanline"></div>
 
-    <div id="nav-container"></div>
-
-    <header class="relative min-h-[100svh] flex items-center justify-center pt-24 px-6">
-        <div class="hero-video-wrapper">
-            <video autoplay loop muted playsinline>
-                <source src="video-aura.mp4" type="video/mp4">
-            </video>
+    <nav class="fixed top-0 w-full z-50 px-6 py-8 flex justify-between items-center mix-blend-difference">
+        <div class="text-2xl font-extrabold tracking-tighter text-white">AURA</div>
+        <div class="hidden md:flex gap-10 mono text-[10px] tracking-[0.3em] text-slate-400">
+            <a href="#ingenieria" class="hover:text-blue-500 transition">01_INGENIERÍA</a>
+            <a href="#servicios" class="hover:text-blue-500 transition">02_SOLUCIONES</a>
+            <a href="https://wa.me/9861197993" class="text-white hover:text-blue-500 transition">03_CONTACTO</a>
         </div>
-        <div class="video-overlay"></div>
+    </nav>
 
-        <div class="container mx-auto relative z-10">
-            <div class="max-w-4xl" data-aos="fade-up" data-aos-duration="1000">
-                <span class="text-blue-400 font-bold tracking-[0.2em] uppercase text-sm mb-6 block">Tecnología Aplicada al Confort</span>
-                <h1 class="fluid-title mb-6 text-white">
-                    Control absoluto de su entorno.<br>
-                    <span class="text-blue-400">Ingeniería a su medida.</span>
-                </h1>
-                <p class="text-lg md:text-xl text-slate-300 font-light mb-10 max-w-2xl leading-relaxed">
-                    AURA desarrolla e instala soluciones integrales de automatización. Desde iluminación adaptativa y gestión de agua, hasta desarrollo de placas electrónicas y analítica de datos en tiempo real.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="https://wa.me/9861197993" class="btn-solid w-full sm:w-auto">Cotizar Proyecto</a>
-                    <a href="#capacidades" class="btn-outline w-full sm:w-auto">Ver Capacidades</a>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <section id="capacidades" class="py-24 px-6 bg-[#050508]">
-        <div class="container mx-auto">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-                <h2 class="fluid-subtitle mb-4">Iluminación Inteligente y Ambientes</h2>
-                <p class="text-slate-400 text-lg">Optimice el consumo eléctrico y garantice la iluminación perfecta para cada espacio, interior y exterior, de forma completamente automática.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <div class="pro-card" data-aos="fade-up">
-                    <div class="icon-wrapper">💡</div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Sensores de Presencia</h3>
-                    <p class="text-slate-400 text-sm flex-grow">Encendido y apagado de luces mediante detección de movimiento de alta sensibilidad. Garantiza que áreas como pasillos, baños o bodegas solo consuman energía cuando están en uso.</p>
-                </div>
-
-                <div class="pro-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="icon-wrapper">🌇</div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Control Crepuscular</h3>
-                    <p class="text-slate-400 text-sm flex-grow">El sistema monitorea la luz natural. Al oscurecer, activa automáticamente la iluminación de fachadas, jardines o letreros comerciales, y los apaga al amanecer.</p>
-                </div>
-
-                <div class="pro-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="icon-wrapper">🎨</div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Iluminación RGB y Diseño</h3>
-                    <p class="text-slate-400 text-sm flex-grow">Gestión de tiras LED, paneles RGB y luminarias arquitectónicas. Cambie el color, la temperatura y la intensidad para crear escenarios de trabajo, relajación o eventos.</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 px-6 bg-[#08080c] border-y border-slate-800">
-        <div class="container mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                
-                <div data-aos="fade-right">
-                    <h2 class="fluid-subtitle mb-6">Gestión Hidráulica y Motores</h2>
-                    <p class="text-slate-300 text-lg mb-8">
-                        La automatización profesional abarca la operatividad del edificio. Controlamos equipos de fuerza y sistemas de agua para prevenir fallas y garantizar el suministro continuo.
-                    </p>
-                    
-                    <ul class="check-list">
-                        <li>
-                            <strong class="text-white block mb-1">Censado de Niveles de Agua</strong>
-                            Monitoreo en tiempo real del volumen en cisternas y tinacos. Visualice el porcentaje exacto desde su dispositivo.
-                        </li>
-                        <li>
-                            <strong class="text-white block mb-1">Activación de Bombas de Agua</strong>
-                            Llenado automático basado en sensores. El sistema enciende la bomba solo cuando es necesario, protegiendo el equipo contra trabajo en seco.
-                        </li>
-                        <li>
-                            <strong class="text-white block mb-1">Climatización (AC) y Ventilación</strong>
-                            Gestión centralizada de aires acondicionados convencionales o Inverter. Programe horarios o ajuste la temperatura antes de llegar a sus instalaciones.
-                        </li>
-                        <li>
-                            <strong class="text-white block mb-1">Automatización de Motores</strong>
-                            Apertura y cierre de portones eléctricos, persianas, cortinas metálicas y techos retráctiles desde un mando unificado.
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bg-[#0f111a] rounded-2xl p-8 lg:p-12 border border-slate-800 shadow-2xl relative overflow-hidden" data-aos="fade-left">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600 opacity-10 blur-[80px] rounded-full"></div>
-                    <h3 class="text-2xl font-bold text-white mb-6">Panel de Monitoreo</h3>
-                    
-                    <div class="space-y-6">
-                        <div class="bg-slate-900 rounded-lg p-4 border border-slate-800 flex justify-between items-center">
-                            <div>
-                                <p class="text-sm text-slate-400">Nivel de Cisterna Principal</p>
-                                <p class="text-xl font-bold text-blue-400">85% - Óptimo</p>
-                            </div>
-                            <div class="w-12 h-12 rounded-full border-4 border-blue-500 border-t-transparent animate-spin"></div>
-                        </div>
-                        
-                        <div class="bg-slate-900 rounded-lg p-4 border border-slate-800 flex justify-between items-center">
-                            <div>
-                                <p class="text-sm text-slate-400">Bomba Hidroneumática</p>
-                                <p class="text-xl font-bold text-green-400">En Espera (Standby)</p>
-                            </div>
-                            <div class="px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full border border-green-500/30">Auto</div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 px-6 bg-[#050508]">
-        <div class="container mx-auto">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-                <h2 class="fluid-subtitle mb-4">Ingeniería Avanzada, Seguridad y Datos</h2>
-                <p class="text-slate-400 text-lg">Desarrollamos tecnología a la medida de sus procesos. Desde el control de acceso físico hasta la creación de hardware específico para su negocio.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <div class="pro-card" data-aos="fade-up">
-                    <div class="icon-wrapper">🔐</div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Cerraduras Inteligentes</h3>
-                    <p class="text-slate-400 text-sm">Controle quién entra a su propiedad. Instalamos cerraduras con apertura por huella biométrica, código PIN temporal, tarjeta RFID o mediante su celular a distancia. Ideal para oficinas o rentas Airbnb.</p>
-                </div>
-
-                <div class="pro-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="icon-wrapper">📊</div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Analítica y Gráficas a Medida</h3>
-                    <p class="text-slate-400 text-sm">La información es poder. Integramos paneles de control (Dashboards) donde el cliente puede visualizar gráficas de consumo eléctrico, historial de aperturas de puertas, variaciones de temperatura y más.</p>
-                </div>
-
-                <div class="pro-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="icon-wrapper">⚙️</div>
-                    <h3 class="text-xl font-bold mb-3 text-white">Diseño Electrónico (PCB)</h3>
-                    <p class="text-slate-400 text-sm">Si el mercado no tiene lo que usted necesita, nosotros lo fabricamos. Diseñamos e imprimimos placas de circuito (PCB) personalizadas para integrar maquinaria industrial o equipos especializados a la red domótica.</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 px-6 border-t border-slate-800 bg-[#08080c]">
-        <div class="container mx-auto text-center">
-            <h2 class="fluid-subtitle mb-16" data-aos="fade-up">Metodología de Implementación</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 relative">
-                <div class="hidden md:block absolute top-10 left-[15%] right-[15%] h-[1px] border-t border-dashed border-blue-500/50"></div>
-                
-                <div class="relative z-10" data-aos="fade-up">
-                    <div class="w-20 h-20 mx-auto bg-[#0a0f1c] border border-blue-500 text-blue-400 rounded-full flex items-center justify-center text-2xl font-bold mb-6 shadow-[0_0_20px_rgba(37,99,235,0.2)]">1</div>
-                    <h3 class="text-lg font-bold text-white mb-2">Evaluación Técnica</h3>
-                    <p class="text-slate-400 text-sm">Analizamos su infraestructura, escuchamos sus requerimientos y definimos los protocolos y equipos óptimos (Wi-Fi, Zigbee, KNX o cableado estructurado).</p>
-                </div>
-                
-                <div class="relative z-10" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-20 h-20 mx-auto bg-[#0a0f1c] border border-blue-500 text-blue-400 rounded-full flex items-center justify-center text-2xl font-bold mb-6 shadow-[0_0_20px_rgba(37,99,235,0.2)]">2</div>
-                    <h3 class="text-lg font-bold text-white mb-2">Instalación y Configuración</h3>
-                    <p class="text-slate-400 text-sm">Nuestro equipo técnico realiza la instalación de sensores, tableros, cableado, cerraduras o PCBs garantizando la estética y seguridad eléctrica.</p>
-                </div>
-                
-                <div class="relative z-10" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-20 h-20 mx-auto bg-[#0a0f1c] border border-blue-500 text-blue-400 rounded-full flex items-center justify-center text-2xl font-bold mb-6 shadow-[0_0_20px_rgba(37,99,235,0.2)]">3</div>
-                    <h3 class="text-lg font-bold text-white mb-2">Entrega y Capacitación</h3>
-                    <p class="text-slate-400 text-sm">Configuramos las interfaces gráficas en sus celulares o tablets, realizamos pruebas de estrés y capacitamos al personal o residentes en su uso.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-[#030305] border-t border-slate-800 pt-20 pb-8 px-6 relative z-10">
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-            
-            <div class="lg:col-span-2">
-                <h2 class="text-3xl font-extrabold text-white mb-4 tracking-tight">AURA</h2>
-                <p class="text-slate-400 text-sm max-w-md leading-relaxed mb-6">
-                    Soluciones de ingeniería en automatización. Integramos tecnología robusta para maximizar la seguridad, el ahorro energético y el control de sus instalaciones.
-                </p>
-                <div class="flex gap-4">
-                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition">In</a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition">Fb</a>
-                </div>
-            </div>
-            
-            <div>
-                <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Soluciones</h4>
-                <ul class="space-y-2 text-slate-400 text-sm">
-                    <li>Iluminación Inteligente</li>
-                    <li>Sistemas de Bombeo Automático</li>
-                    <li>Cerraduras y Accesos</li>
-                    <li>Diseño de Placas PCB</li>
-                    <li>Tableros de Datos y Gráficas</li>
-                </ul>
-            </div>
-            
-            <div>
-                <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Atención al Cliente</h4>
-                <div class="space-y-3 text-slate-400 text-sm">
-                    <p>Cancún, Quintana Roo, México.</p>
-                    <p class="font-medium text-white">+52 986 119 7993</p>
-                    <p>contacto@aura-automatizacion.com</p>
-                    <a href="https://wa.me/9861197993" class="inline-block mt-4 px-4 py-2 bg-blue-600/20 text-blue-400 rounded-md border border-blue-600/30 hover:bg-blue-600 hover:text-white transition text-xs font-bold uppercase tracking-wide">
-                        Contactar por WhatsApp
-                    </a>
-                </div>
-            </div>
-            
-        </div>
+    <section class="hero-viewport px-6 md:px-20">
+        <video autoplay loop muted playsinline class="video-bg">
+            <source src="video-aura.mp4" type="video/mp4">
+        </video>
         
-        <div class="container mx-auto pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs">
-            <p>&copy; 2026 AURA Automatización. Todos los derechos reservados.</p>
-            <div class="flex gap-4 mt-4 md:mt-0">
-                <a href="#" class="hover:text-slate-300 transition">Aviso de Privacidad</a>
-                <a href="#" class="hover:text-slate-300 transition">Términos y Condiciones</a>
+        <div class="relative z-10 w-full max-w-6xl">
+            <div class="mono text-blue-500 text-sm mb-6 flex items-center gap-3" data-aos="fade-right">
+                <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+                SYSTEM_STATUS: ACTIVE
+            </div>
+            
+            <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter leading-[0.85] mb-8" data-aos="fade-up">
+                AUTOMATIZACIÓN <br>
+                <span class="text-slate-500">A NIVEL DE</span> <br>
+                CÓDIGO Y HARDWARE.
+            </h1>
+            
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mb-12 font-light leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+                No somos instaladores de terceros. Desarrollamos **firmware** propio, diseñamos **placas electrónicas** y creamos el **software** que centraliza el control total de su infraestructura.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-6" data-aos="fade-up" data-aos-delay="400">
+                <a href="https://wa.me/9861197993" class="btn-aura">
+                    SOLICITAR CONSULTORÍA TÉCNICA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="ingenieria" class="py-40 px-6 md:px-20 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+            <div class="sticky top-40">
+                <h2 class="text-4xl font-bold mb-8">Nuestra Capacidad <br>Vertical.</h2>
+                <p class="text-slate-500 mono text-xs leading-loose uppercase tracking-widest">
+                    Controlamos toda la pila tecnológica para garantizar estabilidad y seguridad en entornos críticos como edificios inteligentes, Airbnbs de lujo e industria.
+                </p>
+            </div>
+
+            <div class="space-y-24">
+                <div class="floating-service" data-aos="fade-left">
+                    <span class="mono text-blue-500 text-xs tracking-widest uppercase">Diseño Electrónico</span>
+                    <h3 class="text-2xl font-bold mt-4 mb-4 text-white">Fabricación de PCBs Propias</h3>
+                    <p class="text-slate-400 leading-relaxed font-light">
+                        Desarrollamos hardware específico para necesidades únicas. Desde módulos de control de potencia hasta sensores de grado industrial que el mercado comercial no ofrece.
+                    </p>
+                </div>
+
+                <div class="floating-service" data-aos="fade-left" data-aos-delay="100">
+                    <span class="mono text-blue-500 text-xs tracking-widest uppercase">Arquitectura de Software</span>
+                    <h3 class="text-2xl font-bold mt-4 mb-4 text-white">Ecosistemas de Control</h3>
+                    <p class="text-slate-400 leading-relaxed font-light">
+                        Programamos el cerebro de su propiedad. Interfaces gráficas personalizadas, analítica de datos de consumo y automatización lógica basada en variables reales.
+                    </p>
+                </div>
+
+                <div class="floating-service" data-aos="fade-left" data-aos-delay="200">
+                    <span class="mono text-blue-500 text-xs tracking-widest uppercase">Gestión Crítica</span>
+                    <h3 class="text-2xl font-bold mt-4 mb-4 text-white">Hidráulica y Energía</h3>
+                    <p class="text-slate-400 leading-relaxed font-light">
+                        Monitoreo inteligente de cisternas, automatización de bombeo y optimización climática. El sistema toma decisiones autónomas para proteger sus equipos y reducir costos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black py-24 px-6 md:px-20 border-t border-white/5 relative z-10">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
+            <div>
+                <h2 class="text-4xl font-black mb-6 tracking-tighter">AURA</h2>
+                <p class="text-slate-500 max-w-sm mb-10 font-light">
+                    Soluciones de ingeniería en automatización avanzada. Tecnología robusta para el control absoluto de su entorno.
+                </p>
+                <div class="flex gap-6 mono text-xs">
+                    <a href="#" class="text-blue-500 hover:text-white transition">LINKEDIN</a>
+                    <a href="#" class="text-blue-500 hover:text-white transition">INSTAGRAM</a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h4 class="mono text-[10px] text-slate-600 uppercase tracking-[0.3em] mb-6">Contacto Técnico</h4>
+                    <p class="text-xl font-semibold mb-2">+52 986 119 7993</p>
+                    <p class="text-slate-400 text-sm">contacto@aura-automatizacion.com</p>
+                </div>
+                <div>
+                    <h4 class="mono text-[10px] text-slate-600 uppercase tracking-[0.3em] mb-6">HQ</h4>
+                    <p class="text-slate-400 text-sm">Cancún, Quintana Roo,<br>México.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto mt-32 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="mono text-[9px] text-slate-600 uppercase tracking-widest">
+                © 2026 AURA AUTOMATIZACIÓN. TODOS LOS DERECHOS RESERVADOS.
+            </p>
+            <div class="flex gap-10 mono text-[9px] text-slate-600 uppercase tracking-widest">
+                <a href="#" class="hover:text-white transition">Aviso de Privacidad</a>
+                <a href="#" class="hover:text-white transition">Términos de Servicio</a>
             </div>
         </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Animaciones de Scroll fluidas
-        AOS.init({ 
-            duration: 800, 
-            easing: 'ease-out-cubic',
-            once: true,
-            offset: 50
+        // Inicialización controlada para evitar saltos de pantalla
+        document.addEventListener('DOMContentLoaded', () => {
+            // Espera a que los recursos críticos carguen
+            window.addEventListener('load', () => {
+                document.body.classList.add('is-ready');
+                AOS.init({
+                    duration: 1000,
+                    easing: 'ease-out-quart',
+                    once: true,
+                    offset: 100
+                });
+            });
         });
 
-        // Inyección del menú bar
-        async function loadMenu() {
-            try {
-                const response = await fetch('menubar.html');
-                const html = await response.text();
-                document.getElementById('nav-container').innerHTML = html;
-                
-                // Lógica para oscurecer el menú al hacer scroll (requiere que el menú tenga id="main-nav")
-                const nav = document.getElementById('main-nav');
-                if(nav) {
-                    window.addEventListener('scroll', () => {
-                        if (window.scrollY > 50) {
-                            nav.classList.add('scrolled');
-                        } else {
-                            nav.classList.remove('scrolled');
-                        }
-                    });
-                }
-            } catch (e) { 
-                console.log("Menú no cargado. Asegúrate de probar en un servidor local (Live Server) para que funcione el fetch."); 
+        // Optimización de Scroll para Video
+        let video = document.querySelector('.video-bg');
+        window.addEventListener('scroll', () => {
+            let value = window.scrollY;
+            if (value < window.innerHeight) {
+                video.style.transform = `translate(-50%, calc(-50% + ${value * 0.2}px))`;
             }
-        }
-        
-        // Cargar menú al iniciar
-        document.addEventListener('DOMContentLoaded', loadMenu);
+        });
     </script>
 </body>
 </html>
