@@ -10,7 +10,7 @@
     <style>
         :root { --aura-blue: #60a5fa; --aura-purple: #c084fc; }
         
-        /* Scroll Snapping: El "imán" para que no se sienta error */
+        /* Efecto de Posicionamiento Magnético Suave */
         html { 
             scroll-snap-type: y mandatory; 
             scroll-behavior: smooth; 
@@ -21,18 +21,25 @@
             background: #000; 
             color: #fff; 
             margin: 0;
-            overflow-x: hidden;
         }
 
-        /* Cada bloque es una diapositiva de pantalla completa */
+        /* Secciones de pantalla completa para el imán */
         section {
             height: 100vh;
             scroll-snap-align: start;
-            scroll-snap-stop: always; /* Obliga a detenerse en cada uno */
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            overflow: hidden;
+        }
+
+        .glow-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% -20%, rgba(96, 165, 250, 0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 0% 100%, rgba(192, 132, 252, 0.08) 0%, transparent 40%);
+            z-index: -1;
         }
 
         .aura-text-gradient {
@@ -45,104 +52,121 @@
 
         @keyframes shine { to { background-position: 300% center; } }
 
-        /* Fondo de luz estático */
-        .glow-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% -20%, rgba(96, 165, 250, 0.12) 0%, transparent 50%),
-                        radial-gradient(circle at 0% 100%, rgba(192, 132, 252, 0.08) 0%, transparent 40%);
-            z-index: -1;
+        .scan-line {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--aura-blue), transparent);
+            position: absolute;
+            opacity: 0.2;
+            animation: scan 6s linear infinite;
         }
 
-        /* Ocultar scrollbar para estética limpia */
-        ::-webkit-scrollbar { display: none; }
-        
-        .focus-content {
-            max-width: 1000px;
+        @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
+
+        /* Estilo para los textos de enfoque */
+        .focus-text {
+            max-width: 900px;
             text-align: center;
             padding: 0 2rem;
         }
+
+        /* Quitar scrollbar para limpieza total */
+        ::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="antialiased">
     <div class="glow-bg"></div>
 
-    <nav class="fixed w-full z-50 py-8 px-6 md:px-20 flex justify-between items-center">
+    <nav class="fixed w-full z-50 py-8 px-6 md:px-20 flex justify-between items-center bg-black/10 backdrop-blur-sm">
         <a href="index.html" class="text-2xl font-black tracking-tighter aura-text-gradient italic">AURA</a>
-        <div class="hidden md:flex space-x-12 text-[10px] uppercase tracking-[0.3em] font-bold text-gray-400">
+        <div class="hidden md:flex space-x-12 text-[10px] uppercase tracking-[0.3em] font-bold text-gray-500">
             <a href="index.html" class="hover:text-white transition">Home</a>
             <a href="nosotros.html" class="text-white border-b border-blue-500 pb-1">Concepto</a>
+            <a href="index.html#servicios" class="hover:text-white transition">Sistemas</a>
         </div>
         <a href="https://wa.me/9861197993" class="text-[10px] uppercase tracking-widest border border-white/10 px-8 py-3 rounded-full hover:bg-white hover:text-black transition duration-500">Inquire</a>
     </nav>
 
     <main>
         <section>
-            <div class="text-center" data-aos="zoom-out" data-aos-duration="2000">
-                <h1 class="text-[15vw] leading-none font-black tracking-tighter aura-text-gradient opacity-90 select-none">
-                    AURA
+            <div class="scan-line"></div>
+            <div class="text-center">
+                <h1 data-aos="zoom-out" data-aos-duration="2000" class="text-[15vw] leading-none font-black tracking-tighter aura-text-gradient opacity-90 select-none">
+                    ESENCIA
                 </h1>
-                <p class="mt-8 text-[10px] font-light text-gray-500 tracking-[1.5em] uppercase">The Invisible Intelligence</p>
-            </div>
-        </section>
-
-        <section class="bg-zinc-950/20">
-            <div class="focus-content" data-aos="fade-up" data-aos-duration="1000">
-                <span class="text-blue-500 font-bold tracking-[0.6em] text-[10px] uppercase block mb-10 opacity-50">Propósito Primario</span>
-                <h2 class="text-6xl md:text-9xl font-black mb-10 tracking-tighter italic">MISIÓN</h2>
-                <p class="text-xl md:text-4xl text-gray-300 font-light leading-tight">
-                    "Disolver la complejidad para crear espacios que <span class="text-white">respiran contigo</span>."
+                <p data-aos="fade-up" data-aos-delay="500" class="mt-8 text-xs font-light text-gray-500 tracking-[1em] uppercase">
+                    Laboratorio de Futuro
                 </p>
             </div>
         </section>
 
         <section>
-            <div class="focus-content" data-aos="fade-up" data-aos-duration="1000">
-                <span class="text-purple-500 font-bold tracking-[0.6em] text-[10px] uppercase block mb-10 opacity-50">Futuro Próximo</span>
-                <h2 class="text-6xl md:text-9xl font-black mb-10 tracking-tighter italic">VISIÓN</h2>
-                <p class="text-xl md:text-4xl text-gray-300 font-light leading-tight">
-                    "Ser el estándar de la <span class="text-white">armonía digital</span> entre el ser humano y su hábitat."
+            <div class="focus-text" data-aos="fade-up">
+                <span class="text-blue-500 font-bold tracking-[0.5em] text-[10px] uppercase block mb-6">01. Filosofía</span>
+                <h2 class="text-5xl md:text-7xl font-bold mb-10 tracking-tighter">Tecnología que <br> <span class="text-gray-500">no se siente.</span></h2>
+                <p class="text-xl md:text-2xl text-gray-400 font-light leading-relaxed">
+                    Creamos espacios que aprenden y se adaptan a ti sin fricción. En AURA, el hardware es invisible; el confort es absoluto.
+                </p>
+            </div>
+        </section>
+
+        <section class="bg-white/[0.01]">
+            <div class="focus-text" data-aos="fade-right">
+                <span class="text-blue-400 font-bold tracking-[0.5em] text-[10px] uppercase block mb-6">02. El Propósito</span>
+                <h2 class="text-6xl md:text-8xl font-black mb-8 aura-text-gradient">MISIÓN</h2>
+                <p class="text-xl md:text-3xl text-gray-300 font-light leading-relaxed italic">
+                    "Eliminar la complejidad tecnológica de la vida diaria, convirtiendo cada hogar en un organismo inteligente y autónomo."
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <div class="focus-text" data-aos="fade-left">
+                <span class="text-purple-400 font-bold tracking-[0.5em] text-[10px] uppercase block mb-6">03. El Destino</span>
+                <h2 class="text-6xl md:text-8xl font-black mb-8 aura-text-gradient">VISIÓN</h2>
+                <p class="text-xl md:text-3xl text-gray-300 font-light leading-relaxed italic">
+                    "Ser el estándar global de la domótica invisible, donde el espacio y el ser humano coexisten en perfecta armonía digital."
                 </p>
             </div>
         </section>
 
         <section class="bg-white/5">
-            <div class="max-w-7xl mx-auto px-6 w-full grid md:grid-cols-3 gap-px bg-white/10 border-y border-white/10">
-                <div class="bg-black py-32 px-10 flex flex-col items-center" data-aos="fade-right">
-                    <h4 class="text-xs font-bold tracking-[0.4em] uppercase mb-6 text-blue-500">Pureza</h4>
-                    <p class="text-center text-gray-500 font-light text-sm">Interfaces que desaparecen.</p>
-                </div>
-                <div class="bg-black py-32 px-10 flex flex-col items-center" data-aos="fade-up">
-                    <h4 class="text-xs font-bold tracking-[0.4em] uppercase mb-6 text-purple-500">Vanguardia</h4>
-                    <p class="text-center text-gray-500 font-light text-sm">Tecnología de 2030, hoy.</p>
-                </div>
-                <div class="bg-black py-32 px-10 flex flex-col items-center" data-aos="fade-left">
-                    <h4 class="text-xs font-bold tracking-[0.4em] uppercase mb-6 text-white">Lealtad</h4>
-                    <p class="text-center text-gray-500 font-light text-sm">Privacidad absoluta.</p>
+            <div class="max-w-7xl mx-auto px-6 w-full">
+                <div class="grid md:grid-cols-3 gap-1px bg-white/10 border-y border-white/10">
+                    <div class="bg-black py-24 px-10 flex flex-col items-center group" data-aos="fade-up">
+                        <div class="text-blue-500 text-3xl mb-8 font-black opacity-30 group-hover:opacity-100 transition">01</div>
+                        <h4 class="text-xl font-bold mb-4 tracking-tighter uppercase">Pureza</h4>
+                        <p class="text-center text-gray-500 font-light text-sm leading-relaxed">Interfaces que desaparecen cuando no las necesitas.</p>
+                    </div>
+                    <div class="bg-black py-24 px-10 flex flex-col items-center group" data-aos="fade-up" data-aos-delay="200">
+                        <div class="text-purple-500 text-3xl mb-8 font-black opacity-30 group-hover:opacity-100 transition">02</div>
+                        <h4 class="text-xl font-bold mb-4 tracking-tighter uppercase">Vanguardia</h4>
+                        <p class="text-center text-gray-500 font-light text-sm leading-relaxed">Integración de protocolos de futuro, hoy.</p>
+                    </div>
+                    <div class="bg-black py-24 px-10 flex flex-col items-center group" data-aos="fade-up" data-aos-delay="400">
+                        <div class="text-white text-3xl mb-8 font-black opacity-30 group-hover:opacity-100 transition">03</div>
+                        <h4 class="text-xl font-bold mb-4 tracking-tighter uppercase">Lealtad</h4>
+                        <p class="text-center text-gray-500 font-light text-sm leading-relaxed">Seguridad impenetrable. Tu privacidad es sagrada.</p>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <div class="fixed right-10 top-1/2 -translate-y-1/2 space-y-4 z-50 hidden md:block">
-        <div class="w-1 h-1 rounded-full bg-white opacity-20"></div>
-        <div class="w-1 h-8 rounded-full bg-gradient-to-b from-blue-500 to-purple-500"></div>
-        <div class="w-1 h-1 rounded-full bg-white opacity-20"></div>
-    </div>
+    <footer class="h-[20vh] flex items-center justify-center border-t border-white/5 bg-black">
+        <p class="text-[8px] tracking-[0.8em] uppercase text-zinc-600">
+            © 2026 <span class="aura-text-gradient font-black">Aura Laboratory</span>
+        </p>
+    </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 1000,
-            easing: 'ease-out-quart',
-            once: false,      // ESTA ES LA CLAVE: permite que se reanimen siempre
-            mirror: true,    // ESTA OTRA: anima al salir y volver a entrar desde arriba
-            anchorPlacement: 'top-center', // Gatilla la animación justo a tiempo
-        });
-
-        // Opcional: Refrescar AOS en cada scroll para asegurar que detecte la posición
-        window.addEventListener('scroll', function() {
-            AOS.refresh();
+        // Configuración para que las animaciones se repitan al bajar y subir
+        AOS.init({ 
+            duration: 1200, 
+            once: false, // Permite que la animación ocurra cada vez que el elemento entra en vista
+            mirror: true, // Permite que se anime mientras haces scroll hacia arriba
+            offset: 100
         });
     </script>
 </body>
