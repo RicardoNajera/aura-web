@@ -13,53 +13,67 @@
         
         /* Fondo de Energía Orgánica */
         .energy-blob {
-            position: fixed; width: 600px; height: 600px;
+            position: fixed; width: 60vw; height: 60vw; max-width: 600px; max-height: 600px;
             background: radial-gradient(circle, rgba(96, 165, 250, 0.15) 0%, transparent 70%);
             filter: blur(80px); z-index: -1; animation: orbit 20s infinite linear;
         }
 
         @keyframes orbit {
-            from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
-            to { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+            from { transform: rotate(0deg) translateX(10vw) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(10vw) rotate(-360deg); }
         }
 
-        /* Glassmorphism Orgánico (Sin bordes rectos) */
+        /* Glassmorphism Orgánico Adaptativo */
         .organic-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 60px 20px 60px 20px; /* Esquinas asimétricas */
+            border-radius: 40px 15px 40px 15px;
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            height: 100%;
         }
 
         .organic-card:hover {
-            border-radius: 20px 60px 20px 60px;
+            border-radius: 15px 40px 15px 40px;
             background: rgba(255, 255, 255, 0.06);
             border-color: var(--blue-aura);
             box-shadow: 0 0 40px rgba(96, 165, 250, 0.2);
+            transform: translateY(-5px);
         }
 
-        /* Tipografía Adaptativa */
+        /* Tipografía Adaptativa Proporcional */
         .text-fluid {
-            font-size: clamp(3rem, 10vw, 9rem);
-            line-height: 0.9;
-            letter-spacing: -0.04em;
+            font-size: clamp(2.5rem, 12vw, 8rem);
+            line-height: 0.85;
+            letter-spacing: -0.05em;
             background: linear-gradient(to bottom, #fff, rgba(255,255,255,0.4));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* Botón Líquido */
-        .btn-liquid {
-            position: relative; padding: 1.5rem 3.5rem; border-radius: 100px;
+        .aura-gradient-text {
             background: linear-gradient(90deg, var(--blue-aura), var(--purple-aura));
-            overflow: hidden; transition: all 0.4s ease;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* Botón Líquido Adaptativo */
+        .btn-liquid {
+            position: relative; padding: 1.2rem 2.5rem; border-radius: 100px;
+            background: linear-gradient(90deg, var(--blue-aura), var(--purple-aura));
+            display: inline-block; transition: all 0.4s ease;
         }
 
         .btn-liquid:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--blue-aura); }
 
         .video-mask {
-            mask-image: radial-gradient(circle, black 40%, transparent 80%);
-            -webkit-mask-image: radial-gradient(circle, black 40%, transparent 80%);
+            mask-image: radial-gradient(circle, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle, black 30%, transparent 80%);
+        }
+
+        /* Ajustes específicos para móviles */
+        @media (max-width: 768px) {
+            .organic-card { padding: 2rem !important; border-radius: 30px 10px 30px 10px; }
+            .section-padding { padding-top: 5rem; padding-bottom: 5rem; }
+            .md-mt-custom { margin-top: 0 !important; } /* Elimina desplazamientos en móvil */
         }
     </style>
 </head>
@@ -69,9 +83,9 @@
     
     <div id="nav-container"></div>
 
-    <section class="relative min-h-screen flex items-center justify-center pt-20">
+    <section class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
         <div class="absolute inset-0 z-0 video-mask">
-            <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-40">
+            <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-30">
                 <source src="video-aura.mp4" type="video/mp4">
             </video>
         </div>
@@ -81,64 +95,64 @@
                 <h1 class="text-fluid font-black mb-6">INTELIGENCIA<br><span class="aura-gradient-text">INVISIBLE</span></h1>
             </div>
             
-            <p class="text-xl md:text-3xl text-gray-400 max-w-4xl mx-auto font-light mb-12" data-aos="fade-up" data-aos-delay="300">
+            <p class="text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto font-light mb-12 px-4" data-aos="fade-up" data-aos-delay="300">
                 AURA no es tecnología, es el <span class="text-white">sistema nervioso</span> de tu arquitectura.
             </p>
 
-            <div class="flex flex-wrap justify-center gap-6" data-aos="fade-up" data-aos-delay="500">
-                <a href="#servicios" class="btn-liquid font-bold uppercase tracking-widest text-xs text-black">Iniciar Inmersión</a>
-                <a href="https://wa.me/9861197993" class="px-12 py-6 rounded-full border border-white/10 hover:bg-white/5 transition-all text-xs font-bold tracking-widest uppercase">Consultoría</a>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-6" data-aos="fade-up" data-aos-delay="500">
+                <a href="#servicios" class="btn-liquid w-full sm:w-auto font-bold uppercase tracking-widest text-[10px] text-black text-center">Iniciar Inmersión</a>
+                <a href="https://wa.me/9861197993" class="w-full sm:w-auto px-10 py-5 rounded-full border border-white/10 hover:bg-white/5 transition-all text-[10px] font-bold tracking-widest uppercase text-center">Consultoría</a>
             </div>
         </div>
     </section>
 
-    <section id="servicios" class="py-40 px-6">
+    <section id="servicios" class="py-24 md:py-40 px-6">
         <div class="container mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                 
-                <div class="organic-card p-12 md:mt-20" data-aos="fade-right">
-                    <div class="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mb-8">
-                        <span class="text-3xl text-blue-400">☼</span>
+                <div class="organic-card p-10 md:mt-20 md-mt-custom" data-aos="fade-up">
+                    <div class="w-14 h-14 bg-blue-500/20 rounded-full flex items-center justify-center mb-8">
+                        <span class="text-2xl text-blue-400">☼</span>
                     </div>
-                    <h3 class="text-3xl font-bold mb-6">Bioclima</h3>
-                    <p class="text-gray-400 leading-relaxed font-light">Sistemas que respiran con el entorno, optimizando la luz natural y la pureza térmica de forma autónoma.</p>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4">Bioclima</h3>
+                    <p class="text-gray-400 leading-relaxed font-light text-sm md:text-base">Sistemas que respiran con el entorno, optimizando la luz natural y la pureza térmica de forma autónoma.</p>
                 </div>
 
-                <div class="organic-card p-12 bg-white/[0.05]" data-aos="fade-up">
-                    <div class="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mb-8">
-                        <span class="text-3xl text-red-500">🛡</span>
+                <div class="organic-card p-10 bg-white/[0.05]" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-red-500/20 rounded-full flex items-center justify-center mb-8">
+                        <span class="text-2xl text-red-500">🛡</span>
                     </div>
-                    <h3 class="text-3xl font-bold mb-6">Conciencia</h3>
-                    <p class="text-gray-400 leading-relaxed font-light">Seguridad proactiva basada en patrones de comportamiento. Tu hogar sabe quién es bienvenido antes de que toque la puerta.</p>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4">Conciencia</h3>
+                    <p class="text-gray-400 leading-relaxed font-light text-sm md:text-base">Seguridad proactiva basada en patrones de comportamiento. Tu hogar sabe quién es bienvenido.</p>
                 </div>
 
-                <div class="organic-card p-12 md:mt-40" data-aos="fade-left">
-                    <div class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mb-8">
-                        <span class="text-3xl text-purple-400">♫</span>
+                <div class="organic-card p-10 md:mt-40 md-mt-custom" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-14 h-14 bg-purple-500/20 rounded-full flex items-center justify-center mb-8">
+                        <span class="text-2xl text-purple-400">♫</span>
                     </div>
-                    <h3 class="text-3xl font-bold mb-6">Resonancia</h3>
-                    <p class="text-gray-400 leading-relaxed font-light">Audio y video de alta fidelidad que desaparecen en la decoración, activándose solo cuando el ambiente lo requiere.</p>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4">Resonancia</h3>
+                    <p class="text-gray-400 leading-relaxed font-light text-sm md:text-base">Audio y video de alta fidelidad que desaparecen en la decoración, activándose solo cuando el ambiente lo requiere.</p>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <footer class="py-40 relative">
+    <footer class="py-24 md:py-40 relative border-t border-white/5">
         <div class="container mx-auto px-6 text-center">
             <div class="mb-20" data-aos="zoom-in">
-                <p class="text-zinc-500 uppercase tracking-[1em] text-xs mb-8">Transforma tu existencia</p>
-                <a href="https://wa.me/9861197993" class="text-5xl md:text-9xl font-black aura-gradient-text hover:opacity-70 transition-all">
+                <p class="text-zinc-500 uppercase tracking-[0.5em] md:tracking-[1em] text-[10px] mb-8">Transforma tu existencia</p>
+                <a href="https://wa.me/9861197993" class="text-4xl md:text-8xl font-black aura-gradient-text hover:opacity-70 transition-all block">
                     HABLEMOS
                 </a>
             </div>
             
-            <div class="flex flex-col md:flex-row justify-between items-center pt-20 border-t border-white/5 gap-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
                 <span class="text-2xl font-black italic aura-gradient-text">AURA</span>
-                <p class="text-zinc-600 text-sm">© 2026 Ecosistemas Inteligentes Premium</p>
-                <div class="flex gap-10">
-                    <a href="#" class="text-zinc-400 hover:text-white transition">INSTAGRAM</a>
-                    <a href="#" class="text-zinc-400 hover:text-white transition">WHATSAPP</a>
+                <p class="text-zinc-600 text-xs">© 2026 Ecosistemas Inteligentes Premium</p>
+                <div class="flex gap-6 md:gap-10">
+                    <a href="#" class="text-zinc-400 hover:text-white text-[10px] tracking-widest transition">INSTAGRAM</a>
+                    <a href="#" class="text-zinc-400 hover:text-white text-[10px] tracking-widest transition">WHATSAPP</a>
                 </div>
             </div>
         </div>
@@ -146,21 +160,27 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1500, easing: 'ease-out-quart', once: false });
+        AOS.init({ duration: 1000, easing: 'ease-out-quart', once: true });
 
-        // Inyección de menú inteligente
+        // Inyección de menú inteligente (mejorada)
         async function loadMenu() {
             try {
                 const response = await fetch('menubar.html');
+                if (!response.ok) throw new Error('No se encontró menubar.html');
                 const html = await response.text();
-                document.getElementById('nav-container').innerHTML = html;
-                const scripts = document.getElementById('nav-container').getElementsByTagName('script');
-                for (let s of scripts) {
-                    const script = document.createElement("script");
-                    script.text = s.text;
-                    document.body.appendChild(script);
-                }
-            } catch (e) { console.error("Error en enlace de datos:", e); }
+                const container = document.getElementById('nav-container');
+                container.innerHTML = html;
+                
+                // Ejecutar scripts del menú cargado
+                const scripts = container.querySelectorAll('script');
+                scripts.forEach(oldScript => {
+                    const newScript = document.createElement("script");
+                    newScript.text = oldScript.text;
+                    document.body.appendChild(newScript);
+                });
+            } catch (e) { 
+                console.warn("Aviso: El menú no se cargó automáticamente. Asegúrate de que menubar.html exista."); 
+            }
         }
         loadMenu();
     </script>
