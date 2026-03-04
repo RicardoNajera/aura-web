@@ -4,7 +4,7 @@
         --purple-aura: #c084fc;
     }
 
-    /* 1. Logo Animado con Gradiente Fluido */
+    /* 1. Logo Animado Adaptativo */
     .aura-brand-anim {
         background: linear-gradient(90deg, var(--blue-aura), var(--purple-aura), var(--blue-aura));
         background-size: 200% auto;
@@ -13,9 +13,10 @@
         animation: aura-flow 4s linear infinite;
         font-weight: 900;
         font-style: italic;
-        font-size: clamp(1.2rem, 4vw, 1.5rem); /* Tamaño adaptativo */
+        font-size: clamp(1.2rem, 5vw, 1.5rem);
         letter-spacing: -0.05em;
         text-shadow: 0 0 15px rgba(96, 165, 250, 0.2);
+        z-index: 1100;
     }
 
     @keyframes aura-flow { to { background-position: 200% center; } }
@@ -28,11 +29,11 @@
         position: fixed;
         top: 0; left: 0; width: 100%;
         z-index: 1000;
-        padding: 24px 5%; /* Padding porcentual para adaptación */
+        padding: 24px 5%;
         background: transparent;
     }
 
-    /* 3. Wrapper de Links (Ocultamiento Inteligente) */
+    /* 3. Links de Escritorio */
     .nav-links-wrapper {
         display: flex;
         gap: 2.5rem;
@@ -70,25 +71,56 @@
         transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
-    .btn-contact:hover {
-        background: white;
-        color: black;
-        box-shadow: 0 10px 30px rgba(96, 165, 250, 0.3);
+    /* 5. Icono de Menú Móvil (Hamburguesa) */
+    .mobile-menu-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 6px;
+        cursor: pointer;
+        z-index: 1100;
+        padding: 10px;
     }
 
-    /* 5. BREAKPOINTS: La clave de la adaptabilidad */
-    
-    /* En tablets y laptops pequeñas, reducimos el espacio entre links */
+    .bar {
+        width: 25px;
+        height: 2px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 2px;
+    }
+
+    /* 6. Overlay del Menú Móvil */
+    .mobile-overlay {
+        position: fixed;
+        top: 0; right: -100%; width: 100%; height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 1050;
+    }
+
+    .mobile-overlay.active { right: 0; }
+
+    /* 7. ADAPTABILIDAD (BREAKPOINTS) */
     @media (max-width: 1024px) {
         .nav-links-wrapper { gap: 1.5rem; }
     }
 
-    /* En móviles, ocultamos los links de texto para evitar el amontonamiento */
-    @media (max-width: 768px) {
-        #main-nav { padding: 15px 6%; }
-        .nav-links-wrapper { display: none; } /* Limpieza total del centro */
-        .btn-contact { padding: 0.6rem 1.5rem; font-size: 9px; }
+    @media (max-width: 850px) {
+        .nav-links-wrapper { display: none; }
+        .mobile-menu-toggle { display: flex; }
+        .btn-contact { display: none; } /* Oculto en nav para dar espacio, se mueve al overlay */
     }
+
+    /* Animación del icono al abrir */
+    .active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .active .bar:nth-child(2) { opacity: 0; }
+    .active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 </style>
 
 <nav id="main-nav">
@@ -100,17 +132,31 @@
         <a href="nosotros.html" class="menu-item">Concepto</a>
     </div>
 
-    <a href="https://wa.me/9861197993" class="btn-contact">
-        Contáctanos
-    </a>
+    <a href="https://wa.me/9861197993" class="btn-contact">Contáctanos</a>
+
+    <div class="mobile-menu-toggle" id="mobile-toggle">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
 </nav>
+
+<div class="mobile-overlay" id="mobile-menu">
+    <a href="index.html" class="menu-item" style="font-size: 1.5rem;">Home</a>
+    <a href="index.html#servicios" class="menu-item" style="font-size: 1.5rem;">Sistemas</a>
+    <a href="nosotros.html" class="menu-item" style="font-size: 1.5rem;">Concepto</a>
+    <a href="https://wa.me/9861197993" class="btn-contact" style="display: block; font-size: 1rem;">Contáctanos</a>
+</div>
 
 <script>
     (function() {
         const nav = document.getElementById('main-nav');
-        
+        const toggle = document.getElementById('mobile-toggle');
+        const menu = document.getElementById('mobile-menu');
+        const menuLinks = document.querySelectorAll('.mobile-overlay .menu-item');
+
+        // Función Scroll
         function updateNav() {
-            if (!nav) return;
             if (window.scrollY > 40) {
                 nav.style.background = "rgba(0, 0, 0, 0.8)";
                 nav.style.backdropFilter = "blur(15px)";
@@ -125,6 +171,22 @@
                 nav.style.borderBottom = "none";
             }
         }
+
+        // Toggle Menú Móvil
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('active');
+            menu.classList.toggle('active');
+            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        // Cerrar menú al hacer clic en un link
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                toggle.classList.remove('active');
+                menu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
 
         setTimeout(() => {
             if(nav) nav.style.transition = "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)";
