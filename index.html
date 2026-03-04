@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA | Soluciones Integrales en Domótica y Automatización</title>
+    <title>AURA | Soluciones Profesionales en Automatización y Domótica</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,330 +11,384 @@
     
     <style>
         :root {
-            --aura-blue: #3b82f6;
-            --aura-dark: #0a0a0f;
-            --aura-card: rgba(255, 255, 255, 0.03);
-            --aura-border: rgba(255, 255, 255, 0.08);
+            --aura-primary: #2563eb; /* Azul corporativo profesional */
+            --aura-light: #60a5fa;
+            --dark-bg: #050508;
+            --card-bg: rgba(20, 20, 25, 0.6);
+            --card-border: rgba(255, 255, 255, 0.08);
         }
 
         body {
-            background-color: var(--aura-dark);
+            background-color: var(--dark-bg);
             color: #f8fafc;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow-x: hidden;
-            line-height: 1.7;
+            overflow-x: hidden; /* Evita scroll horizontal que rompe la web */
+            line-height: 1.6;
         }
 
-        /* Fondo elegante y sutil */
-        .bg-glow {
+        /* --- HERO CON VIDEO ADAPTATIVO --- */
+        .hero-video-wrapper {
             position: absolute;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 60%);
-            top: -200px;
-            right: -200px;
-            z-index: -1;
-            border-radius: 50%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+            background-color: #000; /* Color de respaldo */
         }
 
-        /* Tarjetas de Servicio Profesionales */
-        .service-card {
-            background: var(--aura-card);
-            border: 1px solid var(--aura-border);
-            border-radius: 16px;
+        .hero-video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Asegura que el video llene la pantalla sin deformarse */
+            object-position: center;
+        }
+
+        /* Capa oscura sobre el video para garantizar lectura del texto */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(5,5,8,0.4) 0%, rgba(5,5,8,0.9) 100%);
+            z-index: -1;
+        }
+
+        /* --- TARJETAS DE SERVICIO (RESPONSIVAS Y ELEGANTES) --- */
+        .pro-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 1rem;
             padding: 2.5rem;
             transition: all 0.4s ease;
             height: 100%;
+            display: flex;
+            flex-col;
         }
 
-        .service-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--aura-blue);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+        .pro-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--aura-light);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.15);
+            background: rgba(30, 30, 40, 0.8);
         }
 
-        .icon-box {
-            width: 60px;
-            height: 60px;
-            background: rgba(59, 130, 246, 0.1);
+        .icon-wrapper {
+            width: 56px;
+            height: 56px;
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.2);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.75rem;
             margin-bottom: 1.5rem;
-            color: var(--aura-blue);
-            font-size: 1.5rem;
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: var(--aura-light);
         }
 
-        /* Títulos de sección */
-        .section-title {
-            font-size: clamp(2rem, 4vw, 3.5rem);
+        /* --- TIPOGRAFÍA FLUIDA (Se adapta al celular y PC) --- */
+        .fluid-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.1;
             font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            color: #ffffff;
+            letter-spacing: -0.02em;
         }
 
-        .section-subtitle {
-            color: #94a3b8;
-            font-size: 1.125rem;
-            max-w: 3xl;
-            font-weight: 300;
+        .fluid-subtitle {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 700;
         }
 
-        /* Filas de características detalladas */
-        .feature-row {
-            display: flex;
-            align-items: flex-start;
-            gap: 1.5rem;
-            padding: 2rem 0;
-            border-bottom: 1px solid var(--aura-border);
-        }
-
-        .feature-bullet {
-            min-width: 30px;
-            height: 30px;
-            background: var(--aura-blue);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 0.8rem;
-        }
-
-        /* Botón de Contacto principal */
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+        /* --- BOTONES PROFESIONALES --- */
+        .btn-solid {
+            background-color: var(--aura-primary);
+            color: #fff;
             padding: 1rem 2.5rem;
-            background-color: var(--aura-blue);
-            color: white;
-            font-weight: 600;
             border-radius: 8px;
-            transition: all 0.3s ease;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             font-size: 0.875rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid transparent;
         }
 
-        .btn-primary:hover {
-            background-color: #2563eb;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-            transform: translateY(-2px);
+        .btn-solid:hover {
+            background-color: #1d4ed8;
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: #fff;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255,255,255,0.1);
+            border-color: #fff;
+        }
+
+        /* Utilidad para alinear íconos de check */
+        .check-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            color: #cbd5e1;
+        }
+        .check-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--aura-light);
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow"></div>
-
     <div id="nav-container"></div>
 
-    <section class="relative pt-40 pb-20 px-6 min-h-[90vh] flex items-center">
-        <div class="container mx-auto">
-            <div class="max-w-4xl" data-aos="fade-up">
-                <span class="text-blue-400 font-semibold tracking-wider uppercase text-sm mb-4 display-block">Automatización Integral AURA</span>
-                <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-8">
-                    El control total de su entorno, <br />
-                    <span class="text-blue-400">al alcance de su mano.</span>
+    <header class="relative min-h-[100svh] flex items-center justify-center pt-24 px-6">
+        <div class="hero-video-wrapper">
+            <video autoplay loop muted playsinline>
+                <source src="video-aura.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="video-overlay"></div>
+
+        <div class="container mx-auto relative z-10">
+            <div class="max-w-4xl" data-aos="fade-up" data-aos-duration="1000">
+                <span class="text-blue-400 font-bold tracking-[0.2em] uppercase text-sm mb-6 block">Tecnología Aplicada al Confort</span>
+                <h1 class="fluid-title mb-6 text-white">
+                    Control absoluto de su entorno.<br>
+                    <span class="text-blue-400">Ingeniería a su medida.</span>
                 </h1>
-                <p class="text-xl text-slate-300 font-light mb-10 leading-relaxed max-w-2xl">
-                    Diseñamos e implementamos soluciones de domótica completas. Desde la gestión inteligente de la iluminación hasta la automatización de sistemas hidráulicos y analítica de datos. Confort, seguridad y eficiencia para residencias, corporativos e industria.
+                <p class="text-lg md:text-xl text-slate-300 font-light mb-10 max-w-2xl leading-relaxed">
+                    AURA desarrolla e instala soluciones integrales de automatización. Desde iluminación adaptativa y gestión de agua, hasta desarrollo de placas electrónicas y analítica de datos en tiempo real.
                 </p>
-                <div class="flex flex-wrap gap-6 items-center">
-                    <a href="https://wa.me/9861197993" class="btn-primary">Cotizar Proyecto</a>
-                    <a href="#soluciones" class="text-slate-300 hover:text-white font-medium transition-colors flex items-center gap-2">
-                        Explorar Soluciones
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                    </a>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="https://wa.me/9861197993" class="btn-solid w-full sm:w-auto">Cotizar Proyecto</a>
+                    <a href="#capacidades" class="btn-outline w-full sm:w-auto">Ver Capacidades</a>
                 </div>
             </div>
         </div>
-    </section>
+    </header>
 
-    <section id="soluciones" class="py-24 px-6 bg-[#0c0c12]">
+    <section id="capacidades" class="py-24 px-6 bg-[#050508]">
         <div class="container mx-auto">
-            <div class="mb-16 text-center" data-aos="fade-up">
-                <h2 class="section-title">Iluminación Inteligente y Ambientes</h2>
-                <p class="section-subtitle mx-auto mt-4">Gestión automatizada de la luz para optimizar el consumo eléctrico y crear la atmósfera perfecta en cada momento del día.</p>
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <h2 class="fluid-subtitle mb-4">Iluminación Inteligente y Ambientes</h2>
+                <p class="text-slate-400 text-lg">Optimice el consumo eléctrico y garantice la iluminación perfecta para cada espacio, interior y exterior, de forma completamente automática.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="icon-box">💡</div>
-                    <h3 class="text-xl font-bold mb-3">Automatización por Presencia</h3>
-                    <p class="text-slate-400 text-sm">Encendido y apagado automático de luces mediante sensores de movimiento y ocupación de alta precisión. Ideal para pasillos, baños y oficinas.</p>
+                
+                <div class="pro-card" data-aos="fade-up">
+                    <div class="icon-wrapper">💡</div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Sensores de Presencia</h3>
+                    <p class="text-slate-400 text-sm flex-grow">Encendido y apagado de luces mediante detección de movimiento de alta sensibilidad. Garantiza que áreas como pasillos, baños o bodegas solo consuman energía cuando están en uso.</p>
                 </div>
-                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="icon-box">🌇</div>
-                    <h3 class="text-xl font-bold mb-3">Sensores Crepusculares</h3>
-                    <p class="text-slate-400 text-sm">El sistema detecta la disminución de la luz natural al atardecer y enciende automáticamente las luces exteriores, fachadas o jardines.</p>
+
+                <div class="pro-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="icon-wrapper">🌇</div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Control Crepuscular</h3>
+                    <p class="text-slate-400 text-sm flex-grow">El sistema monitorea la luz natural. Al oscurecer, activa automáticamente la iluminación de fachadas, jardines o letreros comerciales, y los apaga al amanecer.</p>
                 </div>
-                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="icon-box">🎨</div>
-                    <h3 class="text-xl font-bold mb-3">Iluminación Arquitectónica RGB</h3>
-                    <p class="text-slate-400 text-sm">Control total sobre los colores y la intensidad de la luz (RGB/RGBW) para resaltar espacios, crear escenarios de entretenimiento o adaptar el entorno.</p>
+
+                <div class="pro-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="icon-wrapper">🎨</div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Iluminación RGB y Diseño</h3>
+                    <p class="text-slate-400 text-sm flex-grow">Gestión de tiras LED, paneles RGB y luminarias arquitectónicas. Cambie el color, la temperatura y la intensidad para crear escenarios de trabajo, relajación o eventos.</p>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <section class="py-24 px-6">
+    <section class="py-24 px-6 bg-[#08080c] border-y border-slate-800">
         <div class="container mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                
                 <div data-aos="fade-right">
-                    <h2 class="section-title">Control de Equipos y Sistemas Hidráulicos</h2>
-                    <p class="text-slate-300 text-lg mb-8 leading-relaxed">
-                        Llevamos la domótica más allá del interior de su hogar. Automatizamos la maquinaria vital de su propiedad para garantizar un funcionamiento continuo y eficiente.
+                    <h2 class="fluid-subtitle mb-6">Gestión Hidráulica y Motores</h2>
+                    <p class="text-slate-300 text-lg mb-8">
+                        La automatización profesional abarca la operatividad del edificio. Controlamos equipos de fuerza y sistemas de agua para prevenir fallas y garantizar el suministro continuo.
                     </p>
                     
-                    <div class="space-y-2">
-                        <div class="feature-row">
-                            <div class="feature-bullet">✓</div>
+                    <ul class="check-list">
+                        <li>
+                            <strong class="text-white block mb-1">Censado de Niveles de Agua</strong>
+                            Monitoreo en tiempo real del volumen en cisternas y tinacos. Visualice el porcentaje exacto desde su dispositivo.
+                        </li>
+                        <li>
+                            <strong class="text-white block mb-1">Activación de Bombas de Agua</strong>
+                            Llenado automático basado en sensores. El sistema enciende la bomba solo cuando es necesario, protegiendo el equipo contra trabajo en seco.
+                        </li>
+                        <li>
+                            <strong class="text-white block mb-1">Climatización (AC) y Ventilación</strong>
+                            Gestión centralizada de aires acondicionados convencionales o Inverter. Programe horarios o ajuste la temperatura antes de llegar a sus instalaciones.
+                        </li>
+                        <li>
+                            <strong class="text-white block mb-1">Automatización de Motores</strong>
+                            Apertura y cierre de portones eléctricos, persianas, cortinas metálicas y techos retráctiles desde un mando unificado.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-[#0f111a] rounded-2xl p-8 lg:p-12 border border-slate-800 shadow-2xl relative overflow-hidden" data-aos="fade-left">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600 opacity-10 blur-[80px] rounded-full"></div>
+                    <h3 class="text-2xl font-bold text-white mb-6">Panel de Monitoreo</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-slate-900 rounded-lg p-4 border border-slate-800 flex justify-between items-center">
                             <div>
-                                <h4 class="text-lg font-bold mb-1">Bombas de Agua Automáticas</h4>
-                                <p class="text-slate-400 text-sm">Programación y activación remota de bombas para cisternas, piscinas y sistemas de presión. Operación basada en horarios o demanda.</p>
+                                <p class="text-sm text-slate-400">Nivel de Cisterna Principal</p>
+                                <p class="text-xl font-bold text-blue-400">85% - Óptimo</p>
                             </div>
+                            <div class="w-12 h-12 rounded-full border-4 border-blue-500 border-t-transparent animate-spin"></div>
                         </div>
-                        <div class="feature-row">
-                            <div class="feature-bullet">✓</div>
+                        
+                        <div class="bg-slate-900 rounded-lg p-4 border border-slate-800 flex justify-between items-center">
                             <div>
-                                <h4 class="text-lg font-bold mb-1">Censado de Niveles de Agua</h4>
-                                <p class="text-slate-400 text-sm">Monitoreo exacto del nivel de agua en tinacos y cisternas. El sistema activa el llenado automáticamente al detectar niveles bajos.</p>
+                                <p class="text-sm text-slate-400">Bomba Hidroneumática</p>
+                                <p class="text-xl font-bold text-green-400">En Espera (Standby)</p>
                             </div>
-                        </div>
-                        <div class="feature-row border-none">
-                            <div class="feature-bullet">✓</div>
-                            <div>
-                                <h4 class="text-lg font-bold mb-1">Integración de Aire Acondicionado</h4>
-                                <p class="text-slate-400 text-sm">Control de temperatura desde su dispositivo móvil para equipos de fábrica, optimizando el clima antes de su llegada a casa.</p>
-                            </div>
+                            <div class="px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full border border-green-500/30">Auto</div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-slate-900 rounded-2xl p-8 border border-slate-800" data-aos="fade-left">
-                    <h3 class="text-2xl font-bold mb-6 border-b border-slate-700 pb-4">Capacidades Adicionales</h3>
-                    <ul class="space-y-4 text-slate-300">
-                        <li class="flex items-center gap-3"><span class="text-blue-400">■</span> Automatización de portones eléctricos</li>
-                        <li class="flex items-center gap-3"><span class="text-blue-400">■</span> Control de persianas y cortinas motorizadas</li>
-                        <li class="flex items-center gap-3"><span class="text-blue-400">■</span> Sistemas de riego inteligente basados en clima</li>
-                        <li class="flex items-center gap-3"><span class="text-blue-400">■</span> Control de extracción de aire y ventilación</li>
-                    </ul>
-                </div>
+
             </div>
         </div>
     </section>
 
-    <section class="py-24 px-6 bg-[#0c0c12]">
+    <section class="py-24 px-6 bg-[#050508]">
         <div class="container mx-auto">
-            <div class="mb-16 text-center" data-aos="fade-up">
-                <h2 class="section-title">Tecnología Avanzada y Personalización</h2>
-                <p class="section-subtitle mx-auto mt-4">Soluciones de ingeniería a la medida, seguridad de vanguardia y análisis de datos para una administración perfecta de su entorno.</p>
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <h2 class="fluid-subtitle mb-4">Ingeniería Avanzada, Seguridad y Datos</h2>
+                <p class="text-slate-400 text-lg">Desarrollamos tecnología a la medida de sus procesos. Desde el control de acceso físico hasta la creación de hardware específico para su negocio.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="service-card" data-aos="fade-up">
-                    <div class="icon-box">🔐</div>
-                    <h3 class="text-xl font-bold mb-3">Cerraduras Inteligentes</h3>
-                    <p class="text-slate-400 text-sm">Accesos modernos mediante huella digital, códigos numéricos, tarjetas RFID o apertura remota desde su celular. Facilita la entrada a familiares, personal o huéspedes de plataformas como Airbnb.</p>
-                </div>
                 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="icon-box">📊</div>
-                    <h3 class="text-xl font-bold mb-3">Gráficas y Monitoreo de Datos</h3>
-                    <p class="text-slate-400 text-sm">Visualización clara de la información que importa. Proveemos dashboards interactivos con gráficas de consumo eléctrico, historial de accesos, niveles de temperatura y cualquier métrica que el cliente desee analizar.</p>
+                <div class="pro-card" data-aos="fade-up">
+                    <div class="icon-wrapper">🔐</div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Cerraduras Inteligentes</h3>
+                    <p class="text-slate-400 text-sm">Controle quién entra a su propiedad. Instalamos cerraduras con apertura por huella biométrica, código PIN temporal, tarjeta RFID o mediante su celular a distancia. Ideal para oficinas o rentas Airbnb.</p>
                 </div>
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="icon-box">⚙️</div>
-                    <h3 class="text-xl font-bold mb-3">Diseño Electrónico (PCB)</h3>
-                    <p class="text-slate-400 text-sm">Ofrecemos ingeniería electrónica a nivel componente. Diseñamos y fabricamos placas de circuito impreso (PCB) a la medida para resolver necesidades de automatización únicas que los productos comerciales convencionales no cubren.</p>
+                <div class="pro-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="icon-wrapper">📊</div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Analítica y Gráficas a Medida</h3>
+                    <p class="text-slate-400 text-sm">La información es poder. Integramos paneles de control (Dashboards) donde el cliente puede visualizar gráficas de consumo eléctrico, historial de aperturas de puertas, variaciones de temperatura y más.</p>
                 </div>
+
+                <div class="pro-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="icon-wrapper">⚙️</div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Diseño Electrónico (PCB)</h3>
+                    <p class="text-slate-400 text-sm">Si el mercado no tiene lo que usted necesita, nosotros lo fabricamos. Diseñamos e imprimimos placas de circuito (PCB) personalizadas para integrar maquinaria industrial o equipos especializados a la red domótica.</p>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <section class="py-24 px-6">
-        <div class="container mx-auto">
-            <h2 class="section-title text-center mb-16" data-aos="fade-up">Integración en 3 Pasos</h2>
+    <section class="py-24 px-6 border-t border-slate-800 bg-[#08080c]">
+        <div class="container mx-auto text-center">
+            <h2 class="fluid-subtitle mb-16" data-aos="fade-up">Metodología de Implementación</h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center relative">
-                <div class="hidden md:block absolute top-12 left-[15%] right-[15%] h-[2px] bg-slate-800 z-0"></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 relative">
+                <div class="hidden md:block absolute top-10 left-[15%] right-[15%] h-[1px] border-t border-dashed border-blue-500/50"></div>
                 
                 <div class="relative z-10" data-aos="fade-up">
-                    <div class="w-24 h-24 mx-auto bg-slate-900 border-2 border-blue-500 rounded-full flex items-center justify-center text-3xl font-bold mb-6">1</div>
-                    <h3 class="text-xl font-bold mb-3">Asesoría Técnica</h3>
-                    <p class="text-slate-400 text-sm px-4">Escuchamos sus necesidades, evaluamos las instalaciones y proponemos los equipos y sistemas adecuados para su proyecto.</p>
+                    <div class="w-20 h-20 mx-auto bg-[#0a0f1c] border border-blue-500 text-blue-400 rounded-full flex items-center justify-center text-2xl font-bold mb-6 shadow-[0_0_20px_rgba(37,99,235,0.2)]">1</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Evaluación Técnica</h3>
+                    <p class="text-slate-400 text-sm">Analizamos su infraestructura, escuchamos sus requerimientos y definimos los protocolos y equipos óptimos (Wi-Fi, Zigbee, KNX o cableado estructurado).</p>
                 </div>
                 
                 <div class="relative z-10" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-24 h-24 mx-auto bg-slate-900 border-2 border-blue-500 rounded-full flex items-center justify-center text-3xl font-bold mb-6">2</div>
-                    <h3 class="text-xl font-bold mb-3">Instalación y Configuración</h3>
-                    <p class="text-slate-400 text-sm px-4">Nuestros especialistas implementan los dispositivos, el cableado necesario y programan las reglas de automatización solicitadas.</p>
+                    <div class="w-20 h-20 mx-auto bg-[#0a0f1c] border border-blue-500 text-blue-400 rounded-full flex items-center justify-center text-2xl font-bold mb-6 shadow-[0_0_20px_rgba(37,99,235,0.2)]">2</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Instalación y Configuración</h3>
+                    <p class="text-slate-400 text-sm">Nuestro equipo técnico realiza la instalación de sensores, tableros, cableado, cerraduras o PCBs garantizando la estética y seguridad eléctrica.</p>
                 </div>
                 
                 <div class="relative z-10" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-24 h-24 mx-auto bg-slate-900 border-2 border-blue-500 rounded-full flex items-center justify-center text-3xl font-bold mb-6">3</div>
-                    <h3 class="text-xl font-bold mb-3">Control Total</h3>
-                    <p class="text-slate-400 text-sm px-4">Entregamos el sistema funcionando al 100%, con las aplicaciones instaladas en sus dispositivos y la capacitación para su uso.</p>
+                    <div class="w-20 h-20 mx-auto bg-[#0a0f1c] border border-blue-500 text-blue-400 rounded-full flex items-center justify-center text-2xl font-bold mb-6 shadow-[0_0_20px_rgba(37,99,235,0.2)]">3</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Entrega y Capacitación</h3>
+                    <p class="text-slate-400 text-sm">Configuramos las interfaces gráficas en sus celulares o tablets, realizamos pruebas de estrés y capacitamos al personal o residentes en su uso.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="bg-[#050508] border-t border-slate-800 pt-20 pb-10 px-6">
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-            <div class="md:col-span-2">
-                <h2 class="text-3xl font-extrabold italic mb-4 tracking-tighter text-white">AURA</h2>
-                <p class="text-slate-400 text-sm max-w-sm mb-8 leading-relaxed">
-                    Empresa líder en automatización, domótica e ingeniería electrónica. Transformamos casas, oficinas y negocios en espacios eficientes, cómodos y seguros.
+    <footer class="bg-[#030305] border-t border-slate-800 pt-20 pb-8 px-6 relative z-10">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            
+            <div class="lg:col-span-2">
+                <h2 class="text-3xl font-extrabold text-white mb-4 tracking-tight">AURA</h2>
+                <p class="text-slate-400 text-sm max-w-md leading-relaxed mb-6">
+                    Soluciones de ingeniería en automatización. Integramos tecnología robusta para maximizar la seguridad, el ahorro energético y el control de sus instalaciones.
                 </p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition">In</a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition">Fb</a>
+                </div>
             </div>
             
             <div>
-                <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Servicios Principales</h4>
-                <ul class="space-y-3 text-slate-400 text-sm">
-                    <li>Iluminación Automática</li>
-                    <li>Sistemas Hidráulicos</li>
-                    <li>Seguridad y Accesos</li>
-                    <li>Desarrollo de PCB</li>
-                    <li>Monitoreo y Datos</li>
+                <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Soluciones</h4>
+                <ul class="space-y-2 text-slate-400 text-sm">
+                    <li>Iluminación Inteligente</li>
+                    <li>Sistemas de Bombeo Automático</li>
+                    <li>Cerraduras y Accesos</li>
+                    <li>Diseño de Placas PCB</li>
+                    <li>Tableros de Datos y Gráficas</li>
                 </ul>
             </div>
             
             <div>
-                <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Contacto Directo</h4>
-                <div class="space-y-4 text-slate-400 text-sm">
-                    <p class="flex items-center gap-3">
-                        <span>📞</span> +52 986 119 7993
-                    </p>
-                    <p class="flex items-center gap-3">
-                        <span>✉️</span> contacto@aura-domotica.com
-                    </p>
-                    <a href="https://wa.me/9861197993" class="inline-block mt-4 text-blue-400 font-bold hover:text-blue-300 transition-colors">
-                        Mensaje vía WhatsApp →
+                <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Atención al Cliente</h4>
+                <div class="space-y-3 text-slate-400 text-sm">
+                    <p>Cancún, Quintana Roo, México.</p>
+                    <p class="font-medium text-white">+52 986 119 7993</p>
+                    <p>contacto@aura-automatizacion.com</p>
+                    <a href="https://wa.me/9861197993" class="inline-block mt-4 px-4 py-2 bg-blue-600/20 text-blue-400 rounded-md border border-blue-600/30 hover:bg-blue-600 hover:text-white transition text-xs font-bold uppercase tracking-wide">
+                        Contactar por WhatsApp
                     </a>
                 </div>
             </div>
+            
         </div>
         
-        <div class="container mx-auto pt-8 border-t border-slate-800 text-center text-slate-500 text-sm flex flex-col md:flex-row justify-between items-center">
-            <p>© 2026 AURA Automatización. Todos los derechos reservados.</p>
+        <div class="container mx-auto pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs">
+            <p>&copy; 2026 AURA Automatización. Todos los derechos reservados.</p>
             <div class="flex gap-4 mt-4 md:mt-0">
-                <a href="#" class="hover:text-white transition">Términos de Servicio</a>
-                <a href="#" class="hover:text-white transition">Aviso de Privacidad</a>
+                <a href="#" class="hover:text-slate-300 transition">Aviso de Privacidad</a>
+                <a href="#" class="hover:text-slate-300 transition">Términos y Condiciones</a>
             </div>
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Animaciones al hacer scroll
+        // Animaciones de Scroll fluidas
         AOS.init({ 
             duration: 800, 
             easing: 'ease-out-cubic',
@@ -342,26 +396,31 @@
             offset: 50
         });
 
-        // Inyección del menú (menubar.html)
+        // Inyección del menú bar
         async function loadMenu() {
             try {
                 const response = await fetch('menubar.html');
                 const html = await response.text();
                 document.getElementById('nav-container').innerHTML = html;
                 
-                // Activar el fondo del menú al hacer scroll
+                // Lógica para oscurecer el menú al hacer scroll (requiere que el menú tenga id="main-nav")
                 const nav = document.getElementById('main-nav');
                 if(nav) {
                     window.addEventListener('scroll', () => {
-                        if (window.scrollY > 30) nav.classList.add('scrolled');
-                        else nav.classList.remove('scrolled');
+                        if (window.scrollY > 50) {
+                            nav.classList.add('scrolled');
+                        } else {
+                            nav.classList.remove('scrolled');
+                        }
                     });
                 }
             } catch (e) { 
-                console.log("Aviso: El archivo menubar.html debe estar en el mismo directorio para visualizar la navegación superior."); 
+                console.log("Menú no cargado. Asegúrate de probar en un servidor local (Live Server) para que funcione el fetch."); 
             }
         }
-        loadMenu();
+        
+        // Cargar menú al iniciar
+        document.addEventListener('DOMContentLoaded', loadMenu);
     </script>
 </body>
 </html>
