@@ -4,7 +4,7 @@
         --purple-aura: #c084fc;
     }
 
-    /* 1. Animación del Logo: Azul a Morado Aura */
+    /* 1. Logo Animado con Gradiente Fluido */
     .aura-brand-anim {
         background: linear-gradient(90deg, var(--blue-aura), var(--purple-aura), var(--blue-aura));
         background-size: 200% auto;
@@ -13,34 +13,32 @@
         animation: aura-flow 4s linear infinite;
         font-weight: 900;
         font-style: italic;
-        font-size: 1.5rem;
+        font-size: clamp(1.2rem, 4vw, 1.5rem); /* Tamaño adaptativo */
         letter-spacing: -0.05em;
         text-shadow: 0 0 15px rgba(96, 165, 250, 0.2);
     }
 
-    @keyframes aura-flow {
-        to { background-position: 200% center; }
-    }
+    @keyframes aura-flow { to { background-position: 200% center; } }
 
-    /* 2. Estructura Inteligente y Adaptativa */
+    /* 2. Estructura de Navegación */
     #main-nav {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
+        display: flex;
+        justify-content: space-between;
         align-items: center;
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 1000; /* Asegura prioridad sobre cualquier elemento */
-        padding: 24px 5%;
+        top: 0; left: 0; width: 100%;
+        z-index: 1000;
+        padding: 24px 5%; /* Padding porcentual para adaptación */
         background: transparent;
-        /* La transición se activa vía JS para evitar el glitch de carga */
     }
 
-    /* 3. Navegación Central Inmersiva */
+    /* 3. Wrapper de Links (Ocultamiento Inteligente) */
     .nav-links-wrapper {
         display: flex;
         gap: 2.5rem;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .menu-item {
@@ -50,73 +48,51 @@
         letter-spacing: 0.3em;
         color: rgba(255, 255, 255, 0.5);
         text-decoration: none;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-    }
-
-    .menu-item:hover {
-        color: #ffffff;
-        text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-    }
-
-    /* Línea indicadora inteligente */
-    .menu-item::after {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        left: 50%;
-        width: 0;
-        height: 1px;
-        background: linear-gradient(90deg, var(--blue-aura), var(--purple-aura));
         transition: all 0.3s ease;
-        transform: translateX(-50%);
+        white-space: nowrap;
     }
 
-    .menu-item:hover::after {
-        width: 100%;
-    }
+    .menu-item:hover { color: #fff; text-shadow: 0 0 8px rgba(255, 255, 255, 0.3); }
 
-    /* 4. Botón de Contacto de Alto Nivel */
+    /* 4. Botón de Contacto Dinámico */
     .btn-contact {
         font-size: 10px;
-        font-weight: 700;
+        font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 0.2em;
         border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 0.8rem 2.2rem;
+        padding: 0.8rem 2rem;
         border-radius: 9999px;
         color: white;
         text-decoration: none;
-        background: rgba(255, 255, 255, 0.03);
+        background: rgba(255, 255, 255, 0.05);
         backdrop-filter: blur(10px);
         transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        justify-self: end;
     }
 
     .btn-contact:hover {
         background: white;
         color: black;
-        border-color: white;
-        transform: scale(1.05);
         box-shadow: 0 10px 30px rgba(96, 165, 250, 0.3);
     }
 
-    /* 5. Adaptabilidad para Móviles */
+    /* 5. BREAKPOINTS: La clave de la adaptabilidad */
+    
+    /* En tablets y laptops pequeñas, reducimos el espacio entre links */
+    @media (max-width: 1024px) {
+        .nav-links-wrapper { gap: 1.5rem; }
+    }
+
+    /* En móviles, ocultamos los links de texto para evitar el amontonamiento */
     @media (max-width: 768px) {
-        #main-nav {
-            grid-template-columns: 1fr 1fr;
-            padding: 15px 20px;
-        }
-        .nav-links-wrapper {
-            display: none; /* Oculta links centrales en móvil para limpieza */
-        }
+        #main-nav { padding: 15px 6%; }
+        .nav-links-wrapper { display: none; } /* Limpieza total del centro */
+        .btn-contact { padding: 0.6rem 1.5rem; font-size: 9px; }
     }
 </style>
 
 <nav id="main-nav">
-    <div class="flex justify-start">
-        <a href="index.html" class="aura-brand-anim">AURA</a>
-    </div>
+    <a href="index.html" class="aura-brand-anim">AURA</a>
     
     <div class="nav-links-wrapper">
         <a href="index.html" class="menu-item">Home</a>
@@ -124,11 +100,9 @@
         <a href="nosotros.html" class="menu-item">Concepto</a>
     </div>
 
-    <div class="flex justify-end">
-        <a href="https://wa.me/9861197993" class="btn-contact">
-            CONTÁCTANOS
-        </a>
-    </div>
+    <a href="https://wa.me/9861197993" class="btn-contact">
+        Contáctanos
+    </a>
 </nav>
 
 <script>
@@ -137,30 +111,26 @@
         
         function updateNav() {
             if (!nav) return;
-
             if (window.scrollY > 40) {
-                nav.style.background = "rgba(0, 0, 0, 0.7)";
-                nav.style.backdropFilter = "blur(20px) saturate(180%)";
-                nav.style.paddingTop = "15px";
-                nav.style.paddingBottom = "15px";
-                nav.style.borderBottom = "1px solid rgba(255, 255, 255, 0.08)";
-                nav.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.5)";
+                nav.style.background = "rgba(0, 0, 0, 0.8)";
+                nav.style.backdropFilter = "blur(15px)";
+                nav.style.paddingTop = "12px";
+                nav.style.paddingBottom = "12px";
+                nav.style.borderBottom = "1px solid rgba(255, 255, 255, 0.1)";
             } else {
                 nav.style.background = "transparent";
                 nav.style.backdropFilter = "none";
                 nav.style.paddingTop = "24px";
                 nav.style.paddingBottom = "24px";
                 nav.style.borderBottom = "none";
-                nav.style.boxShadow = "none";
             }
         }
 
-        // Activación de transiciones diferida para evitar saltos visuales al cargar
         setTimeout(() => {
-            if(nav) nav.style.transition = "all 0.5s cubic-bezier(0.23, 1, 0.32, 1)";
+            if(nav) nav.style.transition = "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)";
         }, 100);
 
         window.addEventListener('scroll', updateNav);
-        updateNav(); // Ejecución inmediata para detectar posición inicial
+        updateNav();
     })();
 </script>
