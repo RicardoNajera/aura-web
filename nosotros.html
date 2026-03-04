@@ -9,7 +9,6 @@
     <style>
         :root { --aura-blue: #60a5fa; --aura-purple: #c084fc; }
         
-        /* Imán de scroll perfecto */
         html { 
             scroll-snap-type: y mandatory; 
             scroll-behavior: smooth; 
@@ -20,7 +19,7 @@
             font-family: 'Inter', sans-serif; 
             color: #fff; 
             margin: 0;
-            overflow: hidden;
+            overflow: hidden; /* Evita scroll lateral accidental */
         }
 
         section {
@@ -33,17 +32,71 @@
             position: relative;
         }
 
-        /* Estilo base de los elementos que van a "nacer" */
+        /* --- EFECTO REVEAL RE-BIRTH --- */
         .reveal {
             opacity: 0;
-            transform: translateY(-50px); /* Siempre vienen de arriba */
-            transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
+            transform: translateY(-60px); /* Nace desde arriba siempre */
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: blur(10px);
         }
 
-        /* Clase que activa el efecto cuando el bloque está centrado */
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
+            filter: blur(0);
+        }
+
+        /* --- SIDE NAV TECNOLÓGICO --- */
+        .side-nav {
+            position: fixed;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 25px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            group: ;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: rgba(255, 255, 255, 0.2);
+            transition: all 0.5s ease;
+            opacity: 0;
+            transform: translateX(10px);
+        }
+
+        .nav-dot {
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.5s ease;
+            border: 1px solid transparent;
+        }
+
+        /* Estado Activo del Navegador */
+        .nav-item.active .nav-label {
+            opacity: 1;
+            transform: translateX(0);
+            color: var(--aura-blue);
+        }
+
+        .nav-item.active .nav-dot {
+            background: var(--aura-blue);
+            box-shadow: 0 0 15px var(--aura-blue);
+            transform: scale(1.8);
         }
 
         .aura-text-gradient {
@@ -56,14 +109,13 @@
 
         @keyframes shine { to { background-position: 300% center; } }
 
-        /* Fondo de luz etéreo */
         .glow-portal {
             position: absolute;
-            width: 50vw;
-            height: 50vw;
+            width: 60vw;
+            height: 60vw;
             background: radial-gradient(circle, var(--aura-blue) 0%, transparent 70%);
-            filter: blur(120px);
-            opacity: 0.1;
+            filter: blur(140px);
+            opacity: 0.08;
             z-index: -1;
             border-radius: 50%;
         }
@@ -73,99 +125,129 @@
 </head>
 <body class="antialiased">
 
+    <aside class="side-nav hidden md:flex">
+        <div class="nav-item active" onclick="scrollToSection(0)">
+            <span class="nav-label">Esencia</span>
+            <div class="nav-dot"></div>
+        </div>
+        <div class="nav-item" onclick="scrollToSection(1)">
+            <span class="nav-label">Filosofía</span>
+            <div class="nav-dot"></div>
+        </div>
+        <div class="nav-item" onclick="scrollToSection(2)">
+            <span class="nav-label">Misión</span>
+            <div class="nav-dot"></div>
+        </div>
+        <div class="nav-item" onclick="scrollToSection(3)">
+            <span class="nav-label">Visión</span>
+            <div class="nav-dot"></div>
+        </div>
+        <div class="nav-item" onclick="scrollToSection(4)">
+            <span class="nav-label">Principios</span>
+            <div class="nav-dot"></div>
+        </div>
+    </aside>
+
     <nav class="fixed w-full z-50 py-10 px-6 md:px-20 flex justify-between items-center bg-black/5 backdrop-blur-sm">
         <a href="index.html" class="text-2xl font-black tracking-tighter aura-text-gradient italic">AURA</a>
         <div class="h-[1px] w-12 bg-white/20"></div>
     </nav>
 
-    <main>
-        <section>
+    <main id="main-content">
+        <section id="sec-0">
             <div class="reveal text-center">
                 <h1 class="text-[12vw] leading-none font-black tracking-tighter aura-text-gradient italic">ESENCIA</h1>
                 <p class="text-[10px] tracking-[1.2em] uppercase text-zinc-500 mt-6">Aura Laboratory</p>
             </div>
         </section>
 
-        <section>
+        <section id="sec-1">
             <div class="reveal text-center max-w-4xl px-6">
                 <span class="text-blue-500 font-bold tracking-[0.5em] text-[10px] uppercase block mb-8">01. Filosofía</span>
                 <h2 class="text-5xl md:text-8xl font-bold mb-10 tracking-tighter italic">Tecnología <br><span class="text-zinc-600">Invisible.</span></h2>
-                <p class="text-xl text-zinc-400 font-light leading-relaxed">Si tienes que pensar en ella, no es inteligente.</p>
+                <p class="text-xl text-zinc-400 font-light leading-relaxed italic">"Si tienes que pensar en ella, no es inteligente."</p>
             </div>
         </section>
 
-        <section>
+        <section id="sec-2">
             <div class="glow-portal" style="background: radial-gradient(circle, var(--aura-blue) 0%, transparent 70%);"></div>
             <div class="reveal text-center px-6">
                 <span class="text-blue-400 font-bold tracking-[0.5em] text-[10px] uppercase block mb-10">02. El Motor</span>
                 <h2 class="text-7xl md:text-[10rem] font-black aura-text-gradient mb-8 tracking-tighter">MISIÓN</h2>
-                <p class="text-2xl md:text-4xl text-white font-light max-w-3xl mx-auto">
+                <p class="text-2xl md:text-4xl text-white font-light max-w-3xl mx-auto tracking-tight">
                     Automatización que <span class="underline decoration-blue-500 underline-offset-8">respira contigo</span>.
                 </p>
             </div>
         </section>
 
-        <section>
+        <section id="sec-3">
             <div class="glow-portal" style="background: radial-gradient(circle, var(--aura-purple) 0%, transparent 70%);"></div>
             <div class="reveal text-center px-6">
                 <span class="text-purple-400 font-bold tracking-[0.5em] text-[10px] uppercase block mb-10">03. El Destino</span>
                 <h2 class="text-7xl md:text-[10rem] font-black aura-text-gradient mb-8 tracking-tighter">VISIÓN</h2>
-                <p class="text-2xl md:text-4xl text-white font-light max-w-3xl mx-auto">
+                <p class="text-2xl md:text-4xl text-white font-light max-w-3xl mx-auto tracking-tight">
                     Ser el sistema operativo de <span class="underline decoration-purple-500 underline-offset-8">la armonía humana</span>.
                 </p>
             </div>
         </section>
 
-        <section class="bg-zinc-950/40">
-            <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-16 w-full max-w-6xl px-10">
-                <div class="text-center">
-                    <div class="text-blue-500 font-black text-2xl mb-4 italic">01</div>
-                    <h3 class="font-bold uppercase tracking-widest text-xs mb-4">Pureza</h3>
-                    <p class="text-zinc-500 text-xs font-light">Diseño que desaparece.</p>
-                </div>
-                <div class="text-center">
-                    <div class="text-purple-500 font-black text-2xl mb-4 italic">02</div>
-                    <h3 class="font-bold uppercase tracking-widest text-xs mb-4">Sigilo</h3>
-                    <p class="text-zinc-500 text-xs font-light">Privacidad por diseño.</p>
-                </div>
-                <div class="text-center">
-                    <div class="text-white font-black text-2xl mb-4 italic">03</div>
-                    <h3 class="font-bold uppercase tracking-widest text-xs mb-4">Poder</h3>
-                    <p class="text-zinc-500 text-xs font-light">Respuesta instantánea.</p>
+        <section id="sec-4">
+            <div class="reveal w-full max-w-6xl px-10">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
+                    <div class="text-center group">
+                        <div class="text-blue-500 font-black text-3xl mb-4 italic opacity-20 group-hover:opacity-100 transition duration-700">01</div>
+                        <h3 class="font-bold uppercase tracking-widest text-[10px] mb-4 text-zinc-400">Pureza</h3>
+                        <p class="text-zinc-600 text-xs font-light">Diseño que desaparece.</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="text-purple-500 font-black text-3xl mb-4 italic opacity-20 group-hover:opacity-100 transition duration-700">02</div>
+                        <h3 class="font-bold uppercase tracking-widest text-[10px] mb-4 text-zinc-400">Sigilo</h3>
+                        <p class="text-zinc-600 text-xs font-light">Privacidad por diseño.</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="text-white font-black text-3xl mb-4 italic opacity-20 group-hover:opacity-100 transition duration-700">03</div>
+                        <h3 class="font-bold uppercase tracking-widest text-[10px] mb-4 text-zinc-400">Poder</h3>
+                        <p class="text-zinc-600 text-xs font-light">Respuesta instantánea.</p>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="fixed bottom-10 w-full text-center pointer-events-none">
-        <p class="text-[8px] tracking-[1em] uppercase text-zinc-700">AURA Essence Laboratory © 2026</p>
-    </footer>
-
     <script>
-        // ESTA ES LA MAGIA NEGRA PARA QUE NO HAYA ERRORES
+        // --- Lógica de Navegación por Click ---
+        function scrollToSection(index) {
+            const sections = document.querySelectorAll('section');
+            sections[index].scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Intersection Observer Pro ---
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('section');
+
         const observerOptions = {
             root: null,
-            threshold: 0.6 // Solo dispara cuando el 60% del bloque está visible
+            threshold: 0.6 // Dispara cuando el bloque está bien centrado
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
+                const index = Array.from(sections).indexOf(entry.target);
                 const revealElement = entry.target.querySelector('.reveal');
                 
                 if (entry.isIntersecting) {
-                    // Cuando entra (de arriba o de abajo), aplicamos la clase
+                    // Activar bloque y navegación
                     revealElement.classList.add('active');
+                    navItems.forEach(item => item.classList.remove('active'));
+                    navItems[index].classList.add('active');
                 } else {
-                    // Cuando sale, quitamos la clase inmediatamente para que se reinicie
+                    // Limpiar bloque al salir para permitir re-animación (nace de arriba)
                     revealElement.classList.remove('active');
                 }
             });
         }, observerOptions);
 
-        // Le decimos al observador que vigile todas las secciones
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
+        sections.forEach(section => observer.observe(section));
     </script>
 </body>
 </html>
