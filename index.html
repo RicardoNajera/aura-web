@@ -3,186 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA | Consciencia Tecnológica</title>
+    <title>AURA | Ecosistemas de Inteligencia Total</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
     <style>
-        :root { --blue-aura: #60a5fa; --purple-aura: #c084fc; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #020205; color: #fff; scroll-behavior: smooth; overflow-x: hidden; }
+        :root { 
+            --cyan-aura: #00f2ff; 
+            --purple-aura: #7000ff; 
+            --dark-bg: #030305;
+        }
         
-        /* Fondo de Energía Orgánica */
-        .energy-blob {
-            position: fixed; width: 60vw; height: 60vw; max-width: 600px; max-height: 600px;
-            background: radial-gradient(circle, rgba(96, 165, 250, 0.15) 0%, transparent 70%);
-            filter: blur(80px); z-index: -1; animation: orbit 20s infinite linear;
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: var(--dark-bg); 
+            color: #fff; 
+            overflow-x: hidden;
         }
 
-        @keyframes orbit {
-            from { transform: rotate(0deg) translateX(10vw) rotate(0deg); }
-            to { transform: rotate(360deg) translateX(10vw) rotate(-360deg); }
+        /* --- EFECTOS DE FONDO NAVE ESPACIAL --- */
+        .glow-mesh {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 50% -20%, rgba(112, 0, 255, 0.15), transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(0, 242, 255, 0.1), transparent 40%);
+            z-index: -1;
         }
 
-        /* Glassmorphism Orgánico Adaptativo */
-        .organic-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 40px 15px 40px 15px;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            height: 100%;
-        }
-
-        .organic-card:hover {
-            border-radius: 15px 40px 15px 40px;
-            background: rgba(255, 255, 255, 0.06);
-            border-color: var(--blue-aura);
-            box-shadow: 0 0 40px rgba(96, 165, 250, 0.2);
-            transform: translateY(-5px);
-        }
-
-        /* Tipografía Adaptativa Proporcional */
-        .text-fluid {
-            font-size: clamp(2.5rem, 12vw, 8rem);
-            line-height: 0.85;
+        /* --- TIPOGRAFÍA LÍQUIDA --- */
+        .text-hero {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 15vw, 12rem);
+            line-height: 0.8;
             letter-spacing: -0.05em;
-            background: linear-gradient(to bottom, #fff, rgba(255,255,255,0.4));
+            font-weight: 700;
+            background: linear-gradient(180deg, #fff 30%, rgba(255,255,255,0.1) 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        .aura-gradient-text {
-            background: linear-gradient(90deg, var(--blue-aura), var(--purple-aura));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        /* --- ADIÓS RECUADROS: BENTO GRID DINÁMICO --- */
+        .bento-item {
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 2rem;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        /* Botón Líquido Adaptativo */
-        .btn-liquid {
-            position: relative; padding: 1.2rem 2.5rem; border-radius: 100px;
-            background: linear-gradient(90deg, var(--blue-aura), var(--purple-aura));
-            display: inline-block; transition: all 0.4s ease;
+        .bento-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--cyan-aura);
+            transform: translateY(-10px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
-        .btn-liquid:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--blue-aura); }
-
-        .video-mask {
-            mask-image: radial-gradient(circle, black 30%, transparent 80%);
-            -webkit-mask-image: radial-gradient(circle, black 30%, transparent 80%);
+        .bento-item::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(0, 242, 255, 0.08), transparent 40%);
+            z-index: 1; opacity: 0; transition: opacity 0.5s;
         }
 
-        /* Ajustes específicos para móviles */
-        @media (max-width: 768px) {
-            .organic-card { padding: 2rem !important; border-radius: 30px 10px 30px 10px; }
-            .section-padding { padding-top: 5rem; padding-bottom: 5rem; }
-            .md-mt-custom { margin-top: 0 !important; } /* Elimina desplazamientos en móvil */
+        .bento-item:hover::before { opacity: 1; }
+
+        /* --- BOTONES DE ALTA GAMA --- */
+        .btn-aura {
+            position: relative;
+            padding: 1.5rem 3rem;
+            background: #fff;
+            color: #000;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+            overflow: hidden;
         }
+
+        .btn-aura:hover {
+            background: var(--cyan-aura);
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.4);
+            transform: skewX(-5deg);
+        }
+
+        /* --- SCROLL MÁTRICO --- */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--dark-bg); }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--cyan-aura); }
+
     </style>
 </head>
 <body>
-    <div class="energy-blob" style="top: -10%; left: -10%;"></div>
-    <div class="energy-blob" style="bottom: -10%; right: -10%; animation-delay: -10s;"></div>
-    
-    <div id="nav-container"></div>
 
-    <section class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
-        <div class="absolute inset-0 z-0 video-mask">
-            <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-30">
-                <source src="video-aura.mp4" type="video/mp4">
-            </video>
+    <div class="glow-mesh"></div>
+
+    <nav class="fixed w-full z-50 py-8 px-10 flex justify-between items-center backdrop-blur-md border-b border-white/5">
+        <div class="text-2xl font-extrabold tracking-tighter italic">AURA<span class="text-[var(--cyan-aura)]">.</span></div>
+        <div class="hidden md:flex gap-12 text-[10px] font-bold tracking-[0.3em] uppercase">
+            <a href="#universo" class="hover:text-[var(--cyan-aura)] transition">El Universo</a>
+            <a href="#omnipotencia" class="hover:text-[var(--cyan-aura)] transition">Control Total</a>
+            <a href="#empresa" class="hover:text-[var(--cyan-aura)] transition">Business</a>
         </div>
+        <a href="https://wa.me/9861197993" class="text-[10px] border border-white/20 px-6 py-2 rounded-full hover:bg-white hover:text-black transition-all">CONECTAR</a>
+    </nav>
 
-        <div class="relative z-10 container mx-auto px-6 text-center">
-            <div data-aos="fade-down">
-                <h1 class="text-fluid font-black mb-6">INTELIGENCIA<br><span class="aura-gradient-text">INVISIBLE</span></h1>
+    <section class="relative min-h-screen flex flex-col justify-center items-center px-6 overflow-hidden">
+        <div class="text-center z-10">
+            <p class="text-[var(--cyan-aura)] text-xs font-bold tracking-[0.8em] mb-8 uppercase" data-aos="fade-down">Hardware meets Soul</p>
+            <h1 class="text-hero" data-aos="zoom-out" data-aos-delay="200">SIN<br>LÍMITES</h1>
+            <p class="mt-10 text-gray-500 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed" data-aos="fade-up" data-aos-delay="400">
+                Desde el encendido de un foco por voz hasta la gestión de flotas industriales. 
+                <span class="text-white">AURA</span> integra lo que la fábrica olvidó conectar.
+            </p>
+            <div class="mt-12" data-aos="fade-up" data-aos-delay="600">
+                <a href="#omnipotencia" class="btn-aura">Explorar Capacidades</a>
+            </div>
+        </div>
+        
+        <div class="absolute opacity-20 w-[150%] h-[150%] pointer-events-none">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full border-[1px] border-white/10 rounded-full animate-[ping_10s_infinite]"></div>
+        </div>
+    </section>
+
+    <section id="omnipotencia" class="py-32 px-6">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                <h2 class="text-5xl md:text-8xl font-bold tracking-tighter">CONTROL<br><span class="text-zinc-700">ABSOLUTO</span></h2>
+                <p class="text-zinc-500 max-w-md text-sm uppercase tracking-widest leading-loose">
+                    Casas inteligentes, departamentos de renta corta, oficinas corporativas y naves industriales. Si tiene energía, AURA tiene el mando.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                
+                <div class="bento-item md:col-span-8 p-12 flex flex-col justify-end min-h-[450px]" data-aos="fade-right">
+                    <div class="absolute top-0 right-0 p-8">
+                        <span class="text-6xl opacity-10">01</span>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-4">Interfaz Neuronal</h3>
+                    <p class="text-zinc-400 max-w-lg">Controla AC, TV, persianas y equipos legacy (sin smart-built) mediante comandos de voz naturales. No pedimos permiso a la marca, nosotros creamos el puente.</p>
+                </div>
+
+                <div class="bento-item md:col-span-4 p-12 flex flex-col justify-end" data-aos="fade-left">
+                    <div class="w-12 h-12 bg-[var(--cyan-aura)] rounded-full mb-8 flex items-center justify-center text-black font-black">!</div>
+                    <h3 class="text-3xl font-bold mb-4">Blindaje Digital</h3>
+                    <p class="text-zinc-400">Acceso biométrico y vigilancia con IA que distingue entre una mascota y una amenaza real.</p>
+                </div>
+
+                <div class="bento-item md:col-span-4 p-12 flex flex-col justify-end min-h-[400px]" data-aos="fade-up">
+                    <h3 class="text-3xl font-bold mb-4">Fuerza Bruta</h3>
+                    <p class="text-zinc-400">Automatización de portones, techos retráctiles y maquinaria industrial. Si se mueve, lo automatizamos.</p>
+                </div>
+
+                <div class="bento-item md:col-span-8 p-12 flex flex-col justify-end" data-aos="fade-up" data-aos-delay="200" 
+                     style="background: linear-gradient(45deg, rgba(112,0,255,0.05), transparent);">
+                    <h3 class="text-3xl font-bold mb-4">Gestión Multi-Propiedad</h3>
+                    <p class="text-zinc-400 max-w-xl">Ideal para ingenieros y administradores. Monitorea el consumo energético y accesos de 1 o 100 departamentos desde una sola interfaz maestra.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-20 border-t border-white/5 px-6">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
+            <div>
+                <h2 class="text-4xl font-black italic mb-2">AURA</h2>
+                <p class="text-zinc-600 text-[10px] tracking-[0.5em] uppercase">Ecosistemas de Consciencia</p>
             </div>
             
-            <p class="text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto font-light mb-12 px-4" data-aos="fade-up" data-aos-delay="300">
-                AURA no es tecnología, es el <span class="text-white">sistema nervioso</span> de tu arquitectura.
-            </p>
-
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-6" data-aos="fade-up" data-aos-delay="500">
-                <a href="#servicios" class="btn-liquid w-full sm:w-auto font-bold uppercase tracking-widest text-[10px] text-black text-center">Iniciar Inmersión</a>
-                <a href="https://wa.me/9861197993" class="w-full sm:w-auto px-10 py-5 rounded-full border border-white/10 hover:bg-white/5 transition-all text-[10px] font-bold tracking-widest uppercase text-center">Consultoría</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="servicios" class="py-24 md:py-40 px-6">
-        <div class="container mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-                
-                <div class="organic-card p-10 md:mt-20 md-mt-custom" data-aos="fade-up">
-                    <div class="w-14 h-14 bg-blue-500/20 rounded-full flex items-center justify-center mb-8">
-                        <span class="text-2xl text-blue-400">☼</span>
-                    </div>
-                    <h3 class="text-2xl md:text-3xl font-bold mb-4">Bioclima</h3>
-                    <p class="text-gray-400 leading-relaxed font-light text-sm md:text-base">Sistemas que respiran con el entorno, optimizando la luz natural y la pureza térmica de forma autónoma.</p>
-                </div>
-
-                <div class="organic-card p-10 bg-white/[0.05]" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-14 h-14 bg-red-500/20 rounded-full flex items-center justify-center mb-8">
-                        <span class="text-2xl text-red-500">🛡</span>
-                    </div>
-                    <h3 class="text-2xl md:text-3xl font-bold mb-4">Conciencia</h3>
-                    <p class="text-gray-400 leading-relaxed font-light text-sm md:text-base">Seguridad proactiva basada en patrones de comportamiento. Tu hogar sabe quién es bienvenido.</p>
-                </div>
-
-                <div class="organic-card p-10 md:mt-40 md-mt-custom" data-aos="fade-up" data-aos-delay="400">
-                    <div class="w-14 h-14 bg-purple-500/20 rounded-full flex items-center justify-center mb-8">
-                        <span class="text-2xl text-purple-400">♫</span>
-                    </div>
-                    <h3 class="text-2xl md:text-3xl font-bold mb-4">Resonancia</h3>
-                    <p class="text-gray-400 leading-relaxed font-light text-sm md:text-base">Audio y video de alta fidelidad que desaparecen en la decoración, activándose solo cuando el ambiente lo requiere.</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-24 md:py-40 relative border-t border-white/5">
-        <div class="container mx-auto px-6 text-center">
-            <div class="mb-20" data-aos="zoom-in">
-                <p class="text-zinc-500 uppercase tracking-[0.5em] md:tracking-[1em] text-[10px] mb-8">Transforma tu existencia</p>
-                <a href="https://wa.me/9861197993" class="text-4xl md:text-8xl font-black aura-gradient-text hover:opacity-70 transition-all block">
-                    HABLEMOS
+            <div class="text-center md:text-right">
+                <p class="text-zinc-400 mb-4 text-sm">¿Listo para el siguiente nivel de mando?</p>
+                <a href="https://wa.me/9861197993" class="text-2xl md:text-5xl font-bold hover:text-[var(--cyan-aura)] transition-colors">
+                    986 119 7993
                 </a>
             </div>
-            
-            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-                <span class="text-2xl font-black italic aura-gradient-text">AURA</span>
-                <p class="text-zinc-600 text-xs">© 2026 Ecosistemas Inteligentes Premium</p>
-                <div class="flex gap-6 md:gap-10">
-                    <a href="#" class="text-zinc-400 hover:text-white text-[10px] tracking-widest transition">INSTAGRAM</a>
-                    <a href="#" class="text-zinc-400 hover:text-white text-[10px] tracking-widest transition">WHATSAPP</a>
-                </div>
-            </div>
+        </div>
+        <div class="mt-20 text-center text-[8px] text-zinc-800 tracking-[1em] uppercase">
+            Designed for the future &copy; 2026
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, easing: 'ease-out-quart', once: true });
+        AOS.init({ duration: 1000, once: true });
 
-        // Inyección de menú inteligente (mejorada)
-        async function loadMenu() {
-            try {
-                const response = await fetch('menubar.html');
-                if (!response.ok) throw new Error('No se encontró menubar.html');
-                const html = await response.text();
-                const container = document.getElementById('nav-container');
-                container.innerHTML = html;
-                
-                // Ejecutar scripts del menú cargado
-                const scripts = container.querySelectorAll('script');
-                scripts.forEach(oldScript => {
-                    const newScript = document.createElement("script");
-                    newScript.text = oldScript.text;
-                    document.body.appendChild(newScript);
-                });
-            } catch (e) { 
-                console.warn("Aviso: El menú no se cargó automáticamente. Asegúrate de que menubar.html exista."); 
-            }
-        }
-        loadMenu();
+        // Efecto de seguimiento de mouse para el brillo de los Bento Items
+        document.querySelectorAll('.bento-item').forEach(item => {
+            item.onmousemove = e => {
+                const rect = item.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                item.style.setProperty('--mouse-x', `${x}px`);
+                item.style.setProperty('--mouse-y', `${y}px`);
+            };
+        });
     </script>
 </body>
 </html>
