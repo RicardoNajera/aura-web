@@ -120,22 +120,8 @@
     <script>
         AOS.init({ duration: 1200, easing: 'ease-out-cubic', once: false, mirror: true, offset: 100 });
 
-        // FUNCIÓN PARA CARGAR EL MENÚ EXTERNO
-        async function loadMenu() {
-            try {
-                const response = await fetch('menubar.html');
-                const html = await response.text();
-                document.getElementById('nav-container').innerHTML = html;
-                
-                // Ejecutamos manualmente cualquier script que venga dentro del menu cargado
-                const scripts = document.getElementById('nav-container').getElementsByTagName('script');
-                for (let script of scripts) {
-                    eval(script.innerText);
-                }
-            } catch (error) {
-                console.error("Error cargando el menú:", error);
-            }
-        }
+       
+
 
         loadMenu();
     </script>
