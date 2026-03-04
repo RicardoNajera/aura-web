@@ -23,7 +23,7 @@
             margin: 0;
         }
 
-        /* Secciones de Pantalla Completa */
+        /* Secciones de Pantalla Completa Ajustadas al Menú */
         section {
             height: 100vh;
             scroll-snap-align: start;
@@ -32,6 +32,9 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            /* Aquí está la magia: le decimos que empiece a centrar DESPUÉS de 100px (el alto aproximado de tu menú) */
+            padding-top: 100px;
+            box-sizing: border-box;
         }
 
         /* Red Tecnológica de Fondo */
@@ -60,6 +63,7 @@
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--aura-blue), transparent);
             position: absolute;
+            top: 0; /* Aseguramos que inicie desde arriba */
             opacity: 0.2;
             animation: scan 6s linear infinite;
         }
@@ -78,7 +82,7 @@
 <body class="antialiased">
     <div class="glow-bg"></div>
 
-    <div id="nav-container"></div>
+    <div id="nav-container" class="relative z-50"></div>
 
     <main>
         <section>
