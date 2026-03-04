@@ -1,67 +1,53 @@
 <style>
-    /* Animación de flujo AURA: Azul a Morado */
-    .aura-logo-animated {
-        background: linear-gradient(
-            90deg, 
-            #60a5fa, /* Azul Aura */
-            #c084fc, /* Morado Aura */
-            #60a5fa  /* Cierre de ciclo */
-        );
-        background-size: 200% auto;
+    .aura-logo-static {
+        background: linear-gradient(90deg, #60a5fa, #c084fc);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        animation: aura-flow 3s linear infinite;
-        text-shadow: 0 0 15px rgba(192, 132, 252, 0.2);
+        font-weight: 900;
     }
-
-    @keyframes aura-flow {
-        0% { background-position: 0% center; }
-        100% { background-position: 200% center; }
+    /* Sin transiciones lentas ni efectos raros */
+    .nav-link {
+        color: #9ca3af;
+        text-transform: uppercase;
+        font-size: 10px;
+        letter-spacing: 0.3em;
+        font-weight: 700;
+        transition: color 0.2s;
     }
-
-    /* Brillo inmersivo para links */
-    .nav-glow:hover {
-        color: white;
-        text-shadow: 0 0 10px rgba(96, 165, 250, 0.6);
-    }
-
-    /* Ajuste para el blur del fondo al hacer scroll */
-    .nav-active {
-        background: rgba(0, 0, 0, 0.6) !important;
-        backdrop-filter: blur(20px) !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
+    .nav-link:hover { color: #fff; }
 </style>
 
-<nav id="main-nav" class="fixed w-full z-50 py-6 px-6 md:px-20 flex justify-between items-center bg-transparent transition-all duration-700">
+<nav id="main-nav" class="fixed w-full z-50 py-6 px-6 md:px-20 grid grid-cols-3 items-center bg-transparent">
     
-    <a href="index.html" class="text-2xl font-black tracking-tighter aura-logo-animated italic">
-        AURA
-    </a>
+    <div class="flex justify-start">
+        <a href="index.html" class="text-2xl tracking-tighter aura-logo-static italic">AURA</a>
+    </div>
     
-    <div class="flex items-center space-x-8 md:space-x-12">
-        <div class="hidden md:flex space-x-8 text-[10px] uppercase tracking-[0.3em] font-bold text-gray-500">
-            <a href="index.html" class="nav-glow transition">Home</a>
-            <a href="index.html#servicios" class="nav-glow transition">Sistemas</a>
-            <a href="nosotros.html" class="nav-glow transition">Concepto</a>
-        </div>
+    <div class="flex justify-center space-x-10">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="index.html#servicios" class="nav-link">Sistemas</a>
+        <a href="nosotros.html" class="nav-link">Concepto</a>
+    </div>
 
-        <a href="https://wa.me/9861197993" class="text-[10px] font-bold uppercase tracking-widest border border-white/20 px-8 py-3 rounded-full hover:bg-white hover:text-black hover:shadow-[0_0_25px_rgba(96,165,250,0.4)] transition-all duration-500">
+    <div class="flex justify-end">
+        <a href="https://wa.me/9861197993" class="text-[10px] font-bold uppercase tracking-widest border border-white/20 px-8 py-3 rounded-full hover:bg-white hover:text-black transition-colors">
             CONTÁCTANOS
         </a>
     </div>
 </nav>
 
 <script>
-    // Script para manejar el scroll de forma elegante
+    // Solo cambia el fondo a negro sólido al bajar, sin efectos de blur pesados
     window.addEventListener('scroll', function() {
         const nav = document.getElementById('main-nav');
         if (window.scrollY > 50) {
-            nav.classList.add('nav-active', 'py-4');
-            nav.classList.remove('py-6');
+            nav.style.backgroundColor = "#000";
+            nav.style.paddingTop = "15px";
+            nav.style.paddingBottom = "15px";
         } else {
-            nav.classList.remove('nav-active', 'py-4');
-            nav.classList.add('py-6');
+            nav.style.backgroundColor = "transparent";
+            nav.style.paddingTop = "24px";
+            nav.style.paddingBottom = "24px";
         }
     });
-</script> 
+</script>
