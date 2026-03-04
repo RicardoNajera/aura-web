@@ -14,6 +14,9 @@
     :root {
         --blue-aura: #60a5fa;
         --purple-aura: #c084fc;
+        /* Color metálico traslúcido */
+        --glass-bg: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.12);
     }
 
     #main-nav {
@@ -21,97 +24,126 @@
         top: 0; left: 0; width: 100%;
         z-index: 1000;
         padding: 20px 5%;
-        background: transparent;
         display: flex;
-        flex-wrap: wrap; /* Clave para el salto de renglón en móvil */
+        flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
         box-sizing: border-box;
-        backdrop-filter: blur(10px);
-        transition: all 0.4s ease;
+        
+        /* EL EFECTO METÁLICO PRECIOSO */
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border-bottom: 1px solid var(--glass-border);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Cambio visual al hacer scroll */
+    /* Cuando haces scroll: El metal se vuelve un poco más denso pero sigue traslúcido */
     #main-nav.scrolled {
-        background: rgba(0, 0, 0, 0.9);
         padding: 12px 5%;
+        background: rgba(10, 10, 15, 0.7); /* Oscurece un poco para legibilidad */
+        border-bottom: 1px solid rgba(96, 165, 250, 0.2); /* Brillo azul sutil en el borde */
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     }
 
-    /* LOGO */
+    /* LOGO CON BRILLO */
     .aura-brand-anim {
-        background: linear-gradient(90deg, var(--blue-aura), var(--purple-aura), var(--blue-aura));
+        background: linear-gradient(90deg, #fff, var(--blue-aura), var(--purple-aura), #fff);
         background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        animation: aura-flow 4s linear infinite;
+        animation: aura-flow 5s linear infinite;
         font-weight: 900;
         font-style: italic;
-        font-size: 1.5rem;
+        font-size: 1.6rem;
         letter-spacing: -0.05em;
         text-decoration: none;
-        order: 1; /* Primero en el orden */
+        order: 1;
+        filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.3));
     }
 
     @keyframes aura-flow { to { background-position: 200% center; } }
 
-    /* NAVEGACIÓN (LOS LINKS) */
+    /* NAVEGACIÓN */
     .nav-links {
         display: flex;
         justify-content: center;
-        gap: 1.5rem;
-        width: 100%; /* En móvil ocupa todo el ancho para forzar el renglón abajo */
-        order: 3;    /* En móvil se va al final (abajo) */
+        gap: 2rem;
+        width: 100%;
+        order: 3;
         padding-top: 15px;
         margin-top: 10px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .menu-item {
         font-size: 10px;
         text-transform: uppercase;
         font-weight: 700;
-        letter-spacing: 0.2em;
-        color: rgba(255, 255, 255, 0.6);
+        letter-spacing: 0.25em;
+        color: rgba(255, 255, 255, 0.5);
         text-decoration: none;
-        transition: 0.3s;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .menu-item::after {
+        content: '';
+        position: absolute;
+        bottom: -5px; left: 0; width: 0%; height: 1px;
+        background: var(--blue-aura);
+        transition: width 0.3s ease;
     }
 
     .menu-item:hover { color: #fff; }
+    .menu-item:hover::after { width: 100%; }
 
-    /* BOTÓN */
+    /* BOTÓN TIPO TITANIO */
     .btn-contact {
         font-size: 9px;
         font-weight: 800;
         text-transform: uppercase;
+        letter-spacing: 0.1em;
         border: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 0.6rem 1.2rem;
+        padding: 0.7rem 1.5rem;
         border-radius: 50px;
         color: white;
         text-decoration: none;
-        background: rgba(255, 255, 255, 0.05);
-        order: 2; /* En móvil se queda a la derecha del logo */
+        background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        transition: all 0.4s ease;
+        order: 2;
+        backdrop-filter: blur(5px);
     }
 
-    /* REGLAS PARA PANTALLAS GRANDES (PC) */
+    .btn-contact:hover {
+        background: #fff;
+        color: #000;
+        border-color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+    }
+
     @media (min-width: 850px) {
         #main-nav {
-            flex-wrap: nowrap; /* Todo en una sola fila */
-            padding: 24px 5%;
+            flex-wrap: nowrap;
+            padding: 25px 5%;
         }
 
         .nav-links {
             width: auto;
-            order: 2; /* Pasa al medio */
+            order: 2;
             padding-top: 0;
             margin-top: 0;
             border-top: none;
-            position: absolute; /* Centrado perfecto respecto a la pantalla */
+            position: absolute;
             left: 50%;
             transform: translateX(-50%);
         }
 
         .btn-contact {
-            order: 3; /* Pasa a la derecha */
+            order: 3;
             font-size: 10px;
         }
     }
