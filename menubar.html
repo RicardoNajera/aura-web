@@ -1,17 +1,17 @@
 <style>
-    /* Animación del Gradiente para el Logo */
+    /* Animación de flujo AURA: Azul a Morado */
     .aura-logo-animated {
         background: linear-gradient(
             90deg, 
             #60a5fa, /* Azul Aura */
             #c084fc, /* Morado Aura */
-            #60a5fa  /* Cierra el ciclo en azul */
+            #60a5fa  /* Cierre de ciclo */
         );
         background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         animation: aura-flow 3s linear infinite;
-        text-shadow: 0 0 20px rgba(96, 165, 250, 0.3); /* Brillo sutil inmersivo */
+        text-shadow: 0 0 15px rgba(192, 132, 252, 0.2);
     }
 
     @keyframes aura-flow {
@@ -19,10 +19,17 @@
         100% { background-position: 200% center; }
     }
 
-    /* Efecto hover inmersivo para los links */
-    .nav-link-glow:hover {
+    /* Brillo inmersivo para links */
+    .nav-glow:hover {
         color: white;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        text-shadow: 0 0 10px rgba(96, 165, 250, 0.6);
+    }
+
+    /* Ajuste para el blur del fondo al hacer scroll */
+    .nav-active {
+        background: rgba(0, 0, 0, 0.6) !important;
+        backdrop-filter: blur(20px) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 </style>
 
@@ -32,30 +39,28 @@
         AURA
     </a>
     
-    <div class="hidden md:flex space-x-12 text-[10px] uppercase tracking-[0.3em] font-bold text-gray-500">
-        <a href="index.html" class="nav-link-glow transition">Home</a>
-        <a href="index.html#servicios" class="nav-link-glow transition">Sistemas</a>
-    </div>
+    <div class="flex items-center space-x-8 md:space-x-12">
+        <div class="hidden md:flex space-x-8 text-[10px] uppercase tracking-[0.3em] font-bold text-gray-500">
+            <a href="index.html" class="nav-glow transition">Home</a>
+            <a href="index.html#servicios" class="nav-glow transition">Sistemas</a>
+            <a href="nosotros.html" class="nav-glow transition">Concepto</a>
+        </div>
 
-    <div class="flex items-center space-x-8">
-        <a href="https://wa.me/9861197993" class="text-[10px] uppercase tracking-widest border border-white/10 px-8 py-3 rounded-full hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition duration-500">
-            Inquire
-        </a>
-        
-        <a href="nosotros.html" class="text-[10px] uppercase tracking-[0.3em] font-bold text-gray-500 nav-link-glow transition">
-            Concepto
+        <a href="https://wa.me/9861197993" class="text-[10px] font-bold uppercase tracking-widest border border-white/20 px-8 py-3 rounded-full hover:bg-white hover:text-black hover:shadow-[0_0_25px_rgba(96,165,250,0.4)] transition-all duration-500">
+            CONTÁCTANOS
         </a>
     </div>
 </nav>
 
 <script>
+    // Script para manejar el scroll de forma elegante
     window.addEventListener('scroll', function() {
         const nav = document.getElementById('main-nav');
         if (window.scrollY > 50) {
-            nav.classList.add('bg-black/60', 'backdrop-blur-xl', 'py-4', 'border-b', 'border-white/5');
+            nav.classList.add('nav-active', 'py-4');
             nav.classList.remove('py-6');
         } else {
-            nav.classList.remove('bg-black/60', 'backdrop-blur-xl', 'py-4', 'border-b', 'border-white/5');
+            nav.classList.remove('nav-active', 'py-4');
             nav.classList.add('py-6');
         }
     });
