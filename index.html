@@ -6,124 +6,129 @@
     <title>AURA | Domótica y Automatización de Vanguardia</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background: #000; color: #fff; scroll-behavior: smooth; }
-        .aura-gradient {
-            background: linear-gradient(90deg, #60a5fa 0%, #c084fc 100%);
+        
+        /* LOGO AURA: Animación Azul a Morado sin saltos */
+        .aura-brand-anim {
+            background: linear-gradient(90deg, #60a5fa, #c084fc, #60a5fa);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
+            animation: aura-flow 4s linear infinite;
+            font-weight: 900;
+            font-style: italic;
         }
-        .glass-panel {
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        @keyframes aura-flow { to { background-position: 200% center; } }
+
+        /* MENU: Centrado y Limpio */
+        #main-nav {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            transition: background 0.2s, padding 0.2s;
         }
-        @keyframes pulse-soft {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.05); }
+
+        .menu-item {
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            color: #6b7280;
+            transition: color 0.2s;
         }
-        .tech-icon { animation: pulse-soft 3s infinite ease-in-out; }
-        .tech-bg {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 50px 50px;
-        }
-        .video-docker video {
-            top: 50%; left: 50%; transform: translate(-50%, -50%);
-            object-fit: cover; position: absolute; height: 100%; width: 100%;
-        }
-        .video-overlay {
-            background: rgba(0, 0, 0, 0.75);
-            position: absolute; height: 100%; width: 100%; top: 0; left: 0; z-index: 2;
-        }
+        .menu-item:hover { color: #fff; }
+
+        /* Estilos de la página */
+        .aura-gradient { background: linear-gradient(90deg, #60a5fa 0%, #c084fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glass-panel { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .tech-bg { background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px); background-size: 50px 50px; }
+        .video-docker video { top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; position: absolute; height: 100%; width: 100%; }
+        .video-overlay { background: rgba(0, 0, 0, 0.75); position: absolute; height: 100%; width: 100%; top: 0; left: 0; z-index: 2; }
     </style>
 </head>
 <body class="overflow-x-hidden tech-bg">
 
-    <div id="nav-container"></div>
-
-    <section class="relative h-screen flex flex-col justify-center items-center text-center px-6 overflow-hidden">
-        <div class="video-docker absolute top-0 left-0 w-full h-full overflow-hidden">
-            <video autoplay loop muted playsinline>
-                <source src="video-aura.mp4" type="video/mp4">
-            </video>
-            <div class="video-overlay"></div>
+    <nav id="main-nav" class="fixed w-full z-50 py-6 px-6 md:px-20 bg-transparent">
+        <div class="flex justify-start">
+            <a href="index.html" class="text-2xl tracking-tighter aura-brand-anim">AURA</a>
+        </div>
+        
+        <div class="flex justify-center space-x-10">
+            <a href="index.html" class="menu-item">Home</a>
+            <a href="#servicios" class="menu-item">Sistemas</a>
+            <a href="nosotros.html" class="menu-item">Concepto</a>
         </div>
 
-        <div class="relative z-30 flex flex-col items-center">
-            <h2 data-aos="zoom-out" data-aos-duration="1500" class="text-5xl md:text-8xl lg:text-9xl font-extrabold aura-gradient mb-8 leading-tight tracking-tighter">
+        <div class="flex justify-end">
+            <a href="https://wa.me/9861197993" class="text-[10px] font-bold uppercase tracking-widest border border-white/20 px-8 py-3 rounded-full hover:bg-white hover:text-black transition-colors">
+                CONTÁCTANOS
+            </a>
+        </div>
+    </nav>
+
+    <section class="relative h-screen flex flex-col justify-center items-center text-center px-6 overflow-hidden">
+        <div class="video-docker">
+            <video autoplay loop muted playsinline><source src="video-aura.mp4" type="video/mp4"></video>
+            <div class="video-overlay"></div>
+        </div>
+        <div class="relative z-30">
+            <h2 class="text-6xl md:text-8xl lg:text-9xl font-extrabold aura-gradient mb-8 leading-tight tracking-tighter">
                 El futuro,<br>automatizado.
             </h2>
-            <p data-aos="fade-up" data-aos-delay="400" class="text-xl md:text-2xl text-gray-300 max-w-3xl font-light">
-                En <strong>AURA</strong> fusionamos diseño y tecnología para crear espacios inteligentes que responden a tus necesidades. Control total, eficiencia y confort absoluto.
+            <p class="text-xl md:text-2xl text-gray-300 max-w-3xl font-light">
+                En <strong>AURA</strong> fusionamos diseño y tecnología para crear espacios inteligentes.
             </p>
         </div>
     </section>
 
     <section id="servicios" class="py-32 px-6 md:px-20 max-w-7xl mx-auto">
         <div class="mb-20">
-            <h3 data-aos="fade-right" class="text-4xl md:text-5xl font-semibold mb-4 tracking-tight">Soluciones Tecnológicas</h3>
+            <h3 class="text-4xl md:text-5xl font-semibold mb-4 tracking-tight">Soluciones Tecnológicas</h3>
             <div class="h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div data-aos="fade-up" class="glass-panel p-10 rounded-3xl group hover:border-blue-500/50 transition-all duration-300">
-                <div class="text-blue-400 mb-8 tech-icon font-bold text-4xl">☼</div>
+            <div class="glass-panel p-10 rounded-3xl group hover:border-blue-500/50 transition-all duration-300">
+                <div class="text-blue-400 mb-8 font-bold text-4xl">☼</div>
                 <h4 class="text-2xl font-bold mb-4 tracking-tight text-white">Iluminación y Clima</h4>
-                <p class="text-gray-400 leading-relaxed font-light text-sm">Diseño de escenas lumínicas y control térmico inteligente. Maximiza el confort y la eficiencia energética de tu hogar.</p>
+                <p class="text-gray-400 leading-relaxed font-light text-sm">Diseño de escenas lumínicas y control térmico inteligente.</p>
             </div>
-
-            <div data-aos="fade-up" data-aos-delay="150" class="glass-panel p-10 rounded-3xl group hover:border-red-500/50 transition-all duration-300">
-                <div class="text-red-400 mb-8 tech-icon font-bold text-4xl">🛡</div>
+            <div class="glass-panel p-10 rounded-3xl group hover:border-red-500/50 transition-all duration-300">
+                <div class="text-red-400 mb-8 font-bold text-4xl">🛡</div>
                 <h4 class="text-2xl font-bold mb-4 tracking-tight text-white">Seguridad</h4>
-                <p class="text-gray-400 leading-relaxed font-light text-sm">Monitoreo avanzado en tiempo real y control de acceso inteligente. Protección total y vigilancia constante.</p>
+                <p class="text-gray-400 leading-relaxed font-light text-sm">Monitoreo avanzado en tiempo real y control de acceso.</p>
             </div>
-
-            <div data-aos="fade-up" data-aos-delay="300" class="glass-panel p-10 rounded-3xl group hover:border-purple-500/50 transition-all duration-300">
-                <div class="text-purple-400 mb-8 tech-icon font-bold text-4xl">♫</div>
+            <div class="glass-panel p-10 rounded-3xl group hover:border-purple-500/50 transition-all duration-300">
+                <div class="text-purple-400 mb-8 font-bold text-4xl">♫</div>
                 <h4 class="text-2xl font-bold mb-4 tracking-tight text-white">Entretenimiento</h4>
-                <p class="text-gray-400 leading-relaxed font-light text-sm">Integración de audio y video de alta fidelidad. Salas de cine y audio multi-room controlados fácilmente.</p>
-            </div>
-
-            <div data-aos="fade-up" class="glass-panel p-10 rounded-3xl group hover:border-orange-500/50 transition-all duration-300">
-                <div class="text-orange-400 mb-8 tech-icon font-bold text-4xl">⚙</div>
-                <h4 class="text-2xl font-bold mb-4 tracking-tight text-white">Motores y Accesos</h4>
-                <p class="text-gray-400 leading-relaxed font-light text-sm">Automatización de persianas, cortinas y portones. Control seguro y silencioso desde tu smartphone.</p>
-            </div>
-
-            <div data-aos="fade-up" data-aos-delay="150" class="glass-panel p-10 rounded-3xl group hover:border-green-500/50 transition-all duration-300">
-                <div class="text-green-400 mb-8 tech-icon font-bold text-4xl">⚡</div>
-                <h4 class="text-2xl font-bold mb-4 tracking-tight text-white">Energía Inteligente</h4>
-                <p class="text-gray-400 leading-relaxed font-light text-sm">Sistemas de gestión energética para un consumo sustentable. Monitorea y optimiza el gasto automáticamente.</p>
-            </div>
-
-            <div data-aos="fade-up" data-aos-delay="300" class="glass-panel p-10 rounded-3xl group hover:border-zinc-500/50 transition-all duration-300">
-                <div class="text-zinc-400 mb-8 tech-icon font-bold text-4xl"></div>
-                <h4 class="text-2xl font-bold mb-4 tracking-tight text-white">Ecosistema Central</h4>
-                <p class="text-gray-400 leading-relaxed font-light text-sm">Todas las funciones integradas en una interfaz intuitiva. El control absoluto disponible desde cualquier lugar.</p>
+                <p class="text-gray-400 leading-relaxed font-light text-sm">Integración de audio y video de alta fidelidad.</p>
             </div>
         </div>
     </section>
 
-    <footer class="py-32 text-center border-t border-zinc-900 bg-zinc-950/80 backdrop-blur-sm">
-        <h5 data-aos="fade-up" class="text-zinc-500 text-lg mb-4 uppercase tracking-[0.3em] font-light">Transforma tu espacio</h5>
-        <a href="https://wa.me/9861197993" class="text-4xl md:text-7xl font-extrabold tracking-tighter block mb-12 aura-gradient hover:scale-105 transition-transform duration-300">
-            Hablemos por WhatsApp.
-        </a>
-        <p class="text-zinc-600 text-sm font-light">© 2026 <span class="aura-gradient font-semibold italic">AURA Automation</span>. Soluciones Premium.</p>
+    <footer class="py-20 text-center border-t border-zinc-900">
+        <a href="https://wa.me/9861197993" class="text-4xl md:text-6xl font-black aura-gradient block mb-8">Hablemos por WhatsApp.</a>
+        <p class="text-zinc-600 text-sm font-light">© 2026 AURA Automation.</p>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1200, easing: 'ease-out-cubic', once: false, mirror: true, offset: 100 });
-
-       
-
-
-        loadMenu();
+        // SCRIPT DEL MENU (Directo)
+        const nav = document.getElementById('main-nav');
+        function handleScroll() {
+            if (window.scrollY > 30) {
+                nav.style.background = "rgba(0, 0, 0, 0.9)";
+                nav.style.paddingTop = "15px";
+                nav.style.paddingBottom = "15px";
+            } else {
+                nav.style.background = "transparent";
+                nav.style.paddingTop = "24px";
+                nav.style.paddingBottom = "24px";
+            }
+        }
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Chequeo inicial
     </script>
 </body>
 </html>
