@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,146 +8,154 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --aura-blue: #60a5fa; --aura-purple: #c084fc; }
+        :root { --aura-blue: #60a5fa; --aura-purple: #c084fc; --aura-dark: #050505; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--aura-dark); color: #fff; margin: 0; overflow-x: hidden; }
         
-        /* Sistema de Scroll Inmersivo */
-        html { 
-            scroll-snap-type: y mandatory; 
-            scroll-behavior: smooth; 
-        }
-
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: #000; 
-            color: #fff; 
-            margin: 0;
-        }
-
-        /* Secciones de Pantalla Completa Ajustadas al Menú */
         section {
-            height: 100vh;
-            scroll-snap-align: start;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            /* Aquí está la magia: le decimos que empiece a centrar DESPUÉS de 100px (el alto aproximado de tu menú) */
-            padding-top: 100px;
-            box-sizing: border-box;
+            height: 100vh; scroll-snap-align: start;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden; padding: 5vw; box-sizing: border-box;
         }
 
-        /* Red Tecnológica de Fondo */
-        .glow-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% -20%, rgba(96, 165, 250, 0.12) 0%, transparent 50%),
-                        radial-gradient(circle at 0% 100%, rgba(192, 132, 252, 0.08) 0%, transparent 40%);
-            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0);
-            background-size: 40px 40px;
+        /* Fondo de red neuronal */
+        .grid-bg {
+            position: fixed; inset: 0;
+            background-image: linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
             z-index: -1;
         }
 
+        /* Gradiente dinámico AURA */
         .aura-text-gradient {
             background: linear-gradient(90deg, #fff, var(--aura-blue), var(--aura-purple), #fff);
-            background-size: 300% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 8s linear infinite;
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
         }
 
-        @keyframes shine { to { background-position: 300% center; } }
-
-        .scan-line {
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--aura-blue), transparent);
-            position: absolute;
-            top: 0; /* Aseguramos que inicie desde arriba */
-            opacity: 0.2;
-            animation: scan 6s linear infinite;
+        @keyframes shine { to { background-position: 200% center; } }
+        
+        .glass-module {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 2px solid var(--aura-blue);
+            backdrop-filter: blur(15px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-module:hover {
+            background: rgba(96, 165, 250, 0.08);
+            transform: translateX(10px);
+            border-left: 2px solid var(--aura-purple);
         }
 
-        @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
-
-        .focus-text {
-            max-width: 900px;
-            text-align: center;
-            padding: 0 2rem;
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
         }
 
+        #nav-container { position: fixed; top: 0; width: 100%; z-index: 1000; }
         ::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="antialiased">
-    <div class="glow-bg"></div>
-
-    <div id="nav-container" class="relative z-50"></div>
+    <div class="grid-bg"></div>
+    <div id="nav-container"></div>
 
     <main>
         <section>
-            <div class="scan-line"></div>
-            <div class="text-center">
-                <h1 data-aos="zoom-out" data-aos-duration="2000" class="text-[15vw] leading-none font-black tracking-tighter aura-text-gradient opacity-90 select-none">
-                    ESENCIA
-                </h1>
-                <p data-aos="fade-up" data-aos-delay="500" class="mt-8 text-xs font-bold text-gray-500 tracking-[1em] uppercase">
-                    Laboratorio de Futuro
-                </p>
+            <div class="absolute inset-0 flex items-center justify-center opacity-10">
+                <span class="text-[30vw] font-black tracking-tighter select-none">AURA</span>
+            </div>
+            <div class="relative z-10 text-center" data-aos="zoom-out" data-aos-duration="2500">
+                <h1 class="text-6xl md:text-9xl font-extrabold tracking-tighter mb-4 aura-text-gradient uppercase">Nosotros</h1>
+                <div class="h-px w-48 bg-gradient-to-r from-transparent via-blue-500 to-transparent mx-auto mb-8"></div>
+                <p class="text-xs font-bold text-blue-400 tracking-[1.5em] uppercase opacity-70">Código Genético de la Marca</p>
+            </div>
+        </section>
+
+        <section class="bg-[#080808]">
+            <div class="grid grid-cols-1 md:grid-cols-2 w-full max-w-7xl items-center gap-12">
+                <div data-aos="fade-right">
+                    <h2 class="text-7xl md:text-9xl font-black leading-none uppercase aura-text-gradient">Esencia</h2>
+                    <h3 class="text-5xl md:text-7xl font-light text-outline uppercase mt-2">Invisibilidad</h3>
+                </div>
+                <div class="space-y-8" data-aos="fade-left">
+                    <span class="text-blue-500 font-bold tracking-widest text-xs uppercase italic">/ 01 Filosofía</span>
+                    <p class="text-2xl md:text-3xl font-light text-gray-300 leading-tight">
+                        No instalamos equipos. <br>
+                        <span class="text-white font-bold italic">Esculpimos experiencias.</span><br>
+                        La tecnología solo es perfecta cuando no requiere que pienses en ella.
+                    </p>
+                </div>
             </div>
         </section>
 
         <section>
-            <div class="focus-text" data-aos="fade-up">
-                <span class="text-blue-500 font-bold tracking-[0.5em] text-[10px] uppercase block mb-6">01. Filosofía</span>
-                <h2 class="text-5xl md:text-7xl font-extrabold mb-10 tracking-tighter leading-tight">Tecnología que <br> <span class="text-gray-500">no se siente.</span></h2>
-                <p class="text-xl md:text-2xl text-gray-400 font-light leading-relaxed">
-                    Creamos espacios que aprenden y se adaptan a ti sin fricción. En AURA, el hardware es invisible; el confort es absoluto.
-                </p>
+            <div class="max-w-4xl w-full" data-aos="fade-up">
+                <div class="relative pl-12 border-l border-white/10">
+                    <div class="absolute top-0 left-[-4px] w-2 h-2 bg-blue-500 rounded-full shadow-[0_0_15px_#60a5fa]"></div>
+                    <span class="text-gray-500 font-mono text-sm mb-4 block uppercase tracking-widest">System_Mission.log</span>
+                    <h2 class="text-6xl md:text-9xl font-black aura-text-gradient mb-8 uppercase">Misión</h2>
+                    <p class="text-3xl md:text-5xl font-extralight text-white leading-none tracking-tighter">
+                        "Convertir la complejidad en <span class="font-bold underline decoration-blue-500">libertad</span>, automatizando lo cotidiano para potenciar lo humano."
+                    </p>
+                </div>
             </div>
         </section>
 
-        <section class="bg-white/[0.01]">
-            <div class="focus-text" data-aos="fade-right">
-                <span class="text-blue-400 font-bold tracking-[0.5em] text-[10px] uppercase block mb-6">02. El Propósito</span>
-                <h2 class="text-6xl md:text-9xl font-black mb-8 aura-text-gradient tracking-tighter">MISIÓN</h2>
-                <p class="text-xl md:text-3xl text-gray-300 font-light leading-relaxed italic">
-                    "Eliminar la complejidad tecnológica de la vida diaria, convirtiendo cada hogar en un organismo inteligente y autónomo."
-                </p>
+        <section class="bg-blue-600/5 backdrop-blur-3xl">
+            <div class="max-w-5xl text-center" data-aos="zoom-in">
+                <h2 class="text-[12vw] font-black text-white/5 absolute inset-0 flex items-center justify-center select-none uppercase">Destino</h2>
+                <div class="relative z-10">
+                    <span class="text-purple-400 font-bold tracking-widest text-xs uppercase block mb-6">/ 03 El Horizonte</span>
+                    <h3 class="text-5xl md:text-8xl font-black mb-10 tracking-tight aura-text-gradient uppercase">Visión</h3>
+                    <p class="text-xl md:text-2xl text-gray-400 font-light max-w-3xl mx-auto leading-relaxed">
+                        Ser el estándar de inteligencia ambiental, creando espacios que respiren y evolucionen en perfecta simbiosis con sus habitantes.
+                    </p>
+                </div>
             </div>
         </section>
 
         <section>
-            <div class="focus-text" data-aos="fade-left">
-                <span class="text-purple-400 font-bold tracking-[0.5em] text-[10px] uppercase block mb-6">03. El Destino</span>
-                <h2 class="text-6xl md:text-9xl font-black mb-8 aura-text-gradient tracking-tighter">VISIÓN</h2>
-                <p class="text-xl md:text-3xl text-gray-300 font-light leading-relaxed italic">
-                    "Ser el estándar global de la domótica invisible, donde el espacio y el ser humano coexisten en perfecta armonía digital."
-                </p>
+            <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-8 glass-module" data-aos="fade-up" data-aos-delay="100">
+                    <h4 class="text-blue-400 font-bold mb-2 tracking-tighter text-xl uppercase italic">Innovación de Autor</h4>
+                    <p class="text-gray-500 text-sm">Ingeniería personalizada. Cada espacio tiene su propio lenguaje de automatización.</p>
+                </div>
+                <div class="p-8 glass-module" data-aos="fade-up" data-aos-delay="200">
+                    <h4 class="text-blue-400 font-bold mb-2 tracking-tighter text-xl uppercase italic">Silencio Visual</h4>
+                    <p class="text-gray-500 text-sm">La tecnología más avanzada es la que permanece oculta a la vista pero presente en el confort.</p>
+                </div>
+                <div class="p-8 glass-module" data-aos="fade-up" data-aos-delay="300">
+                    <h4 class="text-blue-400 font-bold mb-2 tracking-tighter text-xl uppercase italic">Adaptabilidad</h4>
+                    <p class="text-gray-500 text-sm">Nuestros sistemas no son estáticos; aprenden y mutan según tus hábitos diarios.</p>
+                </div>
+                <div class="p-8 glass-module" data-aos="fade-up" data-aos-delay="400">
+                    <h4 class="text-blue-400 font-bold mb-2 tracking-tighter text-xl uppercase italic">Eficiencia Lógica</h4>
+                    <p class="text-gray-500 text-sm">Consumo inteligente de recursos basado en datos, no en suposiciones.</p>
+                </div>
             </div>
         </section>
     </main>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Inicializar animaciones de alto nivel
-        AOS.init({ duration: 1500, once: false, mirror: true, offset: 100 });
+        AOS.init({ duration: 1000, once: false, mirror: true });
 
-        // Función de carga del menú compartida
         async function loadMenu() {
             try {
-                const response = await fetch('menubar.html');
-                const html = await response.text();
-                document.getElementById('nav-container').innerHTML = html;
-                
-                // Inyectar y ejecutar scripts del menubar.html
-                const scripts = document.getElementById('nav-container').getElementsByTagName('script');
-                for (let script of scripts) {
-                    const newScript = document.createElement("script");
-                    newScript.text = script.text;
-                    document.body.appendChild(newScript);
-                }
-            } catch (e) { console.error("Error cargando el menú inmersivo", e); }
+                const r = await fetch('menubar.html');
+                const h = await r.text();
+                const c = document.getElementById('nav-container');
+                c.innerHTML = h;
+                const scripts = c.querySelectorAll('script');
+                scripts.forEach(s => {
+                    const ns = document.createElement("script");
+                    ns.text = s.text;
+                    document.body.appendChild(ns);
+                });
+            } catch(e) { console.log("Menu loading error."); }
         }
         loadMenu();
     </script>

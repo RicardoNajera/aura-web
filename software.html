@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecosistema Digital | AURA</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;600;700;800;900&family=JetBrains+Mono:wght@200;400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           1. ESTÁNDAR VISUAL AURA (CORE)
+           ========================================================================== */
+        :root { 
+            --aura-blue: #60a5fa; 
+            --aura-purple: #c084fc; 
+            --aura-cyan: #22d3ee;
+            --aura-dark: #000000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { 
+            scroll-snap-type: y mandatory; 
+            scroll-behavior: smooth; 
+        }
+        
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: var(--aura-dark); 
+            color: #ffffff; 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        section {
+            height: 100vh; 
+            width: 100vw;
+            scroll-snap-align: start;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            position: relative; 
+            overflow: hidden; 
+            padding-top: 80px; 
+            box-sizing: border-box;
+        }
+
+        /* ==========================================================================
+           2. INTERFAZ DE FONDO: DIGITAL STREAM (RENOVADO)
+           ========================================================================== */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -3;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .ambient-overlay {
+            position: fixed; 
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.9) 100%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Línea de pulso de software */
+        .software-pulse {
+            width: 1px; height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--aura-purple), transparent);
+            position: absolute;
+            opacity: 0.2;
+            animation: pulse-move 8s linear infinite;
+        }
+
+        @keyframes pulse-move {
+            0% { transform: translateX(-100vw); }
+            100% { transform: translateX(100vw); }
+        }
+
+        /* ==========================================================================
+           3. TIPOGRAFÍA INMERSIVA Y ESTILOS
+           ========================================================================== */
+        .aura-text-gradient {
+            background: linear-gradient(90deg, #ffffff, var(--aura-blue), var(--aura-purple), #ffffff);
+            background-size: 300% auto; 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            animation: shine-text 10s linear infinite;
+        }
+
+        @keyframes shine-text { to { background-position: 300% center; } }
+
+        .text-outline-soft {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
+            color: transparent;
+            user-select: none;
+        }
+
+        .font-mono-tech { font-family: 'JetBrains Mono', monospace; }
+
+        /* Botón de Acción AURA */
+        .btn-aura-software {
+            padding: 1.2rem 3.5rem;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 0.75rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: transparent;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-aura-software:hover {
+            border-color: var(--aura-purple);
+            box-shadow: 0 0 50px rgba(192, 132, 252, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Soporte para el Menubar externo */
+        #nav-container { min-height: 80px; position: fixed; top: 0; width: 100%; z-index: 1000; }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-overlay"></div>
+    <div id="nav-container"></div>
+
+    <main>
+        <section>
+            <div class="software-pulse" style="left: 20%;"></div>
+            <div class="software-pulse" style="left: 80%; animation-delay: 4s;"></div>
+            
+            <div class="absolute inset-0 flex items-center justify-center z-0">
+                <h2 class="text-[25vw] font-black text-outline-soft">CODE</h2>
+            </div>
+            
+            <div class="text-center w-full px-6 z-10" data-aos="zoom-out" data-aos-duration="2500">
+                <span class="text-purple-400 font-bold tracking-[0.8em] text-[10px] md:text-xs uppercase block mb-10">
+                    Sistemas Inteligentes
+                </span>
+                
+                <h1 class="text-[12vw] md:text-[11vw] leading-none font-black tracking-tighter aura-text-gradient select-none uppercase">
+                    SOFTWARE
+                </h1>
+                
+                <p class="mt-6 text-xs md:text-sm font-bold text-gray-500 tracking-[1em] uppercase">
+                    La arquitectura del mañana
+                </p>
+                
+                <div class="mt-20 max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="600">
+                    <p class="text-xl md:text-3xl text-gray-300 font-extralight leading-relaxed italic">
+                        "Transformamos su necesidad operativa en una herramienta digital de alta precisión."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="absolute inset-0 flex items-center justify-center z-0 opacity-10">
+                <h2 class="text-[20vw] font-black text-outline-soft uppercase">SOLUCIONES</h2>
+            </div>
+
+            <div class="max-w-5xl text-left md:text-center px-6 z-10 w-full" data-aos="fade-up">
+                <span class="text-purple-500 font-bold tracking-[0.5em] text-[10px] uppercase block mb-10">01. Desarrollo a Medida</span>
+                
+                <h2 class="text-5xl md:text-8xl font-black mb-12 tracking-tighter leading-[0.9]">
+                    Software para <br> <span class="text-gray-600">su necesidad.</span>
+                </h2>
+                
+                <p class="text-xl md:text-3xl text-gray-300 font-light leading-relaxed max-w-4xl mx-auto mb-10">
+                    Desde un menú digital interactivo hasta plataformas complejas de gestión para su empresa o consultorio. Usted expone su necesidad y nosotros pulimos la idea hasta convertirla en una aplicación funcional, escalable y robusta.
+                </p>
+                
+                <div class="h-px w-24 bg-purple-500 mx-auto opacity-50"></div>
+            </div>
+        </section>
+
+        <section>
+            <div class="absolute inset-0 flex items-center justify-center z-0 opacity-10">
+                <h2 class="text-[20vw] font-black text-outline-soft uppercase">CONTROL</h2>
+            </div>
+
+            <div class="max-w-6xl text-left md:text-center px-6 z-10 w-full" data-aos="fade-right">
+                <span class="text-blue-400 font-bold tracking-[0.5em] text-[10px] uppercase block mb-10">02. Integración Física</span>
+                
+                <h2 class="text-5xl md:text-8xl font-black mb-10 leading-[0.9] tracking-tighter">
+                    Vea su máquina <br> trabajar.
+                </h2>
+                
+                <p class="text-xl md:text-3xl text-gray-300 font-light leading-relaxed max-w-4xl mx-auto">
+                    Tome el control total desde su dispositivo móvil. Desarrollamos la interfaz para que pueda monitorear el comportamiento de sus equipos en tiempo real y decidir cómo deben reaccionar ante cualquier evento.
+                </p>
+
+                <div class="mt-16 flex justify-start md:justify-center gap-12 font-mono-tech text-[10px] uppercase tracking-widest text-blue-400">
+                    <span>Estado en Vivo</span>
+                    <span>Acción Remota</span>
+                    <span>Historial de Datos</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="absolute inset-0 flex items-center justify-center z-0 opacity-10">
+                <h2 class="text-[18vw] font-black text-outline-soft uppercase">SCENES</h2>
+            </div>
+
+            <div class="max-w-6xl text-left md:text-center px-6 z-10 w-full" data-aos="fade-left">
+                <span class="text-cyan-400 font-bold tracking-[0.5em] text-[10px] uppercase block mb-10">03. Automatización Lógica</span>
+                
+                <h2 class="text-5xl md:text-8xl font-black mb-10 leading-[0.9] tracking-tighter aura-text-gradient">
+                    Entornos con <br> criterio propio.
+                </h2>
+                
+                <p class="text-xl md:text-3xl text-gray-300 font-light leading-relaxed max-w-4xl mx-auto">
+                    Defina escenas predeterminadas trabajadas por nuestros expertos. Programe su entorno para que se comporte bajo su propio criterio: iluminación, temperatura y procesos industriales que se ajustan automáticamente según el momento del día o la llegada de un cliente.
+                </p>
+
+                <div class="mt-16 flex justify-start md:justify-center gap-12 font-mono-tech text-[10px] uppercase tracking-widest text-cyan-400">
+                    <span>Modos Inteligentes</span>
+                    <span>Reacción por Sensores</span>
+                    <span>Lógica de Usuario</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="max-w-6xl w-full px-6 z-10 text-center" data-aos="zoom-in">
+                <span class="text-gray-600 font-bold tracking-[0.5em] text-[10px] uppercase block mb-20">Arquitectura de alto nivel</span>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-16 text-center">
+                    <div>
+                        <div class="text-3xl md:text-5xl font-black mb-6 tracking-tighter">CLOUD</div>
+                        <div class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Sincronización Total</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl md:text-5xl font-black mb-6 tracking-tighter text-purple-500">NATIVE</div>
+                        <div class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">iOS & Android</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl md:text-5xl font-black mb-6 tracking-tighter text-blue-500">REALTIME</div>
+                        <div class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Latencia Cero</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl md:text-5xl font-black mb-6 tracking-tighter text-cyan-400">SECURE</div>
+                        <div class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold">Cifrado de Datos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="max-w-5xl w-full px-6 z-10" data-aos="fade-right">
+                <div class="mb-20">
+                    <span class="text-gray-500 font-bold tracking-[0.5em] text-[10px] uppercase block mb-4">Metodología</span>
+                    <h2 class="text-4xl md:text-7xl font-black tracking-tighter leading-none">Hacemos realidad <br> sus conceptos.</h2>
+                </div>
+
+                <div class="space-y-20 border-l border-white/10 pl-8 md:pl-16">
+                    <div class="relative">
+                        <div class="absolute -left-[37px] md:-left-[69px] top-1 w-4 h-4 rounded-full bg-purple-500 shadow-[0_0_20px_var(--aura-purple)]"></div>
+                        <h3 class="text-2xl md:text-4xl font-bold mb-4 uppercase tracking-tighter">Conceptualización</h3>
+                        <p class="text-lg md:text-xl text-gray-400 font-light max-w-2xl">
+                            Usted nos entrega el problema o la idea básica. Nosotros analizamos la viabilidad técnica y trazamos el mapa digital del proyecto.
+                        </p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute -left-[37px] md:-left-[69px] top-1 w-4 h-4 rounded-full bg-white shadow-[0_0_20px_#fff]"></div>
+                        <h3 class="text-2xl md:text-4xl font-bold mb-4 uppercase tracking-tighter">Desarrollo Alpha</h3>
+                        <p class="text-lg md:text-xl text-gray-400 font-light max-w-2xl">
+                            Codificamos la lógica de su negocio, asegurando que el software sea intuitivo para el usuario final y potente para el administrador.
+                        </p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute -left-[37px] md:-left-[69px] top-1 w-4 h-4 rounded-full bg-blue-500 shadow-[0_0_20px_var(--aura-blue)]"></div>
+                        <h3 class="text-2xl md:text-4xl font-bold mb-4 uppercase tracking-tighter">Despliegue</h3>
+                        <p class="text-lg md:text-xl text-gray-400 font-light max-w-2xl">
+                            Lanzamos su plataforma al ecosistema AURA, lista para operar de forma independiente o conectada a su infraestructura física.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-px h-32 bg-gradient-to-b from-transparent to-white opacity-20"></div>
+
+            <div class="max-w-4xl text-center px-6 z-10" data-aos="zoom-in">
+                <span class="text-gray-500 font-bold tracking-[0.5em] text-[10px] uppercase block mb-10">
+                    Transforme su operación hoy mismo
+                </span>
+                
+                <h2 class="text-7xl md:text-[120px] font-black mb-16 tracking-tighter leading-none aura-text-gradient uppercase">
+                    CÓDALO.
+                </h2>
+                
+                <a href="https://wa.me/9861197993" target="_blank" class="btn-aura-software">
+                    Digitalizar mi idea
+                </a>
+            </div>
+            
+            <div class="absolute bottom-10 w-full text-center opacity-40">
+                <p class="text-[9px] md:text-[10px] text-white font-bold tracking-[0.4em] uppercase">
+                    AURA SOFTWARE © 2026 | Arquitectura Digital Avanzada
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // 1. Inicialización de AOS
+        AOS.init({ duration: 1500, once: false, easing: 'ease-out-cubic' });
+
+        // 2. Carga Dinámica de Menú (Tu estándar)
+        async function loadMenu() {
+            try {
+                const response = await fetch('menubar.html');
+                const html = await response.text();
+                const container = document.getElementById('nav-container');
+                container.innerHTML = html;
+                const scripts = container.querySelectorAll('script');
+                scripts.forEach(oldScript => {
+                    const newScript = document.createElement("script");
+                    newScript.text = oldScript.text;
+                    document.body.appendChild(newScript);
+                });
+            } catch (e) { console.log("Menú no detectado"); }
+        }
+        loadMenu();
+
+        // 3. Fondo Digital Stream (Efecto Matrix Premium en Púrpura)
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, columns;
+        const fontSize = 16;
+        const chars = "0101010101ABCDEF/*-+".split("");
+        let drops = [];
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            columns = Math.floor(width / fontSize);
+            drops = [];
+            for (let i = 0; i < columns; i++) drops[i] = Math.random() * -100;
+        }
+
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, width, height);
+            ctx.font = fontSize + "px JetBrains Mono";
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                // Colores degradados sutiles para el software
+                ctx.fillStyle = Math.random() > 0.5 ? "rgba(192, 132, 252, 0.3)" : "rgba(96, 165, 250, 0.2)";
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        setInterval(draw, 33);
+    </script>
+</body>
+</html>
