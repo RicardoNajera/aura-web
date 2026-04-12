@@ -2,7 +2,7 @@
 <html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>AURA | Soluciones Profesionales en Automatización y Domótica</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,7 +16,10 @@
             --dark-bg: #050508;
         }
 
-        html { scroll-snap-type: y mandatory; }
+        html { 
+            scroll-snap-type: y mandatory; 
+            overflow-x: hidden;
+        }
 
         body {
             background-color: var(--dark-bg);
@@ -24,16 +27,19 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
         section {
-            height: 100vh;
+            /* Uso de dvh para perfección en móviles (evita saltos de UI) */
+            min-height: 100dvh;
             scroll-snap-align: start;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            padding: 5rem 0; /* Padding dinámico para que el contenido no toque los bordes en móviles */
         }
 
         /* ANIMACIONES REFINADAS PARA TEXTO */
@@ -64,7 +70,8 @@
         }
 
         .fluid-title { 
-            font-size: clamp(2.5rem, 5vw, 4.5rem); 
+            /* Clamp ajustado para no romperse en teléfonos de 320px */
+            font-size: clamp(2rem, 6vw, 4.5rem); 
             line-height: 1.1; 
             font-weight: 800; 
             letter-spacing: -0.04em; 
@@ -84,12 +91,13 @@
             box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
             animation: gradientMove 3s ease infinite, floating 4s ease-in-out infinite alternate;
             transition: all 0.3s ease;
+            text-align: center;
         }
 
         .btn-solid:hover {
-            transform: scale(1.1) translateY(-5px) !important;
+            transform: scale(1.05) translateY(-5px) !important;
             box-shadow: 0 10px 40px rgba(236, 72, 153, 0.8);
-            letter-spacing: 0.2em;
+            letter-spacing: 0.15em;
         }
 
         @keyframes gradientMove {
@@ -100,7 +108,7 @@
 
         @keyframes floating {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
             100% { transform: translateY(0px); }
         }
 
@@ -152,6 +160,7 @@
             position: relative;
             width: 100%;
             max-width: 550px;
+            margin: 0 auto;
             border-radius: 24px;
             padding: 10px;
             background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
@@ -195,14 +204,20 @@
             animation: floating 5s ease-in-out infinite alternate;
         }
 
+        /* Optimizaciones Responsivas Adicionales */
+        @media (max-width: 768px) {
+            .client-section { padding-top: 6rem; padding-bottom: 6rem; }
+            .tilt-3d { transform: none !important; box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8) !important; }
+            .image-wrapper img { transform: translateZ(10px); }
+        }
+
     </style>
 </head>
 <body>
 
     <div id="nav-container"></div>
 
-    <section>
-        <header class="relative w-full h-full flex items-center justify-center px-6">
+    <section class="!p-0"> <header class="relative w-full h-full flex items-center justify-center px-4 sm:px-6 md:px-8">
             <div class="hero-video-wrapper">
                 <video autoplay loop muted playsinline>
                     <source src="video-aura.mp4" type="video/mp4">
@@ -211,18 +226,18 @@
             <div class="video-overlay"></div>
 
             <div class="container mx-auto relative z-10">
-                <div class="max-w-4xl" data-aos="fade-up" data-aos-duration="1500">
-                    <span class="text-blue-400 font-bold tracking-[0.4em] uppercase text-xs mb-6 block text-accent">
+                <div class="max-w-4xl mx-auto text-center md:text-left pt-16 md:pt-0" data-aos="fade-up" data-aos-duration="1500">
+                    <span class="text-blue-400 font-bold tracking-[0.2em] md:tracking-[0.4em] uppercase text-[10px] sm:text-xs mb-4 md:mb-6 block text-accent">
                         Tecnología de Vanguardia: El Estándar del Futuro
                     </span>
-                    <h1 class="fluid-title mb-6 text-white">
-                        El control total de su entorno,<br>
+                    <h1 class="fluid-title mb-4 md:mb-6 text-white">
+                        El control total de su entorno,<br class="hidden sm:block">
                         <span class="text-accent">elevado a otro nivel.</span>
                     </h1>
-                    <p class="text-gray-300 text-lg md:text-xl leading-relaxed max-w-3xl mb-10 opacity-80 blur-reveal-target">
-                        En <span class="text-white font-bold">Aura</span> transformamos infraestructuras mediante sistemas inteligentes. Diseñamos hardware propio y software a medida para un dominio absoluto.
+                    <p class="text-gray-300 text-base sm:text-lg md:text-xl leading-relaxed max-w-3xl mx-auto md:mx-0 mb-8 md:mb-10 opacity-80 blur-reveal-target">
+                        En <span class="text-white font-bold">AURA</span> transformamos infraestructuras mediante sistemas inteligentes. Diseñamos hardware propio y software a medida para un dominio absoluto.
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                         <a href="#residenciales" class="btn-solid w-full sm:w-auto">Explorar Soluciones</a>
                     </div>
                 </div>
@@ -230,39 +245,39 @@
         </header>
     </section>
 
-    <section id="residenciales" class="client-section px-6">
+    <section id="residenciales" class="client-section px-4 sm:px-6 md:px-12">
         <div class="aura-bg"></div>
-        <div class="container mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
-            <div data-aos="fade-right" data-aos-duration="1200">
-                <h2 class="text-5xl font-extrabold mb-8 text-white tracking-tight fluid-title">Residencias <br><span class="text-accent">de Autor.</span></h2>
-                <p class="text-gray-400 text-lg mb-8 leading-relaxed blur-reveal-target">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center relative z-10">
+            <div class="text-center md:text-left" data-aos="fade-right" data-aos-duration="1200">
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 md:mb-8 text-white tracking-tight fluid-title">Residencias <br class="hidden sm:block"><span class="text-accent">de Autor.</span></h2>
+                <p class="text-gray-400 text-base sm:text-lg mb-6 md:mb-8 leading-relaxed blur-reveal-target mx-auto md:mx-0 max-w-2xl">
                     Imagine un hogar que reacciona a su presencia con la fluidez de un pensamiento. Desarrollamos atmósferas donde el lujo se manifiesta en el comportamiento: luces que le guían orgánicamente al caminar, escenas climáticas que no existen en lo convencional y equipos que se anticipan a su llegada. No instalamos tecnología; creamos una coreografía de confort personalizada bajo su propio criterio.
                 </p>
-                <ul class="space-y-4 text-gray-300 font-medium border-l border-blue-500/50 pl-8 mb-10">
+                <ul class="space-y-3 sm:space-y-4 text-gray-300 text-sm sm:text-base font-medium border-l-2 border-blue-500/50 pl-6 mb-8 md:mb-10 text-left w-fit mx-auto md:mx-0">
                     <li data-aos="fade-up" data-aos-delay="100">• Escenas sensoriales exclusivas</li>
                     <li data-aos="fade-up" data-aos-delay="200">• Automatización por presencia invisible</li>
                     <li data-aos="fade-up" data-aos-delay="300">• Control absoluto de equipos de lujo</li>
                 </ul>
                 <a href="https://wa.me/9861197993" class="btn-solid w-full sm:w-auto">Diseñar mi Hogar Inteligente</a>
             </div>
-            <div class="image-wrapper tilt-3d" data-aos="zoom-out-left" data-aos-duration="1500">
-                <img src="Residencias.png" alt="Residencias">
+            <div class="image-wrapper tilt-3d w-11/12 sm:w-full" data-aos="zoom-out-left" data-aos-duration="1500">
+                <img src="Residencias.png" alt="Residencias AURA">
             </div>
         </div>
     </section>
 
-    <section id="airbnb" class="client-section px-6">
+    <section id="airbnb" class="client-section px-4 sm:px-6 md:px-12">
         <div class="aura-bg"></div>
-        <div class="container mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
-            <div class="order-2 md:order-1 image-wrapper tilt-3d" data-aos="zoom-out-right" data-aos-duration="1500">
-                <img src="Airbnb.png" alt="Airbnb">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center relative z-10">
+            <div class="order-2 md:order-1 image-wrapper tilt-3d w-11/12 sm:w-full" data-aos="zoom-out-right" data-aos-duration="1500">
+                <img src="Airbnb.png" alt="Airbnb High-Tech">
             </div>
-            <div class="order-1 md:order-2" data-aos="fade-left" data-aos-duration="1200">
-                <h2 class="text-5xl font-extrabold mb-8 text-white tracking-tight fluid-title">Airbnb <br><span class="text-accent">High-Tech.</span></h2>
-                <p class="text-gray-400 text-lg mb-8 leading-relaxed blur-reveal-target">
+            <div class="order-1 md:order-2 text-center md:text-left" data-aos="fade-left" data-aos-duration="1200">
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 md:mb-8 text-white tracking-tight fluid-title">Airbnb <br class="hidden sm:block"><span class="text-accent">High-Tech.</span></h2>
+                <p class="text-gray-400 text-base sm:text-lg mb-6 md:mb-8 leading-relaxed blur-reveal-target mx-auto md:mx-0 max-w-2xl">
                     Hacemos que sus huéspedes dejen reseñas de pura impresión. Elevamos la estancia a un nivel de sofisticación poco probable de encontrar en un hogar común. Personalizamos cada detalle para que la comodidad tecnológica de última generación sea el sello de su propiedad, logrando una experiencia inmersiva que garantiza lealtad y posicionamiento premium en el mercado.
                 </p>
-                <ul class="space-y-4 text-gray-300 font-medium border-l border-emerald-500/50 pl-8 mb-10">
+                <ul class="space-y-3 sm:space-y-4 text-gray-300 text-sm sm:text-base font-medium border-l-2 border-emerald-500/50 pl-6 mb-8 md:mb-10 text-left w-fit mx-auto md:mx-0">
                     <li data-aos="fade-up" data-aos-delay="100">• Bienvenida automatizada inmersiva</li>
                     <li data-aos="fade-up" data-aos-delay="200">• Comodidad tecnológica sin fricción</li>
                     <li data-aos="fade-up" data-aos-delay="300">• Diferenciación absoluta de la competencia</li>
@@ -272,39 +287,39 @@
         </div>
     </section>
 
-    <section id="hoteles" class="client-section px-6">
+    <section id="hoteles" class="client-section px-4 sm:px-6 md:px-12">
         <div class="aura-bg"></div>
-        <div class="container mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
-            <div data-aos="fade-right" data-aos-duration="1200">
-                <h2 class="text-5xl font-extrabold mb-8 text-white tracking-tight fluid-title">Hotelería <br><span class="text-accent">de Precisión.</span></h2>
-                <p class="text-gray-400 text-lg mb-8 leading-relaxed blur-reveal-target">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center relative z-10">
+            <div class="text-center md:text-left" data-aos="fade-right" data-aos-duration="1200">
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 md:mb-8 text-white tracking-tight fluid-title">Hotelería <br class="hidden sm:block"><span class="text-accent">de Precisión.</span></h2>
+                <p class="text-gray-400 text-base sm:text-lg mb-6 md:mb-8 leading-relaxed blur-reveal-target mx-auto md:mx-0 max-w-2xl">
                     Donde la eficiencia operativa se encuentra con la exclusividad. Desde el control milimétrico de máquinas hasta la transformación de suites presidenciales en entornos tecnológicos únicos. Implementamos un ahorro energético estricto sin sacrificar el lujo, creando sistemas personalizados según la visión de la gerencia. El límite es la imaginación tangible; nosotros entregamos la realidad técnica.
                 </p>
-                <ul class="space-y-4 text-gray-300 font-medium border-l border-amber-500/50 pl-8 mb-10">
+                <ul class="space-y-3 sm:space-y-4 text-gray-300 text-sm sm:text-base font-medium border-l-2 border-amber-500/50 pl-6 mb-8 md:mb-10 text-left w-fit mx-auto md:mx-0">
                     <li data-aos="fade-up" data-aos-delay="100">• Telemetría y control de cuartos de máquinas</li>
                     <li data-aos="fade-up" data-aos-delay="200">• Suites inteligentes personalizadas</li>
                     <li data-aos="fade-up" data-aos-delay="300">• Optimización energética de alto rendimiento</li>
                 </ul>
                 <a href="https://wa.me/9861197993" class="btn-solid w-full sm:w-auto">Solicitar Auditoría Técnica</a>
             </div>
-            <div class="image-wrapper tilt-3d" data-aos="zoom-out-left" data-aos-duration="1500">
-                <img src="Hoteleria.png" alt="Hotelería">
+            <div class="image-wrapper tilt-3d w-11/12 sm:w-full" data-aos="zoom-out-left" data-aos-duration="1500">
+                <img src="Hoteleria.png" alt="Hotelería AURA">
             </div>
         </div>
     </section>
 
-    <section id="parques" class="client-section px-6">
+    <section id="parques" class="client-section px-4 sm:px-6 md:px-12">
         <div class="aura-bg"></div>
-        <div class="container mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
-            <div class="order-2 md:order-1 image-wrapper tilt-3d" data-aos="zoom-out-right" data-aos-duration="1500">
-                <img src="Parque.png" alt="Parques">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center relative z-10">
+            <div class="order-2 md:order-1 image-wrapper tilt-3d w-11/12 sm:w-full" data-aos="zoom-out-right" data-aos-duration="1500">
+                <img src="Parque.png" alt="Parques Inmersivos">
             </div>
-            <div class="order-1 md:order-2" data-aos="fade-left" data-aos-duration="1200">
-                <h2 class="text-5xl font-extrabold mb-8 text-white tracking-tight fluid-title">Destinos <br><span class="text-accent">Inmersivos.</span></h2>
-                <p class="text-gray-400 text-lg mb-8 leading-relaxed blur-reveal-target">
+            <div class="order-1 md:order-2 text-center md:text-left" data-aos="fade-left" data-aos-duration="1200">
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 md:mb-8 text-white tracking-tight fluid-title">Destinos <br class="hidden sm:block"><span class="text-accent">Inmersivos.</span></h2>
+                <p class="text-gray-400 text-base sm:text-lg mb-6 md:mb-8 leading-relaxed blur-reveal-target mx-auto md:mx-0 max-w-2xl">
                     Llevamos la magia a una escala monumental. Diseñamos ecosistemas tecnológicos donde cada atracción, sendero y área común reacciona ante la afluencia de visitantes. Desde sistemas que coreografían presentaciones interactivas masivas hasta el control inteligente de maquinaria técnica y aplicaciones de seguimiento en tiempo real. Maximizamos el impacto sensorial del visitante mientras garantizamos una eficiencia operativa total y un ahorro energético industrial sin precedentes.
                 </p>
-                <ul class="space-y-4 text-gray-300 font-medium border-l border-violet-500/50 pl-8 mb-10">
+                <ul class="space-y-3 sm:space-y-4 text-gray-300 text-sm sm:text-base font-medium border-l-2 border-violet-500/50 pl-6 mb-8 md:mb-10 text-left w-fit mx-auto md:mx-0">
                     <li data-aos="fade-up" data-aos-delay="100">• Automatización de flujos y presencia masiva</li>
                     <li data-aos="fade-up" data-aos-delay="200">• Telemetría avanzada para equipos técnicos</li>
                     <li data-aos="fade-up" data-aos-delay="300">• Experiencias digitales e interactivas a gran escala</li>
@@ -314,23 +329,23 @@
         </div>
     </section>
 
-    <section id="negocios" class="client-section px-6">
+    <section id="negocios" class="client-section px-4 sm:px-6 md:px-12">
         <div class="aura-bg"></div>
-        <div class="container mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
-            <div data-aos="fade-right" data-aos-duration="1200">
-                <h2 class="text-5xl font-extrabold mb-8 text-white tracking-tight fluid-title">Comercios <br><span class="text-accent">con Alma Digital.</span></h2>
-                <p class="text-gray-400 text-lg mb-8 leading-relaxed blur-reveal-target">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center relative z-10">
+            <div class="text-center md:text-left" data-aos="fade-right" data-aos-duration="1200">
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 md:mb-8 text-white tracking-tight fluid-title">Comercios <br class="hidden sm:block"><span class="text-accent">con Alma Digital.</span></h2>
+                <p class="text-gray-400 text-base sm:text-lg mb-6 md:mb-8 leading-relaxed blur-reveal-target mx-auto md:mx-0 max-w-2xl">
                     Sin importar el giro de su empresa —desde el sector gastronómico hasta centros de salud o servicios especializados— creamos atmósferas que cautivan a sus clientes desde el primer segundo. Diseñamos entornos comerciales únicos donde la tecnología refuerza el trato humano, convirtiendo su espacio en una experiencia sensorial inolvidable. Es la fusión perfecta entre su visión de negocio y nuestro ingenio técnico para generar un vínculo irrompible con su audiencia.
                 </p>
                 <a href="https://wa.me/9861197993" class="btn-solid w-full sm:w-auto">Potenciar mi Negocio</a>
             </div>
-            <div class="image-wrapper tilt-3d" data-aos="zoom-out-left" data-aos-duration="1500">
-                <img src="Comercios.png" alt="Comercios">
+            <div class="image-wrapper tilt-3d w-11/12 sm:w-full" data-aos="zoom-out-left" data-aos-duration="1500">
+                <img src="Comercios.png" alt="Comercios AURA">
             </div>
         </div>
     </section>
 
-    <section id="lideres" class="px-6">
+    <section id="lideres" class="px-4 sm:px-6 md:px-12">
         <div class="lideres-video-wrapper">
             <video autoplay loop muted playsinline>
                 <source src="Arquitectos.mp4" type="video/mp4">
@@ -340,13 +355,13 @@
 
         <div class="container mx-auto text-center relative z-10">
             <div class="max-w-4xl mx-auto" data-aos="zoom-in-up" data-aos-duration="1500">
-                <span class="font-bold tracking-[0.5em] uppercase text-xs mb-6 block text-accent">Alianza Estratégica</span>
-                <h2 class="text-6xl font-black mb-10 text-white leading-tight fluid-title">Líderes de <br><span class="text-accent">la Construcción.</span></h2>
-                <p class="text-gray-300 text-xl mb-12 opacity-90 leading-relaxed blur-reveal-target">
+                <span class="font-bold tracking-[0.3em] md:tracking-[0.5em] uppercase text-[10px] sm:text-xs mb-4 md:mb-6 block text-accent">Alianza Estratégica</span>
+                <h2 class="text-5xl sm:text-6xl lg:text-7xl font-black mb-6 md:mb-10 text-white leading-tight fluid-title">Líderes de <br class="hidden sm:block"><span class="text-accent">la Construcción.</span></h2>
+                <p class="text-gray-300 text-base sm:text-lg md:text-xl mb-10 md:mb-12 opacity-90 leading-relaxed blur-reveal-target">
                     Para los arquitectos e ingenieros que no aceptan menos que la excelencia: somos su brazo tecnológico para proyectos de vanguardia. Integramos soluciones que van más allá del estándar actual, asegurando que cada desarrollo nazca con una infraestructura inteligente, escalable y digna del estándar AURA. Hagamos que sus planos cobren una vida inteligente.
                 </p>
                 <div class="flex justify-center">
-                    <a href="https://wa.me/9861197993" class="btn-solid px-12">
+                    <a href="https://wa.me/9861197993" class="btn-solid px-8 md:px-12 w-full sm:w-auto">
                         Activar Protocolo de Colaboración
                     </a>
                 </div>
@@ -354,12 +369,12 @@
         </div>
     </section>
 
-    <footer class="bg-[#050508] border-t border-slate-900 pt-20 pb-10 px-6">
+    <footer class="bg-[#050508] border-t border-slate-900 pt-12 md:pt-20 pb-8 md:pb-10 px-4 sm:px-6">
         <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-extrabold text-white mb-4 tracking-tighter text-accent">AURA</h2>
-            <p class="text-slate-500 text-xs tracking-[0.3em] uppercase mb-4 opacity-60">Automatización & Ingeniería Técnica</p>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-3 md:mb-4 tracking-tighter text-accent">AURA</h2>
+            <p class="text-slate-500 text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase mb-4 opacity-60">Automatización & Ingeniería Técnica</p>
             <div class="w-12 h-[1px] bg-blue-600 mx-auto mb-6"></div>
-            <p class="text-slate-600 text-xs">&copy; 2026 AURA. Cancún, Quintana Roo.</p>
+            <p class="text-slate-600 text-[10px] md:text-xs">&copy; 2026 AURA. Cancún, Quintana Roo.</p>
         </div>
     </footer>
 
@@ -425,36 +440,41 @@
 
 
         // --- LÓGICA PARA EL EFECTO 3D EN LAS IMÁGENES (TILT) ---
-        const tiltElements = document.querySelectorAll('.tilt-3d');
+        // Desactivar el efecto tilt en móviles para mejorar el rendimiento y evitar bugs táctiles
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
         
-        tiltElements.forEach(el => {
-            el.addEventListener('mousemove', (e) => {
-                const rect = el.getBoundingClientRect();
-                const x = e.clientX - rect.left; // Posición X del ratón dentro de la imagen
-                const y = e.clientY - rect.top;  // Posición Y del ratón dentro de la imagen
-                
-                // Calcular el centro
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                // Generar los grados de rotación
-                const rotateX = ((y - centerY) / centerY) * -15; // Invertido para sensación realista
-                const rotateY = ((x - centerX) / centerX) * 15;
-                
-                // Aplicar la transformación 3D y brillo dinámico
-                el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-                el.style.boxShadow = `
-                    ${-rotateY}px ${rotateX}px 40px rgba(37, 99, 235, 0.4),
-                    0 0 30px rgba(255,255,255,0.1) inset
-                `;
-            });
+        if (!isMobile) {
+            const tiltElements = document.querySelectorAll('.tilt-3d');
             
-            // Restaurar cuando el ratón sale de la imagen
-            el.addEventListener('mouseleave', () => {
-                el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
-                el.style.boxShadow = `0 40px 80px -20px rgba(0, 0, 0, 0.8)`;
+            tiltElements.forEach(el => {
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left; // Posición X del ratón dentro de la imagen
+                    const y = e.clientY - rect.top;  // Posición Y del ratón dentro de la imagen
+                    
+                    // Calcular el centro
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    // Generar los grados de rotación
+                    const rotateX = ((y - centerY) / centerY) * -15; // Invertido para sensación realista
+                    const rotateY = ((x - centerX) / centerX) * 15;
+                    
+                    // Aplicar la transformación 3D y brillo dinámico
+                    el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                    el.style.boxShadow = `
+                        ${-rotateY}px ${rotateX}px 40px rgba(37, 99, 235, 0.4),
+                        0 0 30px rgba(255,255,255,0.1) inset
+                    `;
+                });
+                
+                // Restaurar cuando el ratón sale de la imagen
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+                    el.style.boxShadow = `0 40px 80px -20px rgba(0, 0, 0, 0.8)`;
+                });
             });
-        });
+        }
 
         // Carga de menú
         async function loadMenu() {
