@@ -61,12 +61,15 @@
 
       /* --- ESTA ES LA PARTE A CAMBIAR PARA CENTRAR LOS VIDEOS --- */
         .hero-video-wrapper video, .lideres-video-wrapper video {
-            width: 100%; height: 100%; object-fit: cover;
-            transform: scale(1.05); /* Efecto de profundidad que ya tenías */
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;
+            transform: scale(1.05);
             
-            /* --- AÑADE ESTAS DOS LÍNEAS AQUÍ --- */
-            top: 0;
-            left: 0;
+            /* --- CAMBIO AQUÍ: Desplaza el video a la izquierda --- */
+            /* El primer valor (65%) mueve el video. 50% es el centro. */
+            /* Al poner 65%, empujamos el contenido hacia la izquierda. */
+            object-position: 65% center; 
         }
 
         .video-overlay {
