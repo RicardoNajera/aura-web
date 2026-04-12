@@ -1,0 +1,173 @@
+<nav id="main-nav">
+    <a href="index.html" class="aura-brand-anim">AURA</a>
+    
+    <div class="nav-links" id="nav-links">
+        <div id="nav-indicator"></div>
+        <a href="index.html" class="menu-item">Inicio</a>
+        <a href="productos.html" class="menu-item">Productos</a>
+        <a href="personalizacion.html" class="menu-item">Personalización</a>
+        <a href="software.html" class="menu-item">Software</a>
+        <a href="instalaciones.html" class="menu-item">Instalaciones</a>
+        <a href="nosotros.html" class="menu-item">Nosotros</a>
+    </div>
+    
+    <div class="nav-actions">
+        <a href="https://wa.me/9861197993" class="btn-contact">Contáctanos</a>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+
+<style>
+    /* Estilos forzados para garantizar consistencia total */
+    #main-nav {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 80px !important;
+        z-index: 9999 !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0 4% !important;
+        background: rgba(10, 10, 15, 0.8) !important;
+        backdrop-filter: blur(20px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-sizing: border-box !important;
+        transition: background 0.4s ease !important;
+    }
+
+    #main-nav.scrolled {
+        background: rgba(0, 0, 0, 0.95) !important;
+    }
+
+    .aura-brand-anim {
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        background: linear-gradient(90deg, #fff, #60a5fa, #c084fc, #fff);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: aura-flow 5s linear infinite;
+        font-weight: 900 !important;
+        font-size: 1.5rem !important;
+        text-decoration: none !important;
+    }
+
+    .nav-links {
+        display: flex !important;
+        position: relative !important;
+        gap: clamp(15px, 2vw, 30px) !important;
+        height: 100% !important;
+        align-items: center !important;
+    }
+
+    #nav-indicator {
+        position: absolute !important;
+        bottom: 22px !important;
+        height: 2px !important;
+        background: linear-gradient(90deg, #60a5fa, #c084fc) !important;
+        border-radius: 10px !important;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) !important;
+        box-shadow: 0 0 15px rgba(96, 165, 250, 0.6) !important;
+        opacity: 0;
+        pointer-events: none !important;
+    }
+
+    .menu-item {
+        font-size: 11px !important;
+        text-transform: uppercase !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.15em !important;
+        color: rgba(255, 255, 255, 0.5) !important;
+        text-decoration: none !important;
+        padding: 10px 0 !important;
+        transition: color 0.3s ease !important;
+        position: relative !important;
+    }
+
+    .menu-item.active { color: #fff !important; }
+
+    .btn-contact {
+        background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        padding: 0.7rem 1.5rem !important;
+        border-radius: 50px !important;
+        color: #fff !important;
+        font-size: 10px !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        text-decoration: none !important;
+        transition: 0.3s !important;
+    }
+
+    .btn-contact:hover { transform: scale(1.05); border-color: #60a5fa !important; }
+
+    @keyframes aura-flow { to { background-position: 200% center; } }
+
+    @media (max-width: 1100px) {
+        .nav-links {
+            position: fixed !important; top: 0 !important; right: -100% !important;
+            width: 100% !important; height: 100vh !important;
+            background: #050508 !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            transition: 0.4s ease !important;
+            z-index: 9998 !important;
+        }
+        .nav-links.active { right: 0 !important; }
+        .menu-toggle { display: block !important; cursor: pointer; z-index: 10000 !important; }
+        .menu-toggle span { display: block; width: 25px; height: 2px; background: #fff; margin: 6px 0; }
+    }
+</style>
+
+<script>
+    (function() {
+        const nav = document.getElementById('main-nav');
+        const indicator = document.getElementById('nav-indicator');
+        const items = document.querySelectorAll('.menu-item');
+        const navContainer = document.querySelector('.nav-links');
+
+        function moveIndicator(el) {
+            if(!el) return;
+            indicator.style.width = `${el.offsetWidth}px`;
+            indicator.style.left = `${el.offsetLeft}px`;
+            indicator.style.opacity = '1';
+        }
+
+        function autoDetectPage() {
+            const currentPath = window.location.pathname.split("/").pop() || "index.html";
+            items.forEach(item => {
+                item.classList.remove('active');
+                if(item.getAttribute('href') === currentPath) {
+                    item.classList.add('active');
+                    setTimeout(() => moveIndicator(item), 300);
+                }
+            });
+        }
+
+        items.forEach(item => {
+            item.addEventListener('mouseenter', (e) => moveIndicator(e.target));
+        });
+
+        navContainer.addEventListener('mouseleave', () => {
+            const active = document.querySelector('.menu-item.active');
+            if(active) moveIndicator(active);
+        });
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        document.getElementById('mobile-menu').onclick = () => {
+            navContainer.classList.toggle('active');
+        };
+
+        autoDetectPage();
+        window.addEventListener('resize', () => moveIndicator(document.querySelector('.menu-item.active')));
+    })();
+</script>

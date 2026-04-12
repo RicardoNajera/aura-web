@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalización y Experiencias | AURA</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           1. VARIABLES Y RESET (ESTÁNDAR AURA)
+           ========================================================================== */
+        :root { 
+            --aura-blue: #60a5fa; 
+            --aura-cyan: #22d3ee;
+            --aura-purple: #c084fc; 
+            --aura-dark: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ==========================================================================
+           2. COMPORTAMIENTO INMERSIVO (SCROLL-SNAP DEL ESTÁNDAR)
+           ========================================================================== */
+        html { 
+            scroll-snap-type: y mandatory; 
+            scroll-behavior: smooth; 
+        }
+        
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: var(--aura-dark); 
+            color: #ffffff; 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        section {
+            height: 100vh; 
+            width: 100vw;
+            scroll-snap-align: start;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            position: relative; 
+            overflow: hidden; 
+            padding-top: 80px; 
+            box-sizing: border-box;
+        }
+
+        /* ==========================================================================
+           3. FONDOS DE ALTA TECNOLOGÍA
+           ========================================================================== */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -3;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .ambient-gradient {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh;
+            background: radial-gradient(circle at 50% 0%, rgba(34, 211, 238, 0.08) 0%, transparent 60%),
+                        radial-gradient(circle at 50% 100%, rgba(192, 132, 252, 0.08) 0%, transparent 60%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .scan-line {
+            width: 100%; 
+            height: 1px; 
+            background: linear-gradient(90deg, transparent, var(--aura-cyan), transparent);
+            position: absolute; 
+            opacity: 0.3; 
+            animation: scan-animation 8s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes scan-animation { 
+            0% { top: 0%; } 
+            100% { top: 100%; } 
+        }
+
+        /* ==========================================================================
+           4. TIPOGRAFÍA Y EFECTOS INMERSIVOS
+           ========================================================================== */
+        .aura-text-gradient {
+            background: linear-gradient(90deg, #ffffff, var(--aura-cyan), var(--aura-blue), var(--aura-purple), #ffffff);
+            background-size: 300% auto; 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            animation: text-shine 8s linear infinite;
+        }
+
+        @keyframes text-shine { 
+            to { background-position: 300% center; } 
+        }
+
+        .text-outline {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.05);
+            color: transparent;
+            user-select: none;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .floating-text {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* ==========================================================================
+           5. COMPONENTES Y BOTONES
+           ========================================================================== */
+        #nav-container { 
+            min-height: 80px; 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            z-index: 1000; 
+        }
+        
+        ::-webkit-scrollbar { display: none; }
+
+        .btn-inmersive {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.875rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 9999px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .btn-inmersive:hover {
+            border-color: var(--aura-cyan);
+            box-shadow: 0 0 30px rgba(34, 211, 238, 0.3);
+            transform: scale(1.05);
+        }
+
+        .faq-button {
+            width: 100%;
+            text-align: left;
+            padding: 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            color: #e2e8f0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: color 0.3s;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particle-canvas"></canvas>
+    <div class="ambient-gradient"></div>
+    <div id="nav-container"></div>
+
+    <main>
+        <section>
+            <div class="scan-line"></div>
+            
+            <div class="absolute inset-0 flex items-center justify-center z-0 opacity-20">
+                <h2 class="text-[18vw] font-black text-outline uppercase">Experiencia</h2>
+            </div>
+            
+            <div class="text-center w-full px-6 z-10" data-aos="zoom-out" data-aos-duration="2000">
+                <span class="text-cyan-400 font-bold tracking-[0.6em] text-[10px] md:text-xs uppercase block mb-8">
+                    Ingeniería de Comportamiento
+                </span>
+                
+                <h1 class="text-[12vw] md:text-[10vw] leading-none font-black tracking-tighter aura-text-gradient select-none uppercase">
+                    Personalización
+                </h1>
+                
+                <p class="mt-8 text-xs md:text-sm font-bold text-gray-400 tracking-[0.5em] md:tracking-[1em] uppercase">
+                    Diseñamos cómo reaccionan tus espacios
+                </p>
+                
+                <div class="mt-20 max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="400">
+                    <p class="text-xl md:text-3xl text-gray-300 font-light italic leading-relaxed floating-text">
+                        "En AURA no solo conectamos equipos; diseñamos la forma en que tu entorno recibe a tus clientes, pacientes o invitados."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="max-w-5xl text-center px-6 z-10" data-aos="fade-up">
+                <span class="text-blue-500 font-bold tracking-[0.5em] text-[10px] uppercase block mb-8">
+                    01. El Diferencial AURA
+                </span>
+                
+                <h2 class="text-5xl md:text-8xl font-black mb-12 tracking-tighter leading-[0.9]">
+                    Espacios que <br> <span class="text-gray-600">toman decisiones.</span>
+                </h2>
+                
+                <p class="text-xl md:text-4xl text-gray-300 font-light leading-relaxed max-w-4xl mx-auto">
+                    Imagina que tu consultorio, hotel o casa sabe exactamente qué hacer cuando alguien entra. <strong class="text-white">Nosotros programamos esa inteligencia</strong> en tu infraestructura actual.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <div class="absolute inset-0 flex items-center justify-center z-0 opacity-10">
+                <h2 class="text-[20vw] font-black text-outline uppercase">Entornos</h2>
+            </div>
+            
+            <div class="max-w-5xl text-left md:text-center px-6 z-10 w-full" data-aos="fade-right">
+                <div class="flex items-center gap-4 mb-8 md:justify-center">
+                    <div class="w-12 h-px bg-cyan-500 hidden md:block"></div>
+                    <span class="text-cyan-400 font-bold tracking-[0.5em] text-[10px] uppercase">Interacción Profesional</span>
+                    <div class="w-12 h-px bg-cyan-500 hidden md:block"></div>
+                </div>
+                
+                <h2 class="text-5xl md:text-8xl font-black mb-10 leading-tight">
+                    Recibe a tus <br> visitantes.
+                </h2>
+                
+                <p class="text-xl md:text-3xl text-gray-300 font-light leading-relaxed max-w-4xl mx-auto">
+                    Desde un consultorio médico que ajusta su ambiente para la comodidad del paciente, hasta un restaurante que adapta su energía al flujo de comensales. <strong class="text-cyan-400 font-bold">Diseñamos la electrónica puente</strong> para que tus equipos respondan a la presencia humana de forma natural.
+                </p>
+
+                <div class="mt-12 flex justify-start md:justify-center gap-8 text-[10px] uppercase tracking-widest text-gray-500 font-bold">
+                    <span>Recepción Inteligente</span>
+                    <span class="text-cyan-500">•</span>
+                    <span>Ambientes Dinámicos</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="absolute inset-0 flex items-center justify-center z-0 opacity-10">
+                <h2 class="text-[20vw] font-black text-outline uppercase">Estancia</h2>
+            </div>
+
+            <div class="max-w-5xl text-left md:text-center px-6 z-10 w-full" data-aos="fade-left">
+                <div class="flex items-center gap-4 mb-8 md:justify-center">
+                    <div class="w-12 h-px bg-purple-500 hidden md:block"></div>
+                    <span class="text-purple-400 font-bold tracking-[0.5em] text-[10px] uppercase">Gestión de Huéspedes</span>
+                    <div class="w-12 h-px bg-purple-500 hidden md:block"></div>
+                </div>
+                
+                <h2 class="text-5xl md:text-8xl font-black mb-10 leading-tight">
+                    Experiencias <br> de Estancia.
+                </h2>
+                
+                <p class="text-xl md:text-3xl text-gray-300 font-light leading-relaxed max-w-4xl mx-auto">
+                    Ya sea un hotel o una propiedad de renta, el hardware de AURA gestiona el confort sin intervención manual. <strong class="text-purple-400 font-bold">Personalizamos el comportamiento</strong> de climas, accesos y luces para que el huésped disfrute mientras tú optimizas cada recurso.
+                </p>
+
+                <div class="mt-12 flex justify-start md:justify-center gap-8 text-[10px] uppercase tracking-widest text-gray-500 font-bold">
+                    <span>Hospitalidad Digital</span>
+                    <span class="text-purple-500">•</span>
+                    <span>Confort Automatizado</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="absolute inset-0 flex items-center justify-center z-0 opacity-10">
+                <h2 class="text-[18vw] font-black text-outline uppercase">Sistemas</h2>
+            </div>
+
+            <div class="max-w-5xl text-left md:text-center px-6 z-10 w-full" data-aos="fade-up">
+                <div class="flex items-center gap-4 mb-8 md:justify-center">
+                    <div class="w-12 h-px bg-blue-500 hidden md:block"></div>
+                    <span class="text-blue-500 font-bold tracking-[0.5em] text-[10px] uppercase">Operatividad Líder</span>
+                    <div class="w-12 h-px bg-blue-500 hidden md:block"></div>
+                </div>
+                
+                <h2 class="text-5xl md:text-8xl font-black mb-10 leading-tight aura-text-gradient pb-2">
+                    Inteligencia en <br> tus Equipos.
+                </h2>
+                
+                <p class="text-xl md:text-3xl text-gray-300 font-light leading-relaxed max-w-4xl mx-auto">
+                    En empresas y hogares exigentes, la tecnología debe ser invisible pero eficiente. <strong class="text-blue-400 font-bold">Creamos interfaces electrónicas exclusivas</strong> que permiten a tus máquinas "comunicarse" entre sí y contigo, elevando el estándar de tu operación diaria.
+                </p>
+
+                <div class="mt-12 flex justify-start md:justify-center gap-8 text-[10px] uppercase tracking-widest text-gray-500 font-bold">
+                    <span>Hardware Exclusivo</span>
+                    <span class="text-blue-500">•</span>
+                    <span>Control Centralizado</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="max-w-6xl w-full px-6 z-10 text-center" data-aos="zoom-in">
+                <span class="text-gray-500 font-bold tracking-[0.5em] text-[10px] uppercase block mb-12">Cómo transformamos tu visión</span>
+                <h2 class="text-4xl md:text-7xl font-black tracking-tighter mb-20 uppercase">Tu necesidad, <br> nuestra solución.</h2>
+
+                <div class="grid md:grid-cols-3 gap-16 text-center md:text-left">
+                    <div class="relative">
+                        <div class="text-6xl font-black text-white/5 absolute -top-10 -left-6 md:left-0 select-none">01</div>
+                        <h3 class="text-2xl font-bold mb-4 text-cyan-400 uppercase tracking-tighter">Entendimiento</h3>
+                        <p class="text-lg text-gray-400 font-light leading-relaxed">
+                            Analizamos el flujo de personas en tu espacio y el funcionamiento de tus equipos para definir el comportamiento ideal.
+                        </p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="text-6xl font-black text-white/5 absolute -top-10 -left-6 md:left-0 select-none">02</div>
+                        <h3 class="text-2xl font-bold mb-4 text-purple-400 uppercase tracking-tighter">Arquitectura</h3>
+                        <p class="text-lg text-gray-400 font-light leading-relaxed">
+                            Diseñamos la placa electrónica y el software que servirá como el "sistema nervioso" de tu propiedad o negocio.
+                        </p>
+                    </div>
+
+                    <div class="relative">
+                        <div class="text-6xl font-black text-white/5 absolute -top-10 -left-6 md:left-0 select-none">03</div>
+                        <h3 class="text-2xl font-bold mb-4 text-blue-400 uppercase tracking-tighter">Activación</h3>
+                        <p class="text-lg text-gray-400 font-light leading-relaxed">
+                            Instalamos la tecnología y te damos las llaves digitales para que gestiones todo desde una interfaz humana y sencilla.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-px h-32 bg-gradient-to-b from-transparent to-white opacity-30"></div>
+
+            <div class="max-w-4xl text-center px-6 z-10" data-aos="zoom-in">
+                <span class="text-gray-500 font-bold tracking-[0.5em] text-[10px] uppercase block mb-8">
+                    ¿Qué quieres que suceda en tu espacio?
+                </span>
+                
+                <h2 class="text-6xl md:text-[120px] font-black mb-16 tracking-tighter leading-none aura-text-gradient uppercase">
+                    HÁBLANOS.
+                </h2>
+                
+                <a href="https://wa.me/9861197993" target="_blank" class="btn-inmersive">
+                    Diseñar mi Experiencia
+                </a>
+            </div>
+            
+            <div class="absolute bottom-10 w-full text-center opacity-50">
+                <p class="text-[9px] md:text-[10px] text-white font-bold tracking-[0.3em] uppercase">
+                    AURA © 2026 | Arquitectura de Hardware y Software Personalizado
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // 1. Inicialización de Animaciones
+        AOS.init({ duration: 1500, once: false, easing: 'ease-out-cubic', offset: 50 });
+
+        // 2. Carga de Menú Externo (Tu código original)
+        async function loadMenu() {
+            try {
+                const response = await fetch('menubar.html');
+                const html = await response.text();
+                const container = document.getElementById('nav-container');
+                container.innerHTML = html;
+                const scripts = container.querySelectorAll('script');
+                scripts.forEach(oldScript => {
+                    const newScript = document.createElement("script");
+                    newScript.text = oldScript.text;
+                    document.body.appendChild(newScript);
+                });
+            } catch (error) { console.log("Menú no cargado"); }
+        }
+        loadMenu();
+
+        // 3. Sistema de Partículas Canvas
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray = [];
+        let mouse = { x: null, y: null, radius: 150 };
+
+        window.addEventListener('mousemove', (event) => { mouse.x = event.x; mouse.y = event.y; });
+
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+                this.size = Math.random() * 2 + 0.5;
+                const isCyan = Math.random() > 0.5;
+                this.color = isCyan ? 'rgba(34, 211, 238, 0.6)' : 'rgba(192, 132, 252, 0.4)';
+            }
+            draw() {
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color; ctx.fill();
+            }
+            update() {
+                let dx = mouse.x - this.x; let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < mouse.radius) {
+                    let force = (mouse.radius - distance) / mouse.radius;
+                    this.x -= (dx / distance) * force * 2; this.y -= (dy / distance) * force * 2;
+                } else { this.x += this.speedX; this.y += this.speedY; }
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 10000;
+            if (numberOfParticles > 120) numberOfParticles = 120;
+            for (let i = 0; i < numberOfParticles; i++) { particlesArray.push(new Particle()); }
+        }
+
+        function connectParticles() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) ** 2) + ((particlesArray[a].y - particlesArray[b].y) ** 2);
+                    if (distance < (canvas.width / 10) * (canvas.height / 10)) {
+                        ctx.strokeStyle = `rgba(100, 150, 255, ${(1 - distance / 20000) * 0.15})`;
+                        ctx.lineWidth = 0.5; ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y); ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); particlesArray[i].draw(); }
+            connectParticles(); requestAnimationFrame(animateCanvas);
+        }
+
+        initParticles(); animateCanvas();
+        window.addEventListener('mouseout', () => { mouse.x = undefined; mouse.y = undefined; });
+    </script>
+</body>
+</html>

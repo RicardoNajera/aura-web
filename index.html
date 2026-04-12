@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | Soluciones Profesionales en Automatización y Domótica</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --aura-primary: #2563eb;
+            --aura-light: #60a5fa;
+            --dark-bg: #050508;
+        }
+
+        html { scroll-snap-type: y mandatory; }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        section {
+            height: 100vh;
+            scroll-snap-align: start;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* ANIMACIONES REFINADAS PARA TEXTO */
+        [data-aos] {
+            transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+
+        .hero-video-wrapper, .lideres-video-wrapper {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2; overflow: hidden; background-color: #000;
+        }
+
+        .hero-video-wrapper video, .lideres-video-wrapper video {
+            width: 100%; height: 100%; object-fit: cover;
+            transform: scale(1.05); /* Efecto de profundidad */
+        }
+
+        .video-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(5,5,8,0.4) 0%, rgba(5,5,8,0.95) 100%);
+            z-index: -1;
+        }
+
+        .video-overlay-architects {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(5,5,8,0.85) 0%, rgba(5,5,8,0.7) 100%);
+            z-index: -1;
+        }
+
+        .fluid-title { 
+            font-size: clamp(2.5rem, 5vw, 4.5rem); 
+            line-height: 1.1; 
+            font-weight: 800; 
+            letter-spacing: -0.04em; 
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        /* --- BOTONES INMERSIVOS EN CONSTANTE MOVIMIENTO --- */
+        .btn-solid {
+            background: linear-gradient(-45deg, #2563eb, #8b5cf6, #ec4899, #00f2fe);
+            background-size: 300% 300%;
+            color: #fff;
+            padding: 1rem 2.5rem; border-radius: 8px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem;
+            display: inline-flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+            border: 2px solid transparent;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+            animation: gradientMove 3s ease infinite, floating 4s ease-in-out infinite alternate;
+            transition: all 0.3s ease;
+        }
+
+        .btn-solid:hover {
+            transform: scale(1.1) translateY(-5px) !important;
+            box-shadow: 0 10px 40px rgba(236, 72, 153, 0.8);
+            letter-spacing: 0.2em;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        #nav-container { position: fixed; top: 0; width: 100%; z-index: 100; min-height: 80px; }
+
+        .client-section {
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            z-index: 1;
+        }
+
+        /* --- FONDOS AURA MULTICOLOR --- */
+        .aura-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.8;
+            filter: blur(100px);
+            animation: aurora-animation 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes aurora-animation {
+            0% { transform: scale(1) rotate(0deg) translate(0, 0); filter: blur(100px) hue-rotate(0deg); }
+            100% { transform: scale(1.3) rotate(10deg) translate(5%, 5%); filter: blur(120px) hue-rotate(90deg); }
+        }
+
+        #residenciales .aura-bg { background: radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.6) 0%, transparent 50%); }
+        #airbnb .aura-bg { background: radial-gradient(circle at 70% 20%, rgba(16, 185, 129, 0.5) 0%, transparent 50%); }
+        #hoteles .aura-bg { background: radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.5) 0%, transparent 50%); }
+        #parques .aura-bg { background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.6) 0%, transparent 60%); }
+        #negocios .aura-bg { background: radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.5) 0%, transparent 50%); }
+
+        /* --- TEXTOS INMERSIVOS QUE CAMBIAN DE COLOR --- */
+        .text-accent { 
+            background: linear-gradient(to right, #00f2fe, #4facfe, #8b5cf6, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 300% auto;
+            animation: textShine 4s linear infinite;
+            text-shadow: 0 0 20px rgba(96, 165, 250, 0.6);
+        }
+
+        @keyframes textShine {
+            to { background-position: 300% center; }
+        }
+
+        /* --- CONTENEDOR 3D PARA IMÁGENES --- */
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 550px;
+            border-radius: 24px;
+            padding: 10px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+            backdrop-filter: blur(15px);
+            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(37, 99, 235, 0.2) inset;
+            border: 1px solid rgba(255,255,255,0.2);
+            /* Propiedades para el 3D en JS */
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+        }
+
+        .image-wrapper img {
+            width: 100%; height: auto; border-radius: 16px; display: block; object-fit: cover;
+            transform: translateZ(30px); /* Hace que la imagen "salga" de su contenedor */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+
+        /* --- EFECTO DE APARICIÓN PALABRA POR PALABRA (BLUR) --- */
+        .blur-word {
+            display: inline-block;
+            opacity: 0;
+            filter: blur(15px);
+            transform: translateY(10px) scale(1.1);
+        }
+
+        .start-blur-anim .blur-word {
+            animation: revealWord 0.8s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes revealWord {
+            100% {
+                opacity: 1;
+                filter: blur(0);
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        ul li {
+            animation: floating 5s ease-in-out infinite alternate;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="nav-container"></div>
+
+    <section>
+        <header class="relative w-full h-full flex items-center justify-center px-6">
+            <div class="hero-video-wrapper">
+                <video autoplay loop muted playsinline>
+                    <source src="video-aura.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="video-overlay"></div>
+
+            <div class="container mx-auto relative z-10">
+                <div class="max-w-4xl" data-aos="fade-up" data-aos-duration="1500">
+                    <span class="text-blue-400 font-bold tracking-[0.4em] uppercase text-xs mb-6 block text-accent">
+                        Tecnología de Vanguardia: El Estándar del Futuro
+                    </span>
+                    <h1 class="fluid-title mb-6 text-white">
+                        El control total de su entorno,<br>
+                        <span class="text-accent">elevado a otro nivel.</span>
+                    </h1>
+                    <p class="text-gray-300 text-lg md:text-xl leading-relaxed max-w-3xl mb-10 opacity-80 blur-reveal-target">
+                        En <span class="text-white font-bold">Aura</span> transformamos infraestructuras mediante sistemas inteligentes. Diseñamos hardware propio y software a medida para un dominio absoluto.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#residenciales" class="btn-solid w-full sm:w-auto">Explorar Soluciones</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </section>
+
+    <section id="residenciales" class="client-section px-6">
+        <div class="aura-bg"></div>
+        <div class="container mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
+            <div data-aos="fade-right" data-aos-duration="1200">
+                <h2 class="text-5xl font-extrabold mb-8 text-white tracking-tight fluid-title">Residencias <br><span class="text-accent">de Autor.</span></h2>
+                <p class="text-gray-400 text-lg mb-8 leading-relaxed blur-reveal-target">
+                    Imagine un hogar que reacciona a su presencia con la fluidez de un pensamiento. Desarrollamos atmósferas donde el lujo se manifiesta en el comportamiento: luces que le guían orgánicamente al caminar, escenas climáticas que no existen en lo convencional y equipos que se anticipan a su llegada. No instalamos tecnología; creamos una coreografía de confort personalizada bajo su propio criterio.
+                </p>
+                <ul class="space-y-4 text-gray-300 font-medium border-l border-blue-500/50 pl-8 mb-10">
+                    <li data-aos="fade-up" data-aos-delay="100">• Escenas sensoriales exclusivas</li>
+                    <li data-aos="fade-up" data-aos-delay="200">• Automatización por presencia invisible</li>
+                    <li data-aos="fade-up" data-aos-delay="300">• Control absoluto de equipos de lujo</li>
+                </ul>
+                <a href="https://wa.me/9861197993" class="btn-solid w-full sm:w-auto">Diseñar mi Hogar Inteligente</a>
+            </div>
+            <div class="image-wrapper tilt-3d" data-aos="zoom-out-left" data-aos-duration="1500">
+                <img src="Residencias.png" alt="Residencias">
+            </div>
+        </div>
+    </section>
+
+    <section id="airbnb" class="client-section px-6">
+        <div class="aura-bg"></div>
+        <div class="container mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
+            <div class="order-2 md:order-1 image-wrapper tilt-3d" data-aos="zoom-out-right" data-aos-duration="1500">
+                <img src="Airbnb.png" alt="Airbnb">
+            </div>
+            <div class="order-1 md:order-2" data-aos="fade-left" data-aos-duration="1200">
+                <h2 class="text-5xl font-extrabold mb-8 text-white tracking-tight fluid-title">Airbnb <br><span class="text-accent">High-Tech.</span></h2>
+                <p class="text-gray-400 text-lg mb-8 leading-relaxed blur-reveal-target">
+                    Hacemos que sus huéspedes dejen reseñas de pura impresión. Elevamos la estancia a un nivel de sofisticación poco probable de encontrar en un hogar común. Personalizamos cada detalle para que la comodidad tecnológica de última generación sea el sello de su propiedad, logrando una experiencia inmersiva que garantiza lealtad y posicionamiento premium en el mercado.
+                </p>
+                <ul class="space-y-4 text-gray-300 font-medium border-l border-emerald-500/50 pl-8 mb-10">
+                    <li data-aos="fade-up" data-aos-delay="100">• Bienvenida automatizada inmersiva</li>
+                    <li data-aos="fade-up" data-aos-delay="200">• Comodidad tecnológica sin fricción</li>
+                    <li data-aos="fade-up" data-aos-delay="300">• Diferenciación absoluta de la competencia</li>
+                </ul>
+                <a href="https://wa.me/9861197993" class="btn-solid w-full sm:w-auto">Premiumizar mi Propiedad</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="hoteles" class="client-section px-6">
+        <div class="aura-bg"></div>
+        <div class="container mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
+            <div data-aos="fade-right" data-aos-duration="1200">
+                <h2 class="text-5xl font-extrabold mb-8 text-white tracking-tight fluid-title">Hotelería <br><span class="text-accent">de Precisión.</span></h2>
+                <p class="text-gray-400 text-lg mb-8 leading-relaxed blur-reveal-target">
+                    Donde la eficiencia operativa se encuentra con la exclusividad. Desde el control milimétrico de máquinas hasta la transformación de suites presidenciales en entornos tecnológicos únicos. Implementamos un ahorro energético estricto sin sacrificar el lujo, creando sistemas personalizados según la visión de la gerencia. El límite es la imaginación tangible; nosotros entregamos la realidad técnica.
+                </p>
+                <ul class="space-y-4 text-gray-300 font-medium border-l border-amber-500/50 pl-8 mb-10">
+                    <li data-aos="fade-up" data-aos-delay="100">• Telemetría y control de cuartos de máquinas</li>
+                    <li data-aos="fade-up" data-aos-delay="200">• Suites inteligentes personalizadas</li>
+                    <li data-aos="fade-up" data-aos-delay="300">• Optimización energética de alto rendimiento</li>
+                </ul>
+                <a href="https://wa.me/9861197993" class="btn-solid w-full sm:w-auto">Solicitar Auditoría Técnica</a>
+            </div>
+            <div class="image-wrapper tilt-3d" data-aos="zoom-out-left" data-aos-duration="1500">
+                <img src="Hoteleria.png" alt="Hotelería">
+            </div>
+        </div>
+    </section>
+
+    <section id="parques" class="client-section px-6">
+        <div class="aura-bg"></div>
+        <div class="container mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
+            <div class="order-2 md:order-1 image-wrapper tilt-3d" data-aos="zoom-out-right" data-aos-duration="1500">
+                <img src="Parque.png" alt="Parques">
+            </div>
+            <div class="order-1 md:order-2" data-aos="fade-left" data-aos-duration="1200">
+                <h2 class="text-5xl font-extrabold mb-8 text-white tracking-tight fluid-title">Destinos <br><span class="text-accent">Inmersivos.</span></h2>
+                <p class="text-gray-400 text-lg mb-8 leading-relaxed blur-reveal-target">
+                    Llevamos la magia a una escala monumental. Diseñamos ecosistemas tecnológicos donde cada atracción, sendero y área común reacciona ante la afluencia de visitantes. Desde sistemas que coreografían presentaciones interactivas masivas hasta el control inteligente de maquinaria técnica y aplicaciones de seguimiento en tiempo real. Maximizamos el impacto sensorial del visitante mientras garantizamos una eficiencia operativa total y un ahorro energético industrial sin precedentes.
+                </p>
+                <ul class="space-y-4 text-gray-300 font-medium border-l border-violet-500/50 pl-8 mb-10">
+                    <li data-aos="fade-up" data-aos-delay="100">• Automatización de flujos y presencia masiva</li>
+                    <li data-aos="fade-up" data-aos-delay="200">• Telemetría avanzada para equipos técnicos</li>
+                    <li data-aos="fade-up" data-aos-delay="300">• Experiencias digitales e interactivas a gran escala</li>
+                </ul>
+                <a href="https://wa.me/9861197993" class="btn-solid w-full sm:w-auto">Automatizar mi Destino</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="negocios" class="client-section px-6">
+        <div class="aura-bg"></div>
+        <div class="container mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
+            <div data-aos="fade-right" data-aos-duration="1200">
+                <h2 class="text-5xl font-extrabold mb-8 text-white tracking-tight fluid-title">Comercios <br><span class="text-accent">con Alma Digital.</span></h2>
+                <p class="text-gray-400 text-lg mb-8 leading-relaxed blur-reveal-target">
+                    Sin importar el giro de su empresa —desde el sector gastronómico hasta centros de salud o servicios especializados— creamos atmósferas que cautivan a sus clientes desde el primer segundo. Diseñamos entornos comerciales únicos donde la tecnología refuerza el trato humano, convirtiendo su espacio en una experiencia sensorial inolvidable. Es la fusión perfecta entre su visión de negocio y nuestro ingenio técnico para generar un vínculo irrompible con su audiencia.
+                </p>
+                <a href="https://wa.me/9861197993" class="btn-solid w-full sm:w-auto">Potenciar mi Negocio</a>
+            </div>
+            <div class="image-wrapper tilt-3d" data-aos="zoom-out-left" data-aos-duration="1500">
+                <img src="Comercios.png" alt="Comercios">
+            </div>
+        </div>
+    </section>
+
+    <section id="lideres" class="px-6">
+        <div class="lideres-video-wrapper">
+            <video autoplay loop muted playsinline>
+                <source src="Arquitectos.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="video-overlay-architects"></div>
+
+        <div class="container mx-auto text-center relative z-10">
+            <div class="max-w-4xl mx-auto" data-aos="zoom-in-up" data-aos-duration="1500">
+                <span class="font-bold tracking-[0.5em] uppercase text-xs mb-6 block text-accent">Alianza Estratégica</span>
+                <h2 class="text-6xl font-black mb-10 text-white leading-tight fluid-title">Líderes de <br><span class="text-accent">la Construcción.</span></h2>
+                <p class="text-gray-300 text-xl mb-12 opacity-90 leading-relaxed blur-reveal-target">
+                    Para los arquitectos e ingenieros que no aceptan menos que la excelencia: somos su brazo tecnológico para proyectos de vanguardia. Integramos soluciones que van más allá del estándar actual, asegurando que cada desarrollo nazca con una infraestructura inteligente, escalable y digna del estándar AURA. Hagamos que sus planos cobren una vida inteligente.
+                </p>
+                <div class="flex justify-center">
+                    <a href="https://wa.me/9861197993" class="btn-solid px-12">
+                        Activar Protocolo de Colaboración
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#050508] border-t border-slate-900 pt-20 pb-10 px-6">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-extrabold text-white mb-4 tracking-tighter text-accent">AURA</h2>
+            <p class="text-slate-500 text-xs tracking-[0.3em] uppercase mb-4 opacity-60">Automatización & Ingeniería Técnica</p>
+            <div class="w-12 h-[1px] bg-blue-600 mx-auto mb-6"></div>
+            <p class="text-slate-600 text-xs">&copy; 2026 AURA. Cancún, Quintana Roo.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // AOS
+        AOS.init({ 
+            duration: 1200, 
+            once: false,
+            mirror: true,
+            anchorPlacement: 'top-bottom'
+        });
+        
+        // --- LÓGICA DE APARICIÓN DE TEXTO PALABRA POR PALABRA (BLUR) ---
+        document.querySelectorAll('.blur-reveal-target').forEach(paragraph => {
+            let newHTML = '';
+            let wordsCount = 0;
+            
+            // Recorremos los nodos hijos para mantener etiquetas como <span> intactas
+            paragraph.childNodes.forEach(child => {
+                if (child.nodeType === 3) { // Nodo de texto
+                    let words = child.nodeValue.split(' ');
+                    words.forEach(word => {
+                        if(word.trim() !== '') {
+                            newHTML += `<span class="blur-word" style="animation-delay: ${wordsCount * 0.05}s">${word}</span> `;
+                            wordsCount++;
+                        } else {
+                            newHTML += ' ';
+                        }
+                    });
+                } else if (child.nodeType === 1) { // Nodo de elemento (ej. span)
+                    // Envolvemos el contenido del elemento también
+                    let innerWords = child.innerHTML.split(' ');
+                    let wrappedInner = '';
+                    innerWords.forEach(word => {
+                        if(word.trim() !== '') {
+                            wrappedInner += `<span class="blur-word" style="animation-delay: ${wordsCount * 0.05}s">${word}</span> `;
+                            wordsCount++;
+                        } else {
+                            wrappedInner += ' ';
+                        }
+                    });
+                    child.innerHTML = wrappedInner;
+                    newHTML += child.outerHTML;
+                }
+            });
+            paragraph.innerHTML = newHTML;
+        });
+
+        // Observador para activar la animación de texto cuando entra en pantalla
+        const textObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('start-blur-anim');
+                } else {
+                    // Opcional: remover para que se repita la animación al volver a scrollear
+                    entry.target.classList.remove('start-blur-anim');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.blur-reveal-target').forEach(p => textObserver.observe(p));
+
+
+        // --- LÓGICA PARA EL EFECTO 3D EN LAS IMÁGENES (TILT) ---
+        const tiltElements = document.querySelectorAll('.tilt-3d');
+        
+        tiltElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left; // Posición X del ratón dentro de la imagen
+                const y = e.clientY - rect.top;  // Posición Y del ratón dentro de la imagen
+                
+                // Calcular el centro
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Generar los grados de rotación
+                const rotateX = ((y - centerY) / centerY) * -15; // Invertido para sensación realista
+                const rotateY = ((x - centerX) / centerX) * 15;
+                
+                // Aplicar la transformación 3D y brillo dinámico
+                el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                el.style.boxShadow = `
+                    ${-rotateY}px ${rotateX}px 40px rgba(37, 99, 235, 0.4),
+                    0 0 30px rgba(255,255,255,0.1) inset
+                `;
+            });
+            
+            // Restaurar cuando el ratón sale de la imagen
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+                el.style.boxShadow = `0 40px 80px -20px rgba(0, 0, 0, 0.8)`;
+            });
+        });
+
+        // Carga de menú
+        async function loadMenu() {
+            try {
+                const response = await fetch('menubar.html');
+                const html = await response.text();
+                const container = document.getElementById('nav-container');
+                container.innerHTML = html;
+                const scripts = container.querySelectorAll('script');
+                scripts.forEach(s => {
+                    const ns = document.createElement("script");
+                    ns.text = s.text;
+                    document.body.appendChild(ns);
+                });
+            } catch (e) { console.warn("Menú no cargado dinámicamente"); }
+        }
+        document.addEventListener('DOMContentLoaded', loadMenu);
+    </script>
+</body>
+</html>
