@@ -16,21 +16,11 @@
             --dark-bg: #050508;
         }
 
-    @media (min-width: 1024px) {
-            html { scroll-snap-type: y mandatory; }
-            section { 
-                height: 100vh; 
-                scroll-snap-align: start; 
-            }
+        /* ACTIVACIÓN DE AUTO-POSICIONAMIENTO (Snap) EN TODAS LAS PANTALLAS */
+        html { 
+            scroll-snap-type: y mandatory; 
         }
 
-        /* --- AGREGA ESTO AQUÍ PARA EL HERO Y LÍDERES --- */
-        section:first-of-type, 
-        section#lideres {
-            height: 100vh !important;
-            min-height: 100vh !important;
-            padding: 0 !important;
-        }
         body {
             background-color: var(--dark-bg);
             color: #f8fafc;
@@ -40,13 +30,23 @@
         }
 
         section {
-            min-height: 100vh; /* Permite que la sección crezca si hay mucho texto en móvil */
+            min-height: 100vh;
+            scroll-snap-align: start; /* Esto hace que la sección se pegue al borde superior al scrollear */
+            scroll-snap-stop: always; /* Evita que el usuario se pase de largo varias secciones */
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            padding: 80px 0; /* Espacio para que el contenido no pegue a los bordes en móvil */
+            padding: 80px 0;
+        }
+
+        /* --- FORZAR PANTALLA COMPLETA EN HERO Y LÍDERES --- */
+        section:first-of-type, 
+        section#lideres {
+            height: 100vh !important;
+            min-height: 100vh !important;
+            padding: 0 !important;
         }
 
         /* ANIMACIONES REFINADAS PARA TEXTO */
@@ -59,16 +59,12 @@
             z-index: -2; overflow: hidden; background-color: #000;
         }
 
-      /* --- ESTA ES LA PARTE A CAMBIAR PARA CENTRAR LOS VIDEOS --- */
         .hero-video-wrapper video, .lideres-video-wrapper video {
             width: 100%; 
             height: 100%; 
             object-fit: cover;
             transform: scale(1.05);
-            
-            /* --- CAMBIO AQUÍ: Desplaza el video a la izquierda --- */
-            /* El primer valor (65%) mueve el video. 50% es el centro. */
-            /* Al poner 65%, empujamos el contenido hacia la izquierda. */
+            /* Ajuste de posición del video solicitado anteriormente */
             object-position: 65% center; 
         }
 
@@ -85,7 +81,7 @@
         }
 
         .fluid-title { 
-            font-size: clamp(2rem, 8vw, 4.5rem); /* Ajuste de tamaño fluido para móviles */
+            font-size: clamp(2rem, 8vw, 4.5rem);
             line-height: 1.1; 
             font-weight: 800; 
             letter-spacing: -0.04em; 
