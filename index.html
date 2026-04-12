@@ -16,8 +16,7 @@
             --dark-bg: #050508;
         }
 
-        /* Solo aplicamos scroll-snap en pantallas grandes (Desktop) */
-        @media (min-width: 1024px) {
+    @media (min-width: 1024px) {
             html { scroll-snap-type: y mandatory; }
             section { 
                 height: 100vh; 
@@ -25,6 +24,13 @@
             }
         }
 
+        /* --- AGREGA ESTO AQUÍ PARA EL HERO Y LÍDERES --- */
+        section:first-of-type, 
+        section#lideres {
+            height: 100vh !important;
+            min-height: 100vh !important;
+            padding: 0 !important;
+        }
         body {
             background-color: var(--dark-bg);
             color: #f8fafc;
