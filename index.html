@@ -59,9 +59,14 @@
             z-index: -2; overflow: hidden; background-color: #000;
         }
 
+      /* --- ESTA ES LA PARTE A CAMBIAR PARA CENTRAR LOS VIDEOS --- */
         .hero-video-wrapper video, .lideres-video-wrapper video {
             width: 100%; height: 100%; object-fit: cover;
-            transform: scale(1.05);
+            transform: scale(1.05); /* Efecto de profundidad que ya tenías */
+            
+            /* --- AÑADE ESTAS DOS LÍNEAS AQUÍ --- */
+            top: 0;
+            left: 0;
         }
 
         .video-overlay {
